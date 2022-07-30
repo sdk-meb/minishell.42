@@ -58,7 +58,7 @@ int	ft_is_special(char c)
 	return (1);
 }
 
-int	ft_count_special_characters(char *str)
+int	ft_count_special_characters(char *str)/* ;elv elrn */
 {
 	int	i;
 	int	count;
@@ -131,11 +131,11 @@ int	parser_main(int ac, char **av, char **env)
 		root = ft_create_astree(head);
 		//head = ft_lstlast(head);
 		// while (head)
-		// {
+		//{
 		// 	if (!ft_strcmp(head->tocken, "&&"))
 		// 		break;
 		// 	head = head->prev;
-		// }
+		//}
 		//printf("\n%s\n", head->tocken);
 		//root = *ft_create_astree_for_parenthesis(head);
 		print_tree(root);
