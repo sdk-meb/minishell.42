@@ -1,9 +1,7 @@
 #include <head.h>
 
-int main(int ac, char *av[], char *envp[])
+int	main(int ac, char **av, char **env)
 {
-    av[0][0] = ac;
-    prompt((const char **)envp);
+	parser_main( ac, av, env);
     return 0;
 }
-
