@@ -43,7 +43,7 @@ typedef struct s_list
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int			ft_wordscounter(char *s, char c);
 char		*ft_write_words(char *s, char c);
-static char	**ft_freestr(char **tab);
+//static char	**ft_freestr(char **tab);
 char		**ft_split(char *s, char c);
 void		ft_skip_space(char *line, int *i);
 int			ft_get_next_quote(int i, char *line);

@@ -1,7 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/31 15:31:10 by mes-sadk          #+#    #+#             */
+/*   Updated: 2022/07/31 15:31:12 by mes-sadk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <head.h>
 
-int	main(int ac, char **av, char **env)
+int	main()//int ac, char **av, char **env)
 {
-	parser_main( ac, av, env);
-    return 0;
+//	parser_main( ac, av, env);
+    cd("/");
+    
+    return printf("\n [ main return 0\\]\n"); 
 }
+ 
