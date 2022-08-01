@@ -6,56 +6,47 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/07/31 15:30:42 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/01 12:17:46 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../lib/head.h"
 # include <head.h>
 
-t_path    linked(t_path path)
+void    echo(_str put, bool line_opt)
 {
-    t_linker        *go;
-    static t_linker **files;
-    static int       linker;
-
-    if (!path)
-    {
-        if (linker && *(files))
-            return (*(files)->altpath);
-        return (NULL);
-    }
-    go= (t_linker *) malloc(files *);
-    go->orgpath = pwd();
-    go->altpath = path;
-    go->on = NULL;
-    if (linker)
-        go->on = *files;
-    *files = go;
-    return (NULL);
+    if (line_opt)
+        printf("%s",put);
+    else
+        printf("%s\n",put);
 }
 
-char    *pwd()
+t_path  pwd()
 {
     char*   pathname;
 
-    pathneme = linked(NULL);
-    if (pathname)
-        return (pathname);
     pathname = (char *)malloc (PATH_MAX);
     if (!getcwd(pathname, PATH_MAX))
         return (free(pathname), NULL);
-    return (pathname);
+    return ((t_path)pathname);/* leak */
 }
 
-void    cd(char *path)
+void    cd(t_path   path)
 {
-    if (ft_memcpm(path, "../", 3) && linked(NULL))
-    {
-        if (chdir(path))
-            fix_cderr(path);
-        if (ft_memcmp(pwd(), path))
-            linking(path);
-    }
-    printf("%s\n",pwd());  
+    if (!path || !*path)
+        return ;
+    if (chdir(path))
+        fix_cderr(path);
+}
+
+void    b_exit(_head shlvl, int optn)
+{
+    _ptr crack;
+
+    crack = *shlvl;
+    while (*crack + 1)
+        crack++;
+    if (*crack == '1')
+        exit (optn);
+    (*crack) -= 1;
 }
