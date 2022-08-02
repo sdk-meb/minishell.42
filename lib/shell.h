@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 11:42:50 by mes-sadk          #+#    #+#             */
-/*   Updated: 2021/11/21 11:51:10 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/08/02 08:55:28 by mes-sadk          #+#    #+#             */
+/*   Updated: 2022/08/02 11:22:33 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	t_list	*p;
+#ifndef SHELLL_H
+# define SHELLL_H
 
-	p = lst;
-	if (!lst || lst == NULL)
-		return (NULL);
-	while (p->next != NULL)
-		p = p->next;
-	return (p);
-}
+# include "head.h"
+# include "minishell.h"
+# include "../libft/libft.h"
+# include "subshell.h"
+
+# endif

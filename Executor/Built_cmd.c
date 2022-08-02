@@ -6,12 +6,11 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/01 12:17:46 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:38:17 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../lib/head.h"
-# include <head.h>
+# include "../lib/shell.h"
 
 void    echo(_str put, bool line_opt)
 {
@@ -36,7 +35,7 @@ void    cd(t_path   path)
     if (!path || !*path)
         return ;
     if (chdir(path))
-        fix_cderr(path);
+        fix_err(path);
 }
 
 void    b_exit(_head shlvl, int optn)

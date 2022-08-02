@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 12:47:47 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/07/27 09:43:13 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2021/11/24 20:07:27 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlcat(char *dst, const char *s, size_t size)
 {
-	size_t	sd; 
+	size_t	sd;
 	size_t	return_val;
 	size_t	ss;
 	size_t	i;

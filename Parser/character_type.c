@@ -1,59 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_character_type.c                                :+:      :+:    :+:   */
+/*   character_type.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:24:28 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/07/24 19:16:49 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:54:40 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "../lib/shell.h"
 
-int	ft_is_quote(char c)
+bool ft_is_quote(char c)
 {
 	if (c == '\'' || c == '\"')
-		return (1);
+		return (EXIT_SUCCESS);
 	else
-		return (0);
+		return (EXIT_FAILURE);
 }
 
-int	ft_is_pipe(char c)
+bool ft_is_pipe(char c)
 {
 	if (c == '|')
-		return (1);
+		return (EXIT_SUCCESS);
 	else
-		return (0);
+		return (EXIT_FAILURE);
 }
 
-int	ft_is_parenthesis(char c)
+bool ft_is_parenthesis(char c)
 {
 	if (c == '(' || c == ')')
-		return (1);
+		return (EXIT_SUCCESS);
 	else
-		return (0);
+		return (EXIT_FAILURE);
 }
 
-int	ft_is_and(char c)
+bool ft_is_and(char c)
 {
 	if (c == '&')
-		return (1);
-	return (0);
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
-int	ft_is_redirection(char c)
+bool ft_is_redirection(char c)
 {
 	if (c == '>' || c == '<')
-		return (1);
+		return (EXIT_SUCCESS);
 	else
-		return (0);
+		return (EXIT_FAILURE);
 }
 
-int	ft_is_operator(char *str)
+bool ft_is_operator(_str	str)
 {
-	if (!ft_strcmp(str, "||") || !ft_strcmp(str, "&&"))
-		return (1);
-	return (0);
+	if (!ft_memcmp(str, "||", 3) || !ft_memcmp(str, "&&", 3))
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }

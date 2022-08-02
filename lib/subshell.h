@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   subshell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 15:31:10 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/02 10:19:36 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/08/02 11:19:52 by mes-sadk          #+#    #+#             */
+/*   Updated: 2022/08/02 16:14:16 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "lib/shell.h"
+#ifndef SUBSYSTEM_H
+# define SUBSYSTEM_H
 
-int	main(int ac, _head	av, t_env env)
-{
-	if (ac == 1)
-		ft_minishell(env);
-	else
-		perror(av[1]);
-	return (_RETURN);
-}
+#include "../lib/shell.h"
+
+typedef struct s_var{
+    _str name;
+    _str val;
+
+    struct s_var *nextvr;
+} t_var;
+
+_ptr    get_var(t_env env, _str var);/* check existend of var and/or get variable value */
+t_index    varname_rlz(_str var);/*       varible names rules*/
+
+# endif

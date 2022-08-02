@@ -6,12 +6,17 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/01 12:16:49 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:29:37 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MYCLI_H /* my command-line interface */
+/*   my command-line interface   */
+#ifndef MYCLI_H 
 # define MYCLI_H
+
+/*
+        __E-X-E-C-U-T-I-O-N____L_I_B_R_A_R_Y_  belongs __MINISHELL__
+*/
 
 # include <unistd.h>
 # include <stdio.h>
@@ -19,14 +24,9 @@
 # include <stdbool.h>
 # include <errno.h>
 # include <dirent.h>
-# include <libft.h>
 
-//#include "minishell.h"
+# include "types__.h"
 
-typedef const char* t_path;/* path name and also considered as file name */
-typedef const char* _str;
-typedef char*       _ptr;
-typedef char**      _head;
 
 extern  _head env;
 extern  _head av;
@@ -53,14 +53,8 @@ typedef const char  t_req;/*  work request */
 # define _GET       0x00000
 
 
-typedef struct s_linker{
-    t_path  orgpath;/* original file path or original location */
-    t_path  altpath;/* alternative path linker */
-    t_path  difpath;
-    int     _diff[2];
 
-    struct s_linker *trk;
-} t_linker;
+
 /* ************************* Shell builtin commands ************************* */
 t_path      pwd(void);/*    get pathname of current working directory */
 void        cd(t_path);/*      change the current working directory */
@@ -69,8 +63,9 @@ void        echo(_str put, bool line_opt);
 
 void        exuc(t_path p_file);/* transforms the calling process into a new process /> subroutine */
 
-void        fix_cderr(t_path); /* fix chdir errors */
+void        fix_err(t_path); /* fix chdir errors */
 void        ft_err(_str err_msg, t_req);/*     handel errors message \> perror , strerror*/
 
 t_path      linking(t_path, t_req);/* track linking files */
+
 # endif

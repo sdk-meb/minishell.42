@@ -9,9 +9,9 @@ RED 		= \033[0;31m
 GREEN		= \033[0;32m
 NO_COLOR	= \033[0m
 
-MAIN 			= main.c
-SRC_PARSER		= #$(shell ls Parser/*.c)
-SRC_SUBSYSTEMS	= #$(shell ls Subsystems/*.c)
+MAIN 			= main.c minishell.c
+SRC_PARSER		= $(shell ls Parser/*.c)
+SRC_SUBSYSTEMS	= $(shell ls Subsystems/*.c)
 SRC_EXECUTOR	= $(shell ls Executor/*.c)
 
 MAIN_O				= $(MAIN:.c=.o)
@@ -19,7 +19,7 @@ OBJ_PARSER 			= $(SRC_PARSER:.c=.o)
 OBJ_SUBSYSTEMS		= $(SRC_SUBSYSTEMS:.c=.o)
 OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 
-%.o:%.c  lib/head.h libft
+%.o:%.c ${INC}
 	@${CC} ${INC}  ${CFLAGS} -o $@ -c $<
 
 all: ${NAME}

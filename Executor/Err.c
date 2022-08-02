@@ -6,11 +6,11 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 07:36:20 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/01 09:24:12 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:37:34 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <head.h>
+#include "../lib/shell.h"
 
 void ft_err(_str err_msg, t_req msg)
 {
@@ -19,6 +19,7 @@ void ft_err(_str err_msg, t_req msg)
     if (msg == ERRMSG)
     {
         perror(err_msg); /* <err_msg>: Undefined error: 0 */
+        free((char *)err_msg);
     }
     else
     {
@@ -26,10 +27,10 @@ void ft_err(_str err_msg, t_req msg)
     }
 }
 
-void    fix_cderr(t_path   path)
+void    fix_err(t_path   path)
 {
     if (errno == EACCES)
-        ft_err(ft_strjoin("msh$ cd", path), ERRMSG); /* leak !!!!!!!!! */
+        ft_err(ft_strjoin("msh$ cd", path), ERRMSG);
     else if (errno == EFAULT)
         ft_err("", ERRMSG);
     else if (errno == EIO)

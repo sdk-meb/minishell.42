@@ -6,11 +6,11 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/01 12:19:01 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:37:37 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <head.h>
+#include "../lib/shell.h"
 
 void    exuc(t_path p_file)
 {
