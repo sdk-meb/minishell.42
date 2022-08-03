@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/03 01:30:04 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/03 09:39:14 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_index    varname_rlz(_str var)
     return (cas_e);
 }
 
-void    ft_env(t_av    arg)
+t_env    ft_env(t_av    arg)
 {
     t_var   **envv;
     t_index i;
@@ -43,8 +43,9 @@ void    ft_env(t_av    arg)
     {
         envv = save_exp(NULL);
         if (!envv)
-            return ;
+            return NULL;
         while ((*envv)->env[i])
             printf("%s\n",(*envv)->env[i++]);
     }
+    return NULL;
 }
