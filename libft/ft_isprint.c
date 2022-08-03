@@ -6,15 +6,15 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 11:28:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/07/27 09:50:24 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/02 23:56:13 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include "libft.h"
 
 int	ft_isprint(int c)
 {
 	if (c >= 32 && c < 127)
-		return (1);
-	return (0);
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }

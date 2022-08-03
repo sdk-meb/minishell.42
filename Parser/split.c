@@ -1,28 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 17:05:49 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/07/23 19:16:24 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:09:34 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "../lib/shell.h"
 
-int	ft_get_next_quote(int i, char *line)
+size_t	ft_strlen(const char *s)
 {
-	char	quote_type;
+	int	i;
 
-	quote_type = line[i++];
-	while (line[i] && line[i] != quote_type)
+	i = 0;
+	while (s[i])
 		i++;
 	return (i);
 }
 
-int	ft_wordscounter(char *s, char c)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	char		*d;
+	const char	*s;
+
+	d = dst;
+	s = src;
+	if (!dstsize)
+		return (ft_strlen(src));
+	while (*s && --dstsize)
+		*d++ = *s++;
+	*d = '\0';
+	return (ft_strlen(src));
+}
+
+int	ft_wordscounter_t(char const *s, char c)
 {
 	int	count;
 	int	i;
@@ -33,45 +48,22 @@ int	ft_wordscounter(char *s, char c)
 	{
 		while (s[i] == c)
 			i++;
-		if (ft_is_quote(s[i]))
-		{
-			i = ft_get_next_quote(i, s);
-			while (ft_is_quote(s[i + 1]))
-				i = ft_get_next_quote(i + 1, s);
-			count++;
-			i++;
-		}
-		else if (s[i] != c && s[i])
+		if (s[i] != c && s[i])
 			count++;
 		while (s[i] != c && s[i])
-		{
-			if (ft_is_quote(s[i]))
-				i = ft_get_next_quote(i, s);
 			i++;
-		}
 	}
 	return (count);
 }
 
-char	*ft_write_words(char *s, char c)
+char	*ft_write_words_t(char const *s, char c)
 {
 	int		i;
 	char	*str;
 
 	i = 0;
-	if (ft_is_quote(s[i]))
-	{
-		i = ft_get_next_quote(i, s);
-		while (ft_is_quote(s[i + 1]))
-			i = ft_get_next_quote(i + 1, s);
-		i++;
-	}
 	while (s[i] && s[i] != c)
-	{
-		if (ft_is_quote(s[i]))
-			i = ft_get_next_quote(i, s);
 		i++;
-	}
 	str = (char *)malloc(sizeof(char) * (i + 1));
 	if (str)
 	{
@@ -81,7 +73,7 @@ char	*ft_write_words(char *s, char c)
 	return (NULL);
 }
 
-static char	**ft_freestr(char **tab)
+static char	**ft_freestr_t(char **tab)
 {
 	int	i;
 
@@ -95,7 +87,7 @@ static char	**ft_freestr(char **tab)
 	return (NULL);
 }
 
-char	**ft_split(char *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int		i;
 	int		nb_words;
@@ -103,7 +95,7 @@ char	**ft_split(char *s, char c)
 
 	if (s)
 	{
-		nb_words = ft_wordscounter(s, c);
+		nb_words = ft_wordscounter_t(s, c);
 		tdstr = (char **)malloc(sizeof(char *) * (nb_words + 1));
 		if (!tdstr)
 			return (NULL);
@@ -112,10 +104,10 @@ char	**ft_split(char *s, char c)
 		{
 			while (*s == c)
 				s++;
-			tdstr[i] = ft_write_words(s, c);
+			tdstr[i] = ft_write_words_t(s, c);
 			if (!tdstr[i])
-				return (ft_freestr(tdstr));
-			s = s + strlen(tdstr[i]);
+				return (ft_freestr_t(tdstr));
+			s = s + ft_strlen(tdstr[i]);
 		}
 		tdstr[i] = 0;
 		return (tdstr);
