@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/02 12:29:37 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/03 01:04:27 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@
 # include "types__.h"
 
 
-extern  _head env;
+extern  t_env env;
 extern  _head av;
-
-typedef const char  t_req;/*  work request */
 
 #ifdef __linux__  
 #   include <linux/limits.h>
@@ -40,17 +38,7 @@ typedef const char  t_req;/*  work request */
 #   include <sys/syslimits.h>
 #endif  /*  FILENAME_MAX and PATH_MAX include define */
 
-/*   specific work request  */
-# define ERRMSG 0 /* add message to error name   */
-# define STRERR 1 /* sufficiency with error name */
-# define _SAVE      0x00000
-# define _RETURN    0x00000
-# define _free      0x00000
-# define _CHECK     0x00000
-# define _ALT       0x00000
-# define _ORG       0x00000
-# define _SET       0x00000
-# define _GET       0x00000
+
 
 
 

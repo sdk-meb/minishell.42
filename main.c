@@ -6,13 +6,13 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:31:10 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/02 10:19:36 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/03 01:29:06 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "lib/shell.h"
 
-int	main(int ac, _head	av, t_env env)
+int	main(int ac, t_av	av, t_env env)
 {
 	if (ac == 1)
 		ft_minishell(env);

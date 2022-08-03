@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 08:54:28 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/02 15:13:32 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/03 00:37:25 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ void	ft_minishell(t_env env)
 	t_list	*head;
 	t_list	*root;
 
-	exp(env);
+	ensure_env(env);
 	while (1)
 	{
-		splitted = ft_readline();
-		head = ft_create_list_for_tockens(splitted);
-		root = ft_create_astree(head);
-		print_tree(root);
+		splitted = ft_readline(0);
+		if (splitted && *splitted)
+		{	
+			head = ft_create_list_for_tockens(splitted);
+			root = ft_create_astree(head);
+			print_tree(root);
+		}
 	}
 }

@@ -8,33 +8,39 @@ int	ft_check_line(_str	line)
 	return (EXIT_SUCCESS);
 }
 
-_str	prompt(char c)
+_str	prompt(char ps1)
 {
-	if (c == ROOT)
-		return ((_str)ft_strdup("msh~1.0#>"));
-	if (c == USER)
-		return ((_str)ft_strdup("msh~1.0$>"));
-	if (c == '\'')
+	if (ps1 == '\'')
 		return ((_str)ft_strdup("quote>"));
-	if (c == '\"')
+	if (ps1 == '\"')
 		return ((_str)ft_strdup("dquote>"));
-	if (c == '\\')
+	if (ps1 == '\\')
 		return ((_str)ft_strdup(">"));
-	if (c == '|')
+	if (ps1 == '|')
 		return ((_str)ft_strdup("pipe>"));
+	if (!ft_memcmp(getenv("USER"), "ROOT", 5))
+		return ((_str)ft_strdup("msh~1.0#>"));
+	if (!ps1)
+		return ((_str)ft_strdup("msh~1.0$>"));
 	return (NULL);
 }
 
-_2d_arr	ft_readline()
+_2d_arr	ft_readline(char ps1)
 {
 	_str	line;
+	t_index	i;
 	_2d_arr	splitted;
 
-	line = readline(prompt(get("USER")));
-	if (ft_isprint(line[0]))
-		add_history(line);
+	i = 0;
+	line = readline(prompt(ps1));
+	while (line && line[i] && !ft_isprint(line[i]))
+		i++;
+	if (!line || !line[i])
+		return (NULL);
+	add_history(line);
 	if (ft_check_line(line))
-		ft_readline();
+		ft_readline(0);
+	
 //	line = ft_repair(line);
 	splitted = (_2d_arr)ft_split(line, ' ');
 	free((void *)line);

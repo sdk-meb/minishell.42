@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 02:10:56 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/02 14:16:06 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/03 00:37:52 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_list		*ft_create_astree(t_list *head);
 // AST
 
 void		ft_minishell(t_env env);/*(1)*/
-_2d_arr		ft_readline();/*(2)*/
+_2d_arr		ft_readline(char);/*(2)*/
 t_list		*ft_get_right_operator(t_list *head);
 t_list		*ft_get_left_operator(t_list *head);
 t_list		*ft_right(t_list	*head);
