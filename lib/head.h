@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/03 01:04:27 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:12:13 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void        echo(_str put, bool line_opt);
 
 void        exuc(t_path p_file);/* transforms the calling process into a new process /> subroutine */
 
-void        fix_err(t_path); /* fix chdir errors */
 void        ft_err(_str err_msg, t_req);/*     handel errors message \> perror , strerror*/
 
 t_path      linking(t_path, t_req);/* track linking files */

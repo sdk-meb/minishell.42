@@ -19,7 +19,7 @@ OBJ_PARSER 			= $(SRC_PARSER:.c=.o)
 OBJ_SUBSYSTEMS		= $(SRC_SUBSYSTEMS:.c=.o)
 OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 
-%.o:%.c ${INC}
+%.o:%.c $(shell ls lib/*)
 	@${CC} ${INC}  ${CFLAGS} -o $@ -c $<
 
 all: ${NAME}
@@ -28,8 +28,7 @@ $(LIBFT):
 	@make -C libft/
 
 $(NAME): ${LIBFT} $(MAIN_O) ${OBJ_PARSER} $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
-	@${CC} ${CFLAGS} ${LINKER} ${LIBFT} -o ${NAME} \
-	$(MAIN_O) ${OBJ_PARSER} $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
+	@${CC} ${CFLAGS} ${LINKER} ${LIBFT} -o ${NAME} $(MAIN_O) ${OBJ_PARSER} $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
 	@echo "${GREEN} • Now you can run the exucitable file ./${NAME}${NO_COLOR}"
 
 bonus:

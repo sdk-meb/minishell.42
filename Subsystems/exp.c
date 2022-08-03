@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/03 01:37:59 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:19:16 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_var** save_exp(t_env env)
     {
         exp = (t_var *) malloc(sizeof(exp));
         (exp)->name = NULL;
-        (exp)->val = "pdosja";
+        (exp)->val = NULL;
         (exp)->nextvr = NULL;
         (exp)->env = env;
     }
