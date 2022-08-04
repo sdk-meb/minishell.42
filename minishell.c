@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 08:54:28 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/03 00:37:25 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:18:40 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_minishell(t_env env)
 			head = ft_create_list_for_tockens(splitted);
 			root = ft_create_astree(head);
 			print_tree(root);
+			ft_err("", ERRON);
 		}
 	}
 }

@@ -10,6 +10,7 @@ int	ft_check_line(_str	line)
 
 _str	prompt(char ps1)
 {
+	errno = 0;
 	if (ps1 == '\'')
 		return ((_str)ft_strdup("quote>"));
 	if (ps1 == '\"')
@@ -33,14 +34,13 @@ _2d_arr	ft_readline(char ps1)
 
 	i = 0;
 	line = readline(prompt(ps1));
-	while (line && line[i] && !ft_isprint(line[i]))
+	while (line && line[i] && ft_isprint(line[i]))
 		i++;
 	if (!line || !line[i])
 		return (NULL);
 	add_history(line);
 	if (ft_check_line(line))
 		ft_readline(0);
-	
 //	line = ft_repair(line);
 	splitted = (_2d_arr)ft_split(line, ' ');
 	free((void *)line);

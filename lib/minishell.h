@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 02:10:56 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/03 00:37:52 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/03 20:05:29 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <string.h>
+# include <sys/stat.h>
+# include <termios.h>
 
 # include "types__.h"
-
 
 typedef struct s_fd
 {
