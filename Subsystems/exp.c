@@ -3,44 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   exp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/03 14:19:16 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/13 12:57:24 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../lib/shell.h"
-
-void    set_evar(_head name, _head val)
-{
-    (void)name;
-    (void)val;
-    return ;
-}
-
-t_var** save_exp(t_env env)
-{
-    static t_var *exp;
-
-    if (env)
-    {
-        exp = (t_var *) malloc(sizeof(exp));
-        (exp)->name = NULL;
-        (exp)->val = NULL;
-        (exp)->nextvr = NULL;
-        (exp)->env = env;
-    }
-    return (&exp);
-}
-
-t_env   ft_export(t_req req)
-{
- //   t_env   env;
-    t_var   **envv;
-    
-    envv = save_exp(NULL);
-    if (req == _GET)
-        return NULL;
-    return NULL;
-}
+# include "../Include/minishell.h"

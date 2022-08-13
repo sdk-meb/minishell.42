@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_line.c                                    :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 22:39:35 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/02 12:56:59 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/08/04 22:05:20 by rel-hach          #+#    #+#             */
+/*   Updated: 2022/08/13 12:57:33 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/shell.h"
-/*
-    Single 	Quotes 					" quote>
-    Double 	Quotes 					' dquote>
-    Back 	Quotes					` bquote>
-	Start character-set wildcard  	[[ cond>
-	Start command block           	{ cursh>
-*/
+# include "../Include/minishell.h"
 
-bool	quotes_are_closed(_str line)
+bool	quotes_are_closed(char *line)
 {
 	int		i;
 	char	type_quote;
@@ -27,15 +20,28 @@ bool	quotes_are_closed(_str line)
 	i = 0;
 	while (line[i])
 	{
-		if ((line[i] == '\'' || line[i] == '\"') && line[i - 1] != '\\')
+		if ((line[i] == '\'' || line[i] == '\"'))
 		{
 			type_quote = line[i++];
 			while (line[i] && line[i] != type_quote)
 				i++;
 			if (!line[i])
-				return (EXIT_FAILURE);
+				return (FAILURE);
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
+}
+
+int	ft_check_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	line = ft_strtrim(line, " \t\v");
+	if (line[0] == '|' || line[ft_strlen(line - 1)] == '|')
+		return (FAILURE);
+	if (quotes_are_closed(line))
+		return (FAILURE);
+	return (SUCCESS);
 }

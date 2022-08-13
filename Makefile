@@ -2,24 +2,24 @@ NAME	= minishell
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 LINKER	= -lreadline
-INC		= '-I$(shell pwd)/lib' '-I$(shell pwd)/libft'
+INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'
 LIBFT 	= libft/libft.a
 
 RED 		= \033[0;31m
 GREEN		= \033[0;32m
 NO_COLOR	= \033[0m
 
-MAIN 			= main.c minishell.c
-SRC_PARSER		= $(shell ls Parser/*.c)
-SRC_SUBSYSTEMS	= $(shell ls Subsystems/*.c)
-SRC_EXECUTOR	= $(shell ls Executor/*.c)
+MAIN 			= main.c
+SRC_PARSER		= $(shell find Parser -type f | grep \\.c)
+SRC_SUBSYSTEMS	= $(shell find Subsystems -type f | grep \\.c)
+SRC_EXECUTOR	= $(shell find Executor -type f | grep \\.c)
 
 MAIN_O				= $(MAIN:.c=.o)
 OBJ_PARSER 			= $(SRC_PARSER:.c=.o)
 OBJ_SUBSYSTEMS		= $(SRC_SUBSYSTEMS:.c=.o)
 OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 
-%.o:%.c $(shell ls lib/*)
+%.o:%.c $(shell ls Include/*)
 	@${CC} ${INC}  ${CFLAGS} -o $@ -c $<
 
 all: ${NAME}
