@@ -6,41 +6,40 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:33:54 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 13:31:40 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/13 14:59:30 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Include/minishell.h"
 
-bool	ft_is_quote(char c)
+int	ft_is_quote(char c)
 {
 	if (c == '\'' || c == '\"')
-		return (SUCCESS);
+		return (1);
 	else
-		return (FAILURE);
+		return (0);
 }
 
-bool	ft_is_pipe(char c)
+int	ft_is_pipe(char c)
 {
 	if (c == '|')
-		return (SUCCESS);
+		return (1);
 	else
-		return (FAILURE);
+		return (0);
 }
 
-bool	ft_is_redirection(char c)
+int	ft_is_redirection(char c)
 {
 	if (c == '>' || c == '<')
-		return (SUCCESS);
-	else
-		return (FAILURE);
+		return (1);
+	return (0);
 }
 
-bool	ft_is_special(char c)
+int	ft_is_special(char c)
 {
-	if (ft_is_pipe(c) && ft_is_redirection(c))
-		return (FAILURE);
-	return (SUCCESS);
+	if (ft_is_pipe(c) || ft_is_redirection(c))
+		return (1);
+	return (0);
 }
 
 void	print_tree(t_list *root)

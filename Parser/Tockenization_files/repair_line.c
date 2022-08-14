@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:39:48 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 13:27:12 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/13 15:08:28 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_add_space_spchar(char *str, char *new, int *i, int *j)
 {
 	new[(*j)++] = ' ';
 	new[(*j)++] = str[(*i)++];
-	if (ft_is_redirection(str[(*i)]))
+	if (ft_is_special(str[(*i)]))
 		new[(*j)++] = str[(*i)++];
 	new[(*j)++] = ' ';
 }
@@ -43,8 +43,10 @@ int	ft_count_special_characters(char *str)
 		if (ft_is_special(str[i]))
 		{
 			count++;
-			if (ft_is_special(str[i + 1]))
+			if (ft_is_redirection(str[i + 1]) && !ft_is_pipe(str[i]))
 				i++;
+			else if (ft_is_pipe(str[i + 1]))
+				return (FAILURE);
 		}
 		i++;
 	}
@@ -61,6 +63,8 @@ char	*ft_repair_string(char *old_line)
 	i = 0;
 	j = 0;
 	count = ft_count_special_characters(old_line);
+	if (!ft_count_special_characters(old_line))
+		return (NULL);
 	new_line = malloc(sizeof(char) * strlen(old_line) + (count * 2) + 1);
 	if (!new_line)
 		return (NULL);
@@ -70,8 +74,7 @@ char	*ft_repair_string(char *old_line)
 			ft_fill_quotes(old_line, new_line, &i, &j);
 		if (ft_is_special(old_line[i]))
 			ft_add_space_spchar(old_line, new_line, &i, &j);
-		else
-			new_line[j++] = old_line[i++];
+		new_line[j++] = old_line[i++];
 	}
 	new_line[j] = '\0';
 	return (free (old_line), new_line);

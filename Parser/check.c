@@ -6,11 +6,11 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 22:05:20 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 12:57:33 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/13 21:07:59 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Include/minishell.h"
+#include "../Include/minishell.h"
 
 bool	quotes_are_closed(char *line)
 {

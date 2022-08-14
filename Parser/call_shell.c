@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 13:41:30 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/13 21:16:12 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ char	**ft_readline(void)
 	if (!line || !line[i])
 		return (NULL);
 	add_history(line);
+	line = ft_expand(line);
+	printf("%s\n", line);
 	if (!ft_check_line(line))
 	{
 		line = ft_repair_string(line);
-		printf("%s\n", line);
 		splitted = ft_branch_line(line, ' ');
 		return (free(line), splitted);
 	}
@@ -45,7 +46,6 @@ void	ft_call_shell(void)
 	{
 		if (splitted && *splitted)
 		{
-			puts("hello\n");
 			root = ft_create_list_for_tockens(splitted);
 			root = ft_create_astree(root);
 			print_tree(root);
