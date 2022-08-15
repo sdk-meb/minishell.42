@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 12:57:31 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/15 10:01:56 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Include/minishell.h"
+#include "../Include/minishell.h"
 
 int	check_if_single_quotes(char *str, int i)
 {
@@ -49,12 +49,11 @@ char	*get_env(char *str, int *len)
 
 	i = 0;
 	j = 0;
-	while (str[j] && str[j] != ' ' && str[j] != '$' && str[j] != '\"')
+	while (str[j] && str[j] != ' ' && str[j] != '$' && !ft_is_quote(str[j]))
 		j++;
 	env = malloc(sizeof(char) * (j + 1));
 	if (!env)
 		return (NULL);
-	(*len) = (*len) + j + 1;
 	while (i < j)
 	{
 		env[i] = str[i];
@@ -62,6 +61,7 @@ char	*get_env(char *str, int *len)
 	}
 	env[i] = '\0';
 	new = getenv(env);
+	(*len) = (*len) + j + 1;
 	return (free(env), new);
 }
 
@@ -74,7 +74,7 @@ char	*get_env_t(char *str, int *len)
 
 	i = 0;
 	j = 0;
-	while (str[j] && str[j] != ' ' && str[j] != '$' && str[j] != '\"')
+	while (str[j] && str[j] != ' ' && str[j] != '$' && !ft_is_quote(str[j]))
 		j++;
 	env = malloc(sizeof(char) * (j + 1));
 	if (!env)
@@ -101,8 +101,32 @@ void	copy_env(char *env, char *new_str, int *j)
 
 void	skip_quote(char *str, int *i)
 {
-	if (str[(*i)] == '\'' || str[(*i)] == '\"')
+	while (str[(*i)] == '\'' || str[(*i)] == '\"')
 			(*i)++;
+}
+
+void	skip_dquote(char *str, int *i)
+{
+	while (str[(*i)] == '\"')
+			(*i)++;
+}
+
+void	ft_copy(char *str, char *new_str, int *i, int *j)
+{
+	char	*env;
+
+	skip_dquote(str, i);
+	while (str[(*i)] != '\"')
+	{
+		if (str[(*i)] == '$')
+		{
+			env = get_env_t(&str[++(*i)], i);
+			if (env)
+				copy_env(env, new_str, j);
+		}	
+		new_str[(*j)++] = str[(*i)++];
+	}
+	skip_dquote(str, i);
 }
 
 void	copy(char *new_str, char *str)
@@ -115,19 +139,24 @@ void	copy(char *new_str, char *str)
 	j = 0;
 	while (str[i])
 	{
+		if (str[i] == '\"')
+			ft_copy(str, new_str, &i, &j);
 		skip_quote(str, &i);
+		if (str[i] != '$')
+			new_str[j++] = str[i++];
 		if (str[i] == '$' && !check_if_single_quotes(str, i))
 		{
 			env = get_env_t(&str[++i], &i);
-			copy_env(env, new_str, &j);
+			if (env)
+				copy_env(env, new_str, &j);
 		}
-		skip_quote(str, &i);
-		new_str[j++] = str[i++];
+		if (str[i] == '$' && check_if_single_quotes(str, i))
+			new_str[j++] = str[i++];
 	}
 	new_str[j] = '\0';
 }
 
-char	*calculate_dollars_signs(char *str)
+char	*ft_expand(char *str)
 {
 	int			i;
 	int			size;
@@ -149,4 +178,3 @@ char	*calculate_dollars_signs(char *str)
 	copy(new_str, str);
 	return (new_str);
 }
-

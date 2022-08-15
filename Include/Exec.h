@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/14 21:35:26 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:35:41 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@
 #elif __APPLE__
 #   include <sys/syslimits.h>
 #endif  /*  FILENAME_MAX and PATH_MAX include define */
+
 /* __________________________________  */
 
-# define APPROVED  0b0000100/* memory approved by programme */
-# define TEMPORARY 0b0001000/* temporary memory */
+# define APPROVED  0b0001000/* memory approved by programme */
+# define TEMPORARY 0b0010000/* temporary memory */
 
 typedef struct s_heap
 {
         void *dng_ptr;/* dangling pointer *//*  {dangle : hold something so that it hangs loosely} */
         struct s_heap *extra;
         struct s_heap *prev;
-        int             loc;
 }                        t_heap;/* garbage collector */
 
 /* __________________________________  */
@@ -53,8 +53,8 @@ void ft_err(t_str, t_req);
 
 void signal_handler();
 void sh_exece(t_cmd*);
-void    *new_heap(size_t, size_t , t_req);
-void    c_delete(int dangle, t_req);
+void    *new_heap(size_t, t_req);
+void    c_delete(t_req);
 
 /* __________________________________  */
 

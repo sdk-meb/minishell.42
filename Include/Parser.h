@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 13:29:23 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/15 09:57:50 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,16 @@ void	ft_call_shell(void);
 bool	quotes_are_closed(char *line);
 int		ft_check_line(char *line);
 
+// Expandation files :
+
+int		check_if_single_quotes(char *str, int i);
+char	*get_env(char *str, int *len);
+char	*get_env_t(char *str, int *len);
+void	copy_env(char *env, char *new_str, int *j);
+void	skip_quote(char *str, int *i);
+void	copy(char *new_str, char *str);
+char	*ft_expand(char *str);
+
 // [C] Execution files :
 
 // [D] Auxiliaries files :
@@ -93,10 +103,10 @@ void	print_tree(t_list *root);
 
 // FILE 2 //
 
-bool	ft_is_quote(char c);
-bool	ft_is_pipe(char c);
-bool	ft_is_redirection(char c);
-bool	ft_is_special(char c);
+int	ft_is_quote(char c);
+int	ft_is_pipe(char c);
+int	ft_is_redirection(char c);
+int	ft_is_special(char c);
 
 // FILE 3 //
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   branch_line.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:11:49 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 13:22:10 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/15 09:59:45 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int	ft_get_next_quote(int i, char *line)
 
 int	ft_calculate_words(char *line, char c)
 {
-	static int	i;
-	static int	count;
+	int	count;
+	int	i;
 
+	i = 0;
+	count = 0;
 	while (line[i])
 	{
 		while (line[i] == c)
@@ -35,7 +37,7 @@ int	ft_calculate_words(char *line, char c)
 		{
 			i = ft_get_next_quote(i, line);
 			while (ft_is_quote(line[i + 1]))
-				i = ft_get_next_quote(i, line);
+				i = ft_get_next_quote(i + 1, line);
 			count++;
 			i++;
 		}
@@ -54,7 +56,7 @@ int	ft_calculate_words(char *line, char c)
 char	*ft_allocate_fill_str(char *line, char c)
 {
 	int		i;
-	char	*token;
+	char	*str;
 
 	i = 0;
 	if (ft_is_quote(line[i]))
@@ -70,50 +72,53 @@ char	*ft_allocate_fill_str(char *line, char c)
 			i = ft_get_next_quote(i, line);
 		i++;
 	}
-	token = (char *)malloc(sizeof(char) * (i + 1));
-	if (token)
+	str = (char *)malloc(sizeof(char) * (i + 1));
+	if (str)
 	{
-		ft_strlcpy(token, line, i + 1);
-		return (token);
+		ft_strlcpy(str, line, i + 1);
+		return (str);
 	}
 	return (NULL);
 }
 
-char	**ft_free_strings(char **ptr)
+static char	**ft_freestr(char **tab)
 {
 	int	i;
 
 	i = 0;
-	while (ptr[i++])
-		free(ptr[i]);
-	free(ptr);
+	while (tab[i])
+	{
+		free (tab[i]);
+		i++;
+	}
+	free (tab);
 	return (NULL);
 }
 
 char	**ft_branch_line(char *line, char c)
 {
 	int		i;
-	int		words_nb;
-	char	**ptr;
+	int		nb_words;
+	char	**tdstr;
 
 	if (line)
 	{
-		words_nb = ft_calculate_words(line, c);
-		ptr = (char **)malloc(sizeof(char *) * (words_nb + 1));
-		if (!ptr)
-			return ((void *)0);
-		i = 0;
-		while (i++ < words_nb)
+		nb_words = ft_calculate_words(line, c);
+		tdstr = (char **)malloc(sizeof(char *) * (nb_words + 1));
+		if (!tdstr)
+			return (NULL);
+		i = -1;
+		while (++i < nb_words)
 		{
 			while (*line == c)
 				line++;
-			ptr[i] = ft_allocate_fill_str(line, c);
-			if (!ptr)
-				return (ft_free_strings(ptr));
-			line = line + ft_strlen(ptr[i]);
-		}	
-		ptr[i] = 0;
-		return (ptr);
+			tdstr[i] = ft_allocate_fill_str(line, c);
+			if (!tdstr[i])
+				return (ft_freestr(tdstr));
+			line = line + strlen(tdstr[i]);
+		}
+		tdstr[i] = 0;
+		return (tdstr);
 	}
 	return (NULL);
 }

@@ -6,81 +6,94 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:02:02 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/14 22:01:05 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:32:30 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Include/minishell.h"
 
+
+static void *get_gover(void)
+{
+    t_heap *mng;
+
+    mng = (t_heap *)ft_calloc(sizeof(*mng), 1);
+    if (!mng)
+        return (NULL);
+    mng->prev = mng;
+    return ((void*) mng);
+}
+
 static void *governor(t_req ord)
 {
-    static t_heap *tmp;
-    static t_heap *glb;
+    static void *glb;
+    static void *tmp;
 
     if ((ord & APPROVED) == APPROVED)
     {
-        if (!(glb) && (ord & _SET) == _SET)
-        {
-            glb = (t_heap *)ft_calloc(sizeof(*glb), 1);
-            glb->loc = EMPTY;
-            glb->extra = NULL;
-            glb->prev = glb;
-        }
-        if (!glb)
+        if (!glb && (ord & _SET) == _SET)
+            glb = get_gover();
+        else if (!glb || (ord & EMPTY) == EMPTY)
             return (NULL);
-        return ((void*) glb);
+        return (glb);
     }
-    if (!tmp && (ord & _SET) == _SET)
+    else if ((ord & TEMPORARY) == TEMPORARY)
     {
-            tmp = (t_heap *)ft_calloc(sizeof(*tmp), 1);
-            tmp->loc = EMPTY;
-            tmp->extra = NULL;
-            tmp->prev = tmp;
-    }
-    if (!tmp)
+        if (!tmp && (ord & _SET) == _SET)
+            tmp = get_gover();
+        else if (!tmp || (ord & EMPTY) == EMPTY)
             return (NULL);
-    return ((void*) &tmp);
+        return (tmp);
+    }
+    return (NULL);
 }
 
-static void    c_merge(void *ptr, int loc, t_req ord)
+static void    c_merge(void *ptr, t_req ord)
 {
     t_heap        *mnger;
+    t_heap         *manager;
 
-    mnger = (t_heap *)governor(ord | _SET | _GET);
-    while (mnger->extra)
-        mnger = mnger->extra;
-    if (mnger->loc != EMPTY)
+    manager = (t_heap *)governor(ord | _SET | _GET);
+    mnger = manager;printf("%p\n",mnger);
+    while (mnger->extra){
+        mnger = mnger->extra;}
+    if (mnger->dng_ptr)
     {
         mnger->extra = (t_heap *)ft_calloc(sizeof(*mnger), 1);
         mnger->extra->prev = mnger;
         mnger = mnger->extra;
+        manager->prev = mnger;
     }
-    mnger->loc = loc;
     mnger->dng_ptr = ptr;
     mnger->extra = NULL;
-    while (mnger->prev->extra)
-        mnger = mnger->prev;
 }
 
-void    c_delete(int dangle, t_req ord)
+static void dlt(t_heap *mnger)
 {
-    t_heap        *mnger;
-    t_heap       *manager;
-    void        *ptr;
-
-    manager = (t_heap *)governor(ord | _SET | _GET);
-    mnger = manager;
-    while (mnger)
-    {
-        
-    }
+    if (!mnger)
+        return ;
+    dlt(mnger->extra);
+    free(mnger->dng_ptr);
+    free(mnger);
 }
 
-void    *new_heap(size_t tcase, size_t loc, t_req ord)
+void    c_delete(t_req ord)
+{
+    t_heap       *manager;
+    
+    if (ord != APPROVED && ord != TEMPORARY)
+        return ;
+    manager = (t_heap *)governor(ord | _SET | _GET);
+    dlt(manager);
+    governor(ord | EMPTY);
+}
+
+void    *new_heap(size_t tcase, t_req ord)
 {
     void *ptr;
-
+    if (ord != APPROVED && ord != TEMPORARY)
+        return (NULL);
     ptr = ft_calloc(tcase, 1);
-    c_merge(ptr, loc, ord);
+    c_merge(ptr, ord);
     return (ptr);
 }
