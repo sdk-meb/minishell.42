@@ -6,28 +6,25 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/03 14:16:20 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/13 22:19:54 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../lib/shell.h"
+# include "../Include/minishell.h"
 
-void    echo(_str put, bool line_opt)
+void    echo(t_str put, bool line_opt)
 {
-    if (line_opt)
-        printf("%s",put);
-    else
-        printf("%s\n",put);
+    (void)put;
+    line_opt = 1;    
 }
 
-t_path  pwd()/* leak */
+void  pwd()/* leak */
 {
     char*   pathname;
 
     pathname = (char *)malloc (PATH_MAX);
-    if (!getcwd(pathname, PATH_MAX))
-        return (free(pathname), NULL);
-    return ((t_path)pathname);
+    getcwd(pathname, PATH_MAX);
+
 }
 
 void    cd(t_path   path)
@@ -38,14 +35,17 @@ void    cd(t_path   path)
         ft_err(ft_strdup(path), ERRMSG);
 }
 
-void    b_exit(_head shlvl, int optn)
+void    xport()
 {
-    _ptr crack;
+    return ;
+}
 
-    crack = *shlvl;
-    while (*crack + 1)
-        crack++;
-    if (*crack == '1')
-        exit (optn);
-    (*crack) -= 1;
+void    env()
+{
+    return ;
+}
+
+void    unset()
+{
+    return ;
 }

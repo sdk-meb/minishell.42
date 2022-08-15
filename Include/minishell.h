@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 15:31:10 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/14 22:00:17 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/08/02 08:55:28 by mes-sadk          #+#    #+#             */
+/*   Updated: 2022/08/13 15:37:57 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "Include/minishell.h"
+#	ifndef MINISHELL_H
+# define MINISHELL_H
 
-void	ft_minishell()
-{
-//	signal_handler();
-new_heap(20, 3, APPROVED);
-c_delete(3,APPROVED);
-//c_delete();
+# include <signal.h>
 
-//	ft_call_shell();
-}
+# include "Exec.h"
+# include "Parser.h"
+# include "../libft/libft.h"
+# include "Subsystem.h"
 
-int	main(int ac, char *av[], char *env[])
-{
-	(void)env;
-	(void)av;
-	if (ac == 1)
-		ft_minishell();
-	else
-	 {
-	 	opendir(av[1]);
-	 	if (!errno)
-	 		errno = EISDIR;
-	 	ft_err(ft_strdup(av[1]), ERRMSG);
-	 	exit (errno);
-	}
-	return (_RETURN);
-}
+
+
+#endif

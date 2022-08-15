@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   file3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 08:55:28 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/02 11:22:33 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/08/04 16:36:46 by rel-hach          #+#    #+#             */
+/*   Updated: 2022/08/13 12:58:10 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELLL_H
-# define SHELLL_H
+# include "../Include/minishell.h"
 
-# include "head.h"
-# include "minishell.h"
-# include "../libft/libft.h"
-# include "subshell.h"
-
-# endif
+// int	ft_isprint(int c)
+// {
+// 	return (c >= 32 && c <= 126);
+// }

@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tockenizer.c                                       :+:      :+:    :+:   */
+/*   repair_line.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/07 00:21:56 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/02 15:26:34 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/08/04 16:39:48 by rel-hach          #+#    #+#             */
+/*   Updated: 2022/08/13 13:27:12 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/shell.h"
+#include "../../Include/minishell.h"
+
+void	ft_fill_quotes(char *old_line, char *new_line, int *i, int *j)
+{
+	char	c;
+
+	c = old_line[(*i)];
+	new_line[(*j)++] = old_line[(*i)++];
+	while (old_line[(*i)] != c)
+		new_line[(*j)++] = old_line[(*i)++];
+}
 
 void	ft_add_space_spchar(char *str, char *new, int *i, int *j)
 {
 	new[(*j)++] = ' ';
 	new[(*j)++] = str[(*i)++];
-	if (ft_is_special(str[(*i)]))
+	if (ft_is_redirection(str[(*i)]))
 		new[(*j)++] = str[(*i)++];
 	new[(*j)++] = ' ';
-}
-
-bool	ft_is_special(char c)
-{
-	if (ft_is_pipe(c) && ft_is_parenthesis(c)
-		&& ft_is_redirection(c) && ft_is_and(c))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
 }
 
 int	ft_count_special_characters(char *str)
@@ -59,11 +61,13 @@ char	*ft_repair_string(char *old_line)
 	i = 0;
 	j = 0;
 	count = ft_count_special_characters(old_line);
-	new_line = malloc(sizeof(char) * ft_strlen(old_line) + (count * 2) + 1);
+	new_line = malloc(sizeof(char) * strlen(old_line) + (count * 2) + 1);
 	if (!new_line)
 		return (NULL);
 	while (old_line[i])
 	{
+		if (ft_is_quote(old_line[i]))
+			ft_fill_quotes(old_line, new_line, &i, &j);
 		if (ft_is_special(old_line[i]))
 			ft_add_space_spchar(old_line, new_line, &i, &j);
 		else

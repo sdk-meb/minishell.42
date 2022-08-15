@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:34:40 by mes-sadk          #+#    #+#             */
-/*   Updated: 2021/11/07 13:52:29 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/14 16:21:49 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {
+	if (!b)
+		return (NULL);
 	while (len > 0)
 	{
 		len--;
