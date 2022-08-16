@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 22:05:20 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/16 19:45:57 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/16 21:06:26 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,13 @@ int	ft_check_consecutive_pipes_redirections(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '|' && str[i + 1] == '|')
-			return (FAILURE);
+		if (str[i] == '|')
+		{
+			while (str[++i] == ' ')
+				i++;
+			if (str[i] == '|')
+				return (FAILURE);
+		}
 		if (ft_is_redirection(str[i]) && ft_is_redirection(str[i + 1]))
 			if (ft_is_redirection(str[i + 2]))
 				return (FAILURE);
