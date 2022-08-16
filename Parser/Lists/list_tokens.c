@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 13:17:19 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/15 19:30:50 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_list	*ft_new_token(char *string)
 	if (!new)
 		return (NULL);
 	i = 0;
-	new->token = string;
+	new->token = ft_expand(string);
 	new->type = ft_get_type(string);
 	new->prev = NULL;
 	new->next = NULL;

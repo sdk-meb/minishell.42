@@ -6,11 +6,11 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:36:51 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 12:58:02 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/14 15:35:58 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Include/minishell.h"
+#include "../Include/minishell.h"
 
 // bool	ft_is_quote(char c)
 // {

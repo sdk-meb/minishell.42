@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 21:10:30 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:34:14 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**ft_branch_line(char *line, char c);
 int		ft_check_chars(char c, char *set);
 int		ft_get_next_quote(int i, char *line);
 int		ft_calculate_words(char *line, char c);
-char	*ft_allocate_fill_str(char *line, char c);
+char	*ft_allocate_fill_str(char *line);
 char	**ft_free_strings(char **ptr);
 
 // [B] Parsing files :
@@ -103,10 +103,10 @@ void	print_tree(t_list *root);
 
 // FILE 2 //
 
-int	ft_is_quote(char c);
-int	ft_is_pipe(char c);
-int	ft_is_redirection(char c);
-int	ft_is_special(char c);
+int		ft_is_quote(char c);
+int		ft_is_pipe(char c);
+int		ft_is_redirection(char c);
+int		ft_is_special(char c);
 
 // FILE 3 //
 

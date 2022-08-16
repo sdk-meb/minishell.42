@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:11:49 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 15:20:24 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/16 13:35:49 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,63 +22,38 @@ int	ft_get_next_quote(int i, char *line)
 	return (i);
 }
 
-int	ft_calculate_words(char *line, char c)
+void	ft_skip_space(char *str, int *i)
 {
-	int	count;
+	while (str[(*i)] == ' ')
+		(*i)++;
+}
+
+int	ft_words(char *str)
+{
 	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
-	while (line[i])
+	while (str[i])
 	{
-		while (line[i] == c)
-			i++;
-		if (ft_is_quote(line[i]))
+		ft_skip_space(str, &i);
+		if (ft_is_quote(str[i]))
 		{
-			i = ft_get_next_quote(i, line);
-			while (ft_is_quote(line[i + 1]))
-				i = ft_get_next_quote(i + 1, line);
+			i = ft_get_next_quote(i, str);
 			count++;
-			i++;
+			while (ft_is_quote(str[i + 1]))
+			{
+				i = ft_get_next_quote(++i, str);
+				count++;
+			}
 		}
-		else if (line[i] != c && line[i])
+		else if (str[i] != ' ' && !ft_is_quote(str[i - 1]))
 			count++;
-		while (line[i] != c && line[i])
-		{
-			if (ft_is_quote(line[i]))
-				i = ft_get_next_quote(i, line);
+		while (str[i] && str[i] != ' ')
 			i++;
-		}
 	}
 	return (count);
-}
-
-char	*ft_allocate_fill_str(char *line, char c)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	if (ft_is_quote(line[i]))
-	{
-		i = ft_get_next_quote(i, line);
-		while (ft_is_quote(line[i + 1]))
-			i = ft_get_next_quote(i + 1, line);
-		i++;
-	}
-	while (line[i] && line[i] != c)
-	{
-		if (ft_is_quote(line[i]))
-			i = ft_get_next_quote(i, line);
-		i++;
-	}
-	str = (char *)malloc(sizeof(char) * (i + 1));
-	if (str)
-	{
-		ft_strlcpy(str, line, i + 1);
-		return (str);
-	}
-	return (NULL);
 }
 
 static char	**ft_freestr(char **tab)
@@ -95,6 +70,29 @@ static char	**ft_freestr(char **tab)
 	return (NULL);
 }
 
+char	*ft_allocate_fill_str(char *line)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	if (ft_is_quote(line[i]))
+	{
+		i = ft_get_next_quote(i, line);
+		i++;
+	}
+	else
+		while (line[i] && line[i] != ' ' && !ft_is_quote(line[i]))
+			i++;
+	str = (char *)malloc(sizeof(char) * (i + 1));
+	if (str)
+	{
+		ft_strlcpy(str, line, i + 1);
+		return (str);
+	}
+	return (NULL);
+}
+
 char	**ft_branch_line(char *line, char c)
 {
 	int		i;
@@ -103,7 +101,7 @@ char	**ft_branch_line(char *line, char c)
 
 	if (line)
 	{
-		nb_words = ft_calculate_words(line, c);
+		nb_words = ft_words(line);
 		tdstr = (char **)malloc(sizeof(char *) * (nb_words + 1));
 		if (!tdstr)
 			return (NULL);
@@ -112,10 +110,10 @@ char	**ft_branch_line(char *line, char c)
 		{
 			while (*line == c)
 				line++;
-			tdstr[i] = ft_allocate_fill_str(line, c);
+			tdstr[i] = ft_allocate_fill_str(line);
 			if (!tdstr[i])
 				return (ft_freestr(tdstr));
-			line = line + strlen(tdstr[i]);
+			line = line + ft_strlen(tdstr[i]);
 		}
 		tdstr[i] = 0;
 		return (tdstr);
