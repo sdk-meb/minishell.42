@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:01:43 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/15 15:35:23 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/16 23:14:41 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef const char*     t_path;/* path name and also considered as file name */
 typedef const char*     t_str;/* const string  */
 typedef char*           t_ptr;/* pointer */
 typedef char**          _head;/* head of pointer */
-typedef struct s_list*        t_cmd;/* command tree */
+typedef struct s_list*  t_cmd;/* command tree */
 
 typedef short  t_req;/*  work request */
 
@@ -31,8 +31,9 @@ typedef short  t_req;/*  work request */
 # define NEWCHLD    0
 # define EMPTY      0b00000100
 
-
-# define _SET       0b00000010
-# define _GET       0b00000001
+# define SAVE       0b1000
+# define _SET       0b0100
+# define _GET       0b0010
+# define _ADD       0b0001
 
 # endif

@@ -6,11 +6,11 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:13:10 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 12:57:47 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/14 15:36:13 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Include/minishell.h"
+#include "../Include/minishell.h"
 
 t_env	*ft_lstlast_env(t_env *lst)
 {

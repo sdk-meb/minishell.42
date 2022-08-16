@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:02:02 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/15 15:32:30 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/15 22:31:12 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void    c_merge(void *ptr, t_req ord)
     t_heap        *mnger;
     t_heap         *manager;
 
+    return ;
     manager = (t_heap *)governor(ord | _SET | _GET);
     mnger = manager;printf("%p\n",mnger);
     while (mnger->extra){
@@ -81,6 +82,7 @@ void    c_delete(t_req ord)
 {
     t_heap       *manager;
     
+    return ;
     if (ord != APPROVED && ord != TEMPORARY)
         return ;
     manager = (t_heap *)governor(ord | _SET | _GET);

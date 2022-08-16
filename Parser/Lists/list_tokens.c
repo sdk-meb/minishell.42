@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/15 09:59:17 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/16 19:29:31 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_lstadd_back_doubly(t_list **lst, t_list *new)
 	}
 }
 
-char	*ft_get_type(char *tocken)
+char	*ft_get_type(t_str tocken)
 {
 	if (ft_memcmp(tocken, "(", 2) == 0)
 		return ("l_par");
@@ -90,7 +90,7 @@ t_list	*ft_new_token(char *string)
 	if (!new)
 		return (NULL);
 	i = 0;
-	new->token = string;
+	new->token = ft_expand(string);
 	new->type = ft_get_type(string);
 	new->prev = NULL;
 	new->next = NULL;

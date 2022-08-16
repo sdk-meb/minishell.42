@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/15 15:35:41 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/16 23:46:40 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,14 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+
 # include <errno.h>
+
 # include <dirent.h>
+# include <fcntl.h>
+
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # include "types__.h"
 /* __________________________________  */
@@ -37,8 +43,9 @@
 
 /* __________________________________  */
 
-# define APPROVED  0b0001000/* memory approved by programme */
-# define TEMPORARY 0b0010000/* temporary memory */
+# define APPROVED  0b1000/* memory approved by programme */
+# define TEMPORARY 0b10000/* temporary memory */
+
 
 typedef struct s_heap
 {
@@ -51,8 +58,9 @@ typedef struct s_heap
 
 void ft_err(t_str, t_req);
 
-void signal_handler();
-void sh_exece(t_cmd*);
+void    signal_handler();
+void    sh_exece(t_cmd);
+
 void    *new_heap(size_t, t_req);
 void    c_delete(t_req);
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   file1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:33:54 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/15 09:55:20 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/14 15:35:51 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Include/minishell.h"
+#include "../Include/minishell.h"
 
 int	ft_is_quote(char c)
 {

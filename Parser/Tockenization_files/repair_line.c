@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repair_line.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:39:48 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/15 09:59:54 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/13 15:08:28 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_add_space_spchar(char *str, char *new, int *i, int *j)
 {
 	new[(*j)++] = ' ';
 	new[(*j)++] = str[(*i)++];
-	if (ft_is_redirection(str[(*i)]))
+	if (ft_is_special(str[(*i)]))
 		new[(*j)++] = str[(*i)++];
 	new[(*j)++] = ' ';
 }
