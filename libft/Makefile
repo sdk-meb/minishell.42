@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+         #
+#    By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/22 17:37:03 by mes-sadk          #+#    #+#              #
-#    Updated: 2022/08/03 10:47:04 by mes-sadk         ###   ########.fr        #
+#    Updated: 2022/08/16 18:57:30 by rel-hach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,14 +49,14 @@ all: $(NAME)
 
 $(NAME): $(OBJ) libft.h
 	@ar -rc $(NAME) $(OBJ)
-	@echo "${GREEN} • libft archive file was archived ./${NAME}${NO_COLOR}"
+#	@echo "${GREEN} • libft archive file was archived ./${NAME}${NO_COLOR}"
 
 bonus: $(OBJ) $(BONUS_OBJ) libft.h
 	@ar -r $(NAME) $(OBJ) $(BONUS_OBJ)
 
 clean:
 	@rm -f $(OBJ) $(BONUS_OBJ)
-	@echo "${RED} • ALL libft object files were deleted${NO_COLOR}"
+#	@echo "${RED} • ALL libft object files were deleted${NO_COLOR}"
 	
 fclean: clean
 	@rm -f $(NAME)

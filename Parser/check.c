@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 22:05:20 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/16 15:30:39 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:17:05 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,21 @@ int	ft_failure(int error)
 	if (error == 3)
 		printf("qoutes not closed\n");
 	return (FAILURE);
+}
+
+void	ft_check_consecutive_pipes(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '|')
+		{
+			if (str[i + 1] == '|')
+				ft_failure(4);
+		}
+	}
 }
 
 int	ft_check_line(char *line)

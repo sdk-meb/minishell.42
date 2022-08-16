@@ -5,9 +5,20 @@ LINKER	= -lreadline
 INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'
 LIBFT 	= libft/libft.a
 
+#regular colors :
 RED 		= \033[0;31m
 GREEN		= \033[0;32m
 NO_COLOR	= \033[0m
+
+# Bold High Intensty :
+BIBlack=\033[1;90m
+BIRed=\033[1;91m
+BIGreen=\033[1;92m
+BIYellow=\033[1;93m
+BIBlue=\033[1;94m
+BIPurple=\033[1;95m
+BICyan=\033[1;96m
+BIWhite=\033[1;97m
 
 MAIN 			= main.c
 SRC_PARSER		= $(shell find Parser -type f | grep \\.c)
@@ -20,16 +31,16 @@ OBJ_SUBSYSTEMS		= $(SRC_SUBSYSTEMS:.c=.o)
 OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 
 %.o:%.c $(shell ls Include/*)
-	@${CC} ${INC}  ${CFLAGS} -o $@ -c $<
+	@$(CC) $(INC)  $(CFLAGS) -o $@ -c $<
 
-all: ${NAME}
+all: $(NAME)
 
 $(LIBFT): 
 	@make -C libft/
 
-$(NAME): ${LIBFT} $(MAIN_O) ${OBJ_PARSER} $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
-	@${CC} ${CFLAGS} ${LINKER} ${LIBFT} -o ${NAME} $(MAIN_O) ${OBJ_PARSER} $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
-	@echo "${GREEN} • Now you can run the exucitable file ./${NAME}${NO_COLOR}"
+$(NAME): $(LIBFT) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
+	@$(CC) $(CFLAGS) $(LINKER) $(LIBFT) -o $(NAME) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
+	@echo "${BIGreen} • An executable file has been generated $(BIYellow)./${NAME}${NC}"
 
 bonus:
 
@@ -37,12 +48,12 @@ bonus:
 clean:
 	@rm -rf ${OBJ_PARSER} $(MAIN_O) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
 	@make clean -C libft/
-	@echo "${RED} • ALL object files were deleted${NO_COLOR}"
+	@echo "$(BIRed) • object files has been successufully deleted${NC}"
 
 fclean: clean
 	@rm -rf ${NAME}
 	@rm -rf ${LIBFT}
-	@echo "${RED} • The executed file was removed${NO_COLOR}"
+	@echo "${BIRed} • The executable file has been successfuly removed${NO_COLOR}"
 
 re: fclean all
 
