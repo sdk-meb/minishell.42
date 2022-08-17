@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/16 23:53:13 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/17 08:46:55 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    *_get_env(t_str var)
     }
     if (!env[i])
         return (NULL);
-    return (ft_substr(env[i], len, ft_strlen(env[i]) - len));
+    return (ft_substr(env[i], len + 1, ft_strlen(env[i]) - len));
 }
 
 void    env()
@@ -60,25 +60,20 @@ void   env_proc(char **env, t_str var,t_req ord)
     char **_env;
 
     i = 0;
+    _env = env;
+    while (env[i])
+        i++;
     if (ord == _ADD)
     {
-        while (env[i])
-            i++;
-        _env = malloc(sizeof(env) * (i + 1));
+        env = malloc(sizeof(env) * (++i + 1));
+        env[i] = NULL;
+        env[--i] = ft_strdup(var);
     }
-    i = -1;
-    while (env[++i])
+    while (i--)
     {
-        _env[i] = ft_strdup(env[i]);
+        env[i] = ft_strdup(_env[i]);
         if (ord == _ADD)
-            free(env[i]);
-    }
-    if (ord == _ADD)
-    {
-        _env[i] = ft_strdup(var);
-        _env[i + 1] = NULL;
-        my_env(_env, SAVE);
-        return ; 
+            free(_env[i]);
     }
     my_env(env, SAVE);
 }

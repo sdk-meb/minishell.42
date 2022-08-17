@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/16 18:33:15 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/17 08:36:47 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void    ex_bin(t_path p_file, _head arg)
 		ft_strjoin(pathname[i], "/");
 		permit = access(ft_strjoin(pathname[i++], p_file), F_OK);
 		if (permit)
-			execve(p_file,( char * const *)arg, NULL);/*Overlay (programming)*/
+			execve(p_file,( char * const *)arg, my_env(NULL, _GET));/*Overlay (programming)*/
 	}
 	ft_err(p_file, ERRMSG);
 	exit (errno);

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 15:35:13 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/16 22:50:16 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/17 08:07:53 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strchr(const char *str, int c)
 {
 	char*	s;
 
-	s = str;
+	s = (char*)str;
 	if (!c)
 		return ((char *)s + ft_strlen(s));
 	while (*s)
