@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/16 23:30:19 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:00:14 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void  pwd(int fd)/* leak */
 {
     char*   pathname;
 
-    pathname = (char *)new_heap (PATH_MAX, TEMPORARY);
+    pathname = (char *)new_heap (PATH_MAX, TEMPORARY, 1);
     getcwd(pathname, PATH_MAX);
     write (fd, pathname, ft_strlen(pathname));
-    free(pathname);
+    c_delete(TEMPORARY, 1);
 }
 
 void    cd(t_path   path)

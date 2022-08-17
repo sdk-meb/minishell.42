@@ -6,96 +6,128 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:02:02 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/15 22:31:12 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:45:44 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../Include/minishell.h"
 
-
-static void *get_gover(void)
+static t_heap	*ft_heapnew(void *dng_ptr, int dangel)
 {
-    t_heap *mng;
+	t_heap	*con;	
 
-    mng = (t_heap *)ft_calloc(sizeof(*mng), 1);
-    if (!mng)
-        return (NULL);
-    mng->prev = mng;
-    return ((void*) mng);
+	con = (t_heap *)malloc (sizeof (*con));
+	if (!con)
+		return (NULL);
+	con->dng_ptr = dng_ptr;
+    con->dangel = dangel;
+	con->extra = con;
+	return (con);
 }
 
-static void *governor(t_req ord)
+static void	ft_heapadd_front(t_heap **heap, t_heap *new)
 {
-    static void *glb;
-    static void *tmp;
+    t_heap     *p;
+    t_heap      *ref;
 
-    if ((ord & APPROVED) == APPROVED)
-    {
-        if (!glb && (ord & _SET) == _SET)
-            glb = get_gover();
-        else if (!glb || (ord & EMPTY) == EMPTY)
-            return (NULL);
+    p = (*heap);
+    ref = (*heap);
+	if (heap && *heap && new)
+	{
+        while (ref != p->extra)
+            p = p->extra;
+		new->extra = *heap;
+        *heap = new;
+        p->extra = *heap;
+	}
+    else if (heap && !*heap)
+        *heap = new;
+}
+
+static void	ft_heapdelone(t_heap *heap)
+{
+	if (!heap)
+		return ;
+	free(heap->dng_ptr);
+	free (heap);
+}
+
+static void	ft_heapclear(t_heap **heap)
+{
+	t_heap	*p;
+
+	if (!heap || !*heap)
+		return ;
+	p = *heap;
+	*heap = p->extra;
+	ft_heapclear(heap);
+	ft_heapdelone(p);
+}
+
+static t_heap **governor(t_req ord)
+{
+    static t_heap **glb;
+    static t_heap **tmp;
+
+    if ((ord & APPROVED) == APPROVED && (ord & _GET) == _GET && glb)
         return (glb);
-    }
+    else if ((ord & TEMPORARY) == TEMPORARY && (ord & _GET) == _GET && tmp)
+        return (tmp);
+    else if ((ord & APPROVED) == APPROVED)
+    {
+        glb = (t_heap **) ft_calloc(sizeof(glb),1);
+        *glb = NULL;
+        return (glb);
+    } 
     else if ((ord & TEMPORARY) == TEMPORARY)
     {
-        if (!tmp && (ord & _SET) == _SET)
-            tmp = get_gover();
-        else if (!tmp || (ord & EMPTY) == EMPTY)
-            return (NULL);
+        tmp = (t_heap **) ft_calloc(sizeof(tmp),1);
+        *tmp = NULL;
         return (tmp);
     }
     return (NULL);
 }
 
-static void    c_merge(void *ptr, t_req ord)
+static void    c_merge(void *ptr, t_req ord, int dangel)
 {
-    t_heap        *mnger;
-    t_heap         *manager;
+    t_heap        **mnger;
 
-    return ;
-    manager = (t_heap *)governor(ord | _SET | _GET);
-    mnger = manager;printf("%p\n",mnger);
-    while (mnger->extra){
-        mnger = mnger->extra;}
-    if (mnger->dng_ptr)
-    {
-        mnger->extra = (t_heap *)ft_calloc(sizeof(*mnger), 1);
-        mnger->extra->prev = mnger;
-        mnger = mnger->extra;
-        manager->prev = mnger;
-    }
-    mnger->dng_ptr = ptr;
-    mnger->extra = NULL;
+    mnger = (t_heap **)governor(ord | _SET | _GET);
+    ft_heapadd_front(mnger, ft_heapnew(ptr, dangel));
 }
 
-static void dlt(t_heap *mnger)
+void    c_delete(t_req ord, int dangel)
 {
+    t_heap  **mnger;
+    t_heap  *mng;
+    t_heap  *ref;
+
+    mnger = governor(ord & _GET);
     if (!mnger)
         return ;
-    dlt(mnger->extra);
-    free(mnger->dng_ptr);
-    free(mnger);
+    if (dangel < 0)
+        return (ft_heapclear(mnger));
+    ref = (*mnger);
+    while (1 && mnger && *mnger)
+    {
+        if ((*mnger)->extra->dangel == dangel)
+        {
+            mng = (*mnger)->extra;
+            (*mnger)->extra = (*mnger)->extra->extra;
+            ft_heapdelone(mng);
+        }
+        *mnger = (*mnger)->extra;
+        if (!mnger || ref == (*mnger))
+            break ;
+    }
 }
 
-void    c_delete(t_req ord)
-{
-    t_heap       *manager;
-    
-    return ;
-    if (ord != APPROVED && ord != TEMPORARY)
-        return ;
-    manager = (t_heap *)governor(ord | _SET | _GET);
-    dlt(manager);
-    governor(ord | EMPTY);
-}
-
-void    *new_heap(size_t tcase, t_req ord)
+void    *new_heap(size_t tcase, t_req ord, int dangel)
 {
     void *ptr;
     if (ord != APPROVED && ord != TEMPORARY)
         return (NULL);
     ptr = ft_calloc(tcase, 1);
-    c_merge(ptr, ord);
+    c_merge(ptr, ord, dangel);
     return (ptr);
 }

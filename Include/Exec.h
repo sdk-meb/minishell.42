@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/16 23:46:40 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/17 17:58:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_heap
 {
         void *dng_ptr;/* dangling pointer *//*  {dangle : hold something so that it hangs loosely} */
         struct s_heap *extra;
-        struct s_heap *prev;
+        int     dangel;
 }                        t_heap;/* garbage collector */
 
 /* __________________________________  */
@@ -61,8 +61,8 @@ void ft_err(t_str, t_req);
 void    signal_handler();
 void    sh_exece(t_cmd);
 
-void    *new_heap(size_t, t_req);
-void    c_delete(t_req);
+void    *new_heap(size_t, t_req , int dangel);
+void    c_delete(t_req, int dangel);
 
 /* __________________________________  */
 

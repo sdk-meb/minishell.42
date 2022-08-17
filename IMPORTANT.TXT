@@ -3,8 +3,8 @@
 
 |_______successful_______#___________failure________|
 
-|>    "command"          # >  "<or>command<or>"     |
-|>    'command'          # >  '<or>command<or>'     |
+|>                       # >                        |
+|>                       # >                        |
 |                        #                          |
 |                        #                          |
 |                        #                          |

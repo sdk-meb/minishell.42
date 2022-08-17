@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/13 22:47:43 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/17 19:46:34 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void    sa_sig(int sig)
 {
     static unsigned short shild;
 
+    c_delete(TEMPORARY, EMPTY);
+    system("leaks minishell");
     if (sig == NEWCHLD)
         shild++;
     else if (sig == SIGINT)
