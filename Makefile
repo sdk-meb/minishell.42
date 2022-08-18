@@ -9,10 +9,10 @@ RED 		= \033[0;31m
 GREEN		= \033[0;32m
 NO_COLOR	= \033[0m
 
-MAIN 			= main.c sig.c
-SRC_PARSER		= $(shell find Parser -type f | grep \\.c)
-SRC_SUBSYSTEMS	= $(shell find Subsystems -type f | grep \\.c)
-SRC_EXECUTOR	= $(shell find Executor -type f | grep \\.c)
+MAIN 			= main.c
+SRC_PARSER		= $(shell find Parser -type f | grep \\.c$)
+SRC_SUBSYSTEMS	= $(shell find Subsystems -type f | grep \\.c$)
+SRC_EXECUTOR	= $(shell find Executor -type f | grep '\.c\>')
 
 MAIN_O				= $(MAIN:.c=.o)
 OBJ_PARSER 			= $(SRC_PARSER:.c=.o)
@@ -24,7 +24,7 @@ OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 
 all: ${NAME}
 
-$(LIBFT): 
+$(LIBFT):
 	@make -C libft/
 
 $(NAME): ${LIBFT} $(MAIN_O) ${OBJ_PARSER} $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)

@@ -6,14 +6,12 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/17 17:58:03 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/18 11:45:33 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*   my command-line interface   */
-#ifndef MYCLI_H 
-# define MYCLI_H
-
+#ifndef EXEC_H 
+# define EXEC_H
 /*
         __E-X-E-C-U-T-I-O-N____L_I_B_R_A_R_Y_  belongs __MINISHELL__
 */
@@ -31,38 +29,25 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-# include "types__.h"
+# include "minishell.h"
+# include "../libft/mtypes.h"
 /* __________________________________  */
 
 #ifdef __linux__  
-#   include <linux/limits.h>
+# include <linux/limits.h>
 # define sys_nerr 107
 #elif __APPLE__
-#   include <sys/syslimits.h>
+# include <sys/syslimits.h>
 #endif  /*  FILENAME_MAX and PATH_MAX include define */
 
 /* __________________________________  */
 
-# define APPROVED  0b1000/* memory approved by programme */
-# define TEMPORARY 0b10000/* temporary memory */
-
-
-typedef struct s_heap
-{
-        void *dng_ptr;/* dangling pointer *//*  {dangle : hold something so that it hangs loosely} */
-        struct s_heap *extra;
-        int     dangel;
-}                        t_heap;/* garbage collector */
-
 /* __________________________________  */
 
-void ft_err(t_str, t_req);
+void	ft_err(t_str str, t_req ord);
 
-void    signal_handler();
-void    sh_exece(t_cmd);
-
-void    *new_heap(size_t, t_req , int dangel);
-void    c_delete(t_req, int dangel);
+void	signal_handler();
+void	sh_exece(t_cmd);
 
 /* __________________________________  */
 

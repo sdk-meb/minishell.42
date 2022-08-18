@@ -6,11 +6,11 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 14:44:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/17 13:26:30 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/18 11:15:32 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {

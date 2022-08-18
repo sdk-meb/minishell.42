@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/17 14:22:16 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/18 08:20:13 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ char	**ft_free_strings(char **ptr);
 t_list	*return_first_node(t_list *lst);
 t_list	*ft_pipe_case(t_list *head);
 t_list	*ft_create_astree(t_list *head);
-char	**ft_readline(void);
-void	ft_call_shell(void);
+char	**ft_readline(char ps1);
+void	ft_call_shell(char 	ps1);
 bool	quotes_are_closed(char *line);
 int		ft_check_line(char *line);
 

@@ -6,33 +6,33 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/17 18:00:14 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/18 11:05:43 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Include/minishell.h"
+#include "../Include/minishell.h"
 
-void    echo(int fd, t_str put, t_req n_line)
+void	echo(int fd, t_str put, t_req n_line)
 {
-    write (fd, put, ft_strlen(put));
-    if (n_line == '\n')
-        write (fd, "\n", 1);
+	write(fd, put, ft_strlen(put));
+	if (n_line == '\n')
+		write(fd, "\n", 1);
 }
 
-void  pwd(int fd)/* leak */
+void	pwd(int fd)
 {
-    char*   pathname;
+	char	*pathname;
 
-    pathname = (char *)new_heap (PATH_MAX, TEMPORARY, 1);
-    getcwd(pathname, PATH_MAX);
-    write (fd, pathname, ft_strlen(pathname));
-    c_delete(TEMPORARY, 1);
+	pathname = (char *)new_heap(PATH_MAX, TEMPORARY, 1);
+	getcwd(pathname, PATH_MAX);
+	write(fd, pathname, ft_strlen(pathname));
+	c_delete(TEMPORARY, 1);
 }
 
-void    cd(t_path   path)
+void	cd(t_path path)
 {
-    if (!path || !*path)
-        return ;
-    if (chdir(path))
-        ft_err(ft_strdup(path), ERRMSG);
+	if (!path || !*path)
+		return ;
+	if (chdir(path))
+		ft_err(ft_strdup(path), ERRMSG);
 }

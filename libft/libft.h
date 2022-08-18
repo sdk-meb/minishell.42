@@ -6,28 +6,37 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 19:30:21 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/02 14:14:54 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/18 11:41:15 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include<string.h>
-# include<unistd.h>
-# include<stdlib.h>
-# include<unistd.h>
+# include <string.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include "mtypes.h"
 
-// typedef struct s_list
-// {
-// 	void			*content;
-// 	struct s_list	*next;
-// }							t_list;
-
-typedef struct integer {
+typedef struct integer
+{
 	int	i;
 	int	j;
 	int	n;
-}t_intgr;
+}				t_intgr;
+
+# define APPROVED	0b1000	  /* memory approved by programme */
+# define TEMPORARY	0b10000 /* temporary memory */
+
+typedef struct s_heap
+{
+	void			*dng_ptr; /* dangling pointer */ /*  {dangle : hold something so that it hangs loosely} */
+	struct s_heap	*extra;
+	int dangel;
+}			t_heap; /* garbage collector */
+
+void	*new_heap(size_t, t_req ord, int dangel);
+void	c_delete(t_req ord, int dangel);
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
@@ -50,7 +59,7 @@ char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_strdup(const char *s1);
-void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
@@ -63,15 +72,5 @@ char	*ft_strtrim(char const *s, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-
-// void	ft_lstadd_back(t_list **lst, t_list *new);
-// void	ft_lstadd_front(t_list **lst, t_list *new);
-// void	ft_lstclear(t_list **lst, void (*del)(void *));
-// void	ft_lstdelone(t_list *lst, void (*del)(void*));
-// void	ft_lstiter(t_list *lst, void (*f)(void *));
-// t_list	*ft_lstlast(t_list *lst);
-// t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-// t_list	*ft_lstnew(void *content);
-// int		ft_lstsize(t_list *lst);
 
 #endif
