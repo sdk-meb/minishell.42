@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:10:58 by mes-sadk          #+#    #+#             */
-/*   Updated: 2021/11/22 12:44:22 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/18 07:24:12 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))

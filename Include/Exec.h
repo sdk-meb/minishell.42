@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/13 12:56:24 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/18 11:45:33 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*   my command-line interface   */
-#ifndef MYCLI_H 
-# define MYCLI_H
-
+#ifndef EXEC_H 
+# define EXEC_H
 /*
         __E-X-E-C-U-T-I-O-N____L_I_B_R_A_R_Y_  belongs __MINISHELL__
 */
@@ -22,16 +20,35 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
-# include <errno.h>
-# include <dirent.h>
 
-# include "types__.h"
+# include <errno.h>
+
+# include <dirent.h>
+# include <fcntl.h>
+
+# include <sys/types.h>
+# include <sys/wait.h>
+
+# include "minishell.h"
+# include "../libft/mtypes.h"
+/* __________________________________  */
 
 #ifdef __linux__  
-#   include <linux/limits.h>
+# include <linux/limits.h>
 # define sys_nerr 107
 #elif __APPLE__
-#   include <sys/syslimits.h>
+# include <sys/syslimits.h>
 #endif  /*  FILENAME_MAX and PATH_MAX include define */
+
+/* __________________________________  */
+
+/* __________________________________  */
+
+void	ft_err(t_str str, t_req ord);
+
+void	signal_handler();
+void	sh_exece(t_cmd);
+
+/* __________________________________  */
 
 # endif
