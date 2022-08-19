@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/18 08:20:13 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/19 06:41:04 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,11 @@
 
 # define SUCCESS	0
 # define FAILURE	1
+# define HEREDOC	0x33
+# define PLUSDOC	0xEE
 
 // Used structs :
 
-typedef struct s_fd
-{
-	int	in;
-	int	out;
-}	t_fd;
 
 typedef struct s_env
 {
@@ -47,8 +44,8 @@ typedef struct s_env
 typedef struct s_list
 {
 	char			*token;
-	char			*type;
-	t_fd			fd;
+	char			type;
+	int			fd[2];
 	struct s_list	*next;
 	struct s_list	*prev;
 	struct s_list	*left;

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:33:54 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/17 14:20:24 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/18 22:51:12 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	print_tree(t_list *root)
 {
 	if (root == NULL)
 	{
-		printf("%s\n", "NULL");
+		printf("%s\n", (void *)root);
 		return ;
 	}
-	printf("                     I AM ROOT == %s\n", root->token);
+	printf("                     I AM ROOT == %c\n", root->type);
 	if (root->left)
-		printf("MY LEFT IS [%s]", root->left->token);
+		printf("MY LEFT IS [%c]", root->left->type);
 	if (root->right)
-		printf("				  MY RIGHT IS [%s]\n", root->right->token);
+		printf("				  MY RIGHT IS [%c]\n", root->right->type);
 	print_tree(root->left);
 	print_tree(root->right);
 }

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/18 08:52:32 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/19 09:27:13 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ char	**ft_readline(char 	ps1)
 		return (ft_readline(PRIO_USER));
 	while (line && line[i] && ft_isprint(line[i]))
 		i++;
-	if (!line || !line[i])
-		return (NULL);
 	add_history(line);
 	if (!ft_check_line(line))
 	{
@@ -60,7 +58,8 @@ void	ft_call_shell(char 	ps1)
 			root = ft_create_list_for_tockens(splitted);
 			free (splitted);
 			root = ft_create_astree(root);
-			print_tree(root);
+			//print_tree(root);
+			sh_exec(root);
 		}
 	}
 }

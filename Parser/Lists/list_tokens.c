@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/17 14:20:30 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/19 06:42:20 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,20 @@ void	ft_lstadd_back_doubly(t_list **lst, t_list *new)
 	}
 }
 
-char	*ft_get_type(t_str tocken)
+char	ft_get_type(t_str tocken)
 {
-	if (ft_memcmp(tocken, "(", 2) == 0)
-		return ("l_par");
-	if (ft_memcmp(tocken, ")", 2) == 0)
-		return ("r_par");
-	if (ft_memcmp(tocken, "|", 2) == 0)
-		return ("PIPE");
-	if (ft_memcmp(tocken, ">", 2) == 0)
-		return ("OUT_RED");
-	if (ft_memcmp(tocken, "<", 2) == 0)
-		return ("IN_RED");
-	if (ft_memcmp(tocken, "&&", 3) == 0)
-		return ("t_AND");
-	if (ft_memcmp(tocken, "||", 3) == 0)
-		return ("t_OR");
-	if (ft_memcmp(tocken, ">>", 3) == 0)
-		return ("APPEND_OUT_RED");
-	if (ft_memcmp(tocken, "<<", 3) == 0)
-		return ("HEREDOC");
+	if (!ft_memcmp(tocken, "|", 2))
+		return ('|');
+	if (!ft_memcmp(tocken, ">", 2))
+		return ('>');
+	if (!ft_memcmp(tocken, "<", 2))
+		return ('<');
+	if (!ft_memcmp(tocken, ">>", 3))
+		return (HEREDOC);
+	if (!ft_memcmp(tocken, "<<", 3))
+		return (PLUSDOC);
 	else
-		return ("word");
+		return ('w');
 }
 
 t_list	*ft_new_token(char *string)
@@ -92,6 +84,8 @@ t_list	*ft_new_token(char *string)
 	i = 0;
 	new->token = ft_expand(string);
 	new->type = ft_get_type(string);
+	new->fd[0] = -1;
+	new->fd[1] = -1;
 	new->prev = NULL;
 	new->next = NULL;
 	new->left = NULL;

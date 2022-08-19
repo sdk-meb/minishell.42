@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:49:22 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 13:07:23 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/18 12:26:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ t_list	*ft_pipe_case(t_list *head)
 t_list	*ft_create_astree(t_list *head)
 {
 	t_list	*pipe_root;
+	t_list	*temp;
 
 	pipe_root = NULL;
-	pipe_root = ft_pipe_case(head);
+	temp = head;
+	pipe_root = ft_pipe_case(temp);
 	if (pipe_root)
 		return (pipe_root);
 	return (head);

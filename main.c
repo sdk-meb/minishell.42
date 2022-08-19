@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:31:10 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 10:19:26 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/18 22:28:24 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 
 void	ft_minishell()
 {
-	// if (!fork())
-	// {
-	// 	signal(SIGCHLD, SIG_DFL);
-	// 	kill(0, SIGCHLD);
-	// 	signal(SIGINT, SIG_DFL);
-	// 	printf("child...\n");		exit(1);
-	// }
 	ft_call_shell(PRIO_USER);
 }
 

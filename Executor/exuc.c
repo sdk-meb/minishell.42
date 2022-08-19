@@ -6,13 +6,14 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 11:09:07 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/19 12:18:14 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void	ex_bin(t_path p_file, t_head arg)
+//static
+void	exec_bin(t_path p_file, t_head arg)
 {
 	t_req	permit;
 	t_head	pathname;
@@ -38,15 +39,41 @@ void	ex_bin(t_path p_file, t_head arg)
 	exit(errno);
 }
 
-void sh_exece(t_cmd cmd)
+
+static void mng_exec(t_cmd	cmd)
+{
+	t_cmd	mngr;
+//	t_head	av;
+	int		lenth;
+
+	mngr = cmd->next;
+	lenth = 0;
+	while (mngr)/* counting length to reserve argument values for this command */
+	{
+		if (mngr->type == 'w')
+			lenth += 1;
+		else if (mngr->type == '>')
+			lenth -= 1;/*one file after*/
+		else if (mngr->type == '<')
+		{
+			lenth -= 1;/*all name after must be file*/
+		}
+		mngr = mngr->next;	
+	}
+}
+
+void sh_exec(t_cmd cmd)
 {
 	if (!cmd)
 		return;
-	printf("                     I AM cmd == %s\n", cmd->token);
-	if (cmd->left)
-		printf("MY LEFT IS [%s]", cmd->left->token);
-	if (cmd->right)
-		printf("				  MY RIGHT IS [%s]\n", cmd->right->token);
-	sh_exece(cmd->left);
-	sh_exece(cmd->right);
+	if (cmd->type == '|')
+	{
+		pipe_x (cmd, _GET);
+		mng_exec(cmd->left);
+//		if (bult_c(cmd))
+//			mng_bin(cmd);
+		return (sh_exec(cmd->right));
+	}
+//	if (bult_c(cmd))
+//		mng_bin(cmd);
 }
