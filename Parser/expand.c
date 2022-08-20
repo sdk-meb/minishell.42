@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 16:37:40 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/20 18:39:32 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	copy_env(char *env, char *new_str, int *j)
 char	*ft_get_env(char *str, int *i)
 {
 	int		j;
-	char	temp[100];
+	char	temp[1000];
 	char	*env;
 
 	j = 0;

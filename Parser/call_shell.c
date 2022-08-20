@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 16:48:02 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/20 18:35:08 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ void	ft_call_shell(char ps1)
 		if (splitted && *splitted)
 		{
 			root = ft_create_list_for_tockens(splitted);
+			while (root)
+			{
+				printf("%s ", root->token);
+				root = root->next;
+			}
+			puts("\n");
 			free (splitted);
 			root = ft_create_astree(root);
 			//print_tree(root);
