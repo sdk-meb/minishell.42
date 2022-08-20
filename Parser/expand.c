@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/15 22:27:20 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:37:40 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,134 +21,152 @@ void	copy_env(char *env, char *new_str, int *j)
 	}
 }
 
-void	skip_quote(char *str, int *i)
+char	*ft_get_env(char *str, int *i)
 {
-	while (str[(*i)] == '\"')
-			(*i)++;
+	int		j;
+	char	temp[100];
+	char	*env;
+
+	j = 0;
+	while (str[(*i)] && str[(*i)] != ' ' && !ft_is_quote(str[(*i)])
+		&& str[(*i)] != '$')
+		temp[j++] = str[(*i)++];
+	temp[j] = '\0';
+	env = getenv(temp);
+	return (env);
 }
 
-char	*get_env_t(char *str, int *len)
+int	count_dq_case(char *str, int *i)
 {
-	char	*env;
-	char	*new;
-	int		i;
-	int		j;
+	int	size;
+
+	size = 0;
+	(*i)++;
+	while (str[(*i)] && str[(*i)] != '\"')
+	{
+		if (str[(*i)] == '$')
+		{
+			(*i)++;
+			size = size + ft_strlen(ft_get_env(str, i));
+		}
+		else
+		{
+			(*i)++;
+			size++;
+		}
+	}
+	(*i)++;
+	return (size);
+}
+
+int	count_sq_case(char *str, int *i)
+{
+	int	size;
+
+	size = 0;
+	(*i)++;
+	while (str[(*i)] != '\'')
+	{
+		(*i)++;
+		size++;
+	}
+	(*i)++;
+	return (size);
+}
+
+int	count_size(char *str)
+{
+	int	i;
+	int	size;
 
 	i = 0;
-	j = 0;
-	while (str[j] && str[j] != ' ' && str[j] != '$' && !ft_is_quote(str[j]))
-		j++;
-	env = malloc(sizeof(char) * (j + 1));
-	if (!env)
-		return (NULL);
-	while (i < j)
+	size = 0;
+	while (str[i])
 	{
-		env[i] = str[i];
-		i++;
-		(*len)++;
+		if (str[i] == '\'')
+			size = count_sq_case(str, &i) + size;
+		if (str[i] == '\"')
+			size = count_dq_case(str, &i) + size;
+		if ((str[i]) == '$')
+		{
+			i++;
+			size += ft_strlen(ft_get_env(str, &i));
+		}
+		if (str[i] != '$' && !ft_is_quote(str[i]))
+		{
+			i++;
+			size++;
+		}
 	}
-	env[i] = '\0';
-	new = getenv(env);
-	return (free(env), new);
+	return (size);
 }
 
-void	ft_copy(char *new_str, char *str)
+void	ft_copy_sq_case(char *str, char *new, int *i, int *j)
+{
+	(*i)++;
+	while (str[(*i)] && str[(*i)] != '\'')
+		new[(*j)++] = str[(*i)++];
+	(*i)++;
+}
+
+void	ft_copy_dq_case(char *str, char *new, int *i, int *j)
 {
 	char	*env;
+
+	(*i)++;
+	while (str[(*i)] && str[(*i)] != '\"')
+	{
+		if (str[(*i)] != '$')
+			new[(*j)++] = str[(*i)++];
+		if (str[(*i)] == '$')
+		{
+			(*i)++;
+			env = ft_get_env(str, i);
+			if (env)
+				copy_env(env, new, j);
+		}
+	}
+	(*i)++;
+}
+
+char	*ft_copy(char *str, char *new_str)
+{
 	int		i;
 	int		j;
+	char	*env;
 
 	i = 0;
 	j = 0;
 	while (str[i])
 	{
-		skip_quote(str, &i);
-		if (str[i] != '$')
+		if (!ft_is_quote(str[i]) && str[i] != '$')
 			new_str[j++] = str[i++];
+		if (str[i] == '\'')
+			ft_copy_sq_case(str, new_str, &i, &j);
+		if (str[i] == '\"')
+			ft_copy_dq_case(str, new_str, &i, &j);
 		if (str[i] == '$')
 		{
-			env = get_env_t(&str[++i], &i);
+			i++;
+			env = ft_get_env(str, &i);
 			if (env)
 				copy_env(env, new_str, &j);
 		}
 	}
 	new_str[j] = '\0';
-}
-
-char	*get_env(char *str, int *len)
-{
-	char	*env;
-	char	*new;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (str[j] && str[j] != ' ' && str[j] != '$' && !ft_is_quote(str[j]))
-		j++;
-	env = malloc(sizeof(char) * (j + 1));
-	if (!env)
-		return (NULL);
-	while (i < j)
-	{
-		env[i] = str[i];
-		i++;
-	}
-	env[i] = '\0';
-	new = getenv(env);
-	(*len) = (*len) + j + 1;
-	return (free(env), new);
-}
-
-char	*ft_sq_case(char *str)
-{
-	int		i;
-	int		j;
-	int		s;
-	char	*new;
-
-	i = -1;
-	j = 0;
-	s = 0;
-	while (str[++i])
-	{
-		if (str[i] == '\'')
-			s++;
-	}
-	new = malloc(sizeof(char) * (ft_strlen(str) - s + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (str[i])
-	{
-		while (str[i] == '\'')
-			i++;
-		new[j++] = str[i++];
-	}
-	new[j] = '\0';
-	return (new);
+	return (new_str);
 }
 
 char	*ft_expand(char *str)
 {
-	int		i;
-	char	*new;
-	int		minus;
 	int		size;
+	char	*new;
 
-	i = -1;
-	minus = 0;
-	size = 0;
-	if (str[0] == '\'')
-		return (ft_sq_case(str));
-	while (str[++i])
-	{
-		if (str[i] == '$')
-			size = ft_strlen(get_env(&str[++i], &minus)) + size;
-	}
-	new = malloc(sizeof(char) * ft_strlen (str) + (size - minus) + 1);
+	printf("%s\n", str);
+	size = count_size(str);
+	new = (char *)malloc(sizeof(char) * (size + 1));
 	if (!new)
 		return (NULL);
-	ft_copy(new, str);
+	new = ft_copy(str, new);
 	return (new);
 }

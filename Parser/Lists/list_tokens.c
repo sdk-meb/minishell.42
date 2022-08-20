@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/15 19:30:50 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:03:52 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_lstadd_back_doubly(t_list **lst, t_list *new)
 	}
 }
 
-char	*ft_get_type(_str tocken)
+char	*ft_get_type(char *tocken)
 {
 	if (ft_memcmp(tocken, "(", 2) == 0)
 		return ("l_par");

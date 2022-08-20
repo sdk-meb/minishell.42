@@ -48,7 +48,7 @@ bonus:
 clean:
 	@rm -rf ${OBJ_PARSER} $(MAIN_O) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
 	@make clean -C libft/
-	@echo "$(BIRed) • object files has been successufully deleted${NC}"
+	@echo "$(BIRed) • object files has been successfully deleted${NC}"
 
 fclean: clean
 	@rm -rf ${NAME}

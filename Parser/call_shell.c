@@ -6,20 +6,33 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/16 15:01:01 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:48:02 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-char	**ft_readline(void)
+static char	*prompt(char ps1)
+{
+	if (!ft_memcmp(_get_env("USER"), "ROOT", 5))
+		return (ft_strdup("msh~1.0#>"));
+	if (ps1 == PRIO_USER)
+		return (ft_strdup("msh~1.0$>"));
+	return (NULL);
+}
+
+char	**ft_readline(char ps1)
 {
 	char	*line;
 	int		i;
 	char	**splitted;
 
 	i = 0;
-	line = readline("minishell-> ");
+	line = readline(prompt(ps1));
+	if (!line)
+		exit (1);
+	else if (!*line)
+		return (ft_readline(PRIO_USER));
 	while (line && line[i] && ft_isprint(line[i]))
 		i++;
 	if (!line || !line[i])
@@ -34,21 +47,20 @@ char	**ft_readline(void)
 	return (free(line), NULL);
 }
 
-void	ft_call_shell(void)
+void	ft_call_shell(char ps1)
 {
 	char	**splitted;
 	t_list	*root;
 
-	splitted = ft_readline();
 	while (1)
 	{
+		splitted = ft_readline(ps1);
 		if (splitted && *splitted)
 		{
 			root = ft_create_list_for_tockens(splitted);
 			free (splitted);
 			root = ft_create_astree(root);
-			print_tree(root);
+			//print_tree(root);
 		}
-		splitted = ft_readline();
 	}
 }

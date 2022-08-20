@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:39:48 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/13 15:08:28 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:48:50 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ char	*ft_repair_string(char *old_line)
 	j = 0;
 	count = ft_count_special_characters(old_line);
 	if (!ft_count_special_characters(old_line))
-		return (NULL);
-	new_line = malloc(sizeof(char) * strlen(old_line) + (count * 2) + 1);
+		return (old_line);
+	new_line = malloc(sizeof(char) * ft_strlen(old_line) + (count * 2) + 1);
 	if (!new_line)
 		return (NULL);
 	while (old_line[i])
