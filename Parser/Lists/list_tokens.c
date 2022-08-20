@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/19 06:42:20 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/20 19:40:53 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	ft_get_type(t_str tocken)
 	if (!ft_memcmp(tocken, ">>", 3))
 		return (HEREDOC);
 	if (!ft_memcmp(tocken, "<<", 3))
-		return (PLUSDOC);
+		return (APNDDOC);
 	else
 		return ('w');
 }

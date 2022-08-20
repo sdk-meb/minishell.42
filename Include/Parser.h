@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/19 06:41:04 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/20 19:44:48 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@
 
 # define SUCCESS	0
 # define FAILURE	1
-# define HEREDOC	0x33
-# define PLUSDOC	0xEE
+
 
 // Used structs :
 
@@ -46,6 +45,8 @@ typedef struct s_list
 	char			*token;
 	char			type;
 	int			fd[2];
+	bool		err;
+	int			arg;
 	struct s_list	*next;
 	struct s_list	*prev;
 	struct s_list	*left;

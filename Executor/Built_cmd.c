@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 11:05:43 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/20 11:10:00 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,10 @@ void	cd(t_path path)
 		return ;
 	if (chdir(path))
 		ft_err(ft_strdup(path), ERRMSG);
+}
+
+bool	bult_c(t_cmd cmd)
+{
+	(void)cmd;
+	return 0;
 }

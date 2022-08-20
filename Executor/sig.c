@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 11:56:56 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/20 11:54:53 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 void	sa_sig(int sig, siginfo_t *info, void *parm)
 {
 	(void)parm;
-	if (sig == SIGCHLD)
-		waitpid(info->si_pid, NULL, 0);
+	(void)info;
 	c_delete(TEMPORARY, EMPTY);
 	// system("leaks minishell");
 	if (sig == SIGINT)

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/18 08:15:22 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/20 18:58:22 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*get_env_t(char *str, int *len)
 		(*len)++;
 	}
 	env[i] = '\0';
-	new = getenv(env);
+	new = _get_env(env);
 	return (free(env), new);
 }
 
