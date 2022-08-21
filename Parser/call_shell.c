@@ -6,13 +6,13 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/21 12:08:11 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:27:52 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-static char*	prompt(char ps1)
+static char	*prompt(char ps1)
 {
 	if (!ft_memcmp(_get_env("USER"), "ROOT", 5))
 		return (ft_strdup("msh~1.0#>"));
@@ -21,7 +21,7 @@ static char*	prompt(char ps1)
 	return (NULL);
 }
 
-char	**ft_readline(char 	ps1)
+char	**ft_readline(char ps1)
 {
 	char	*line;
 	int		i;
@@ -45,7 +45,7 @@ char	**ft_readline(char 	ps1)
 	return (free(line), NULL);
 }
 
-void	ft_call_shell(char 	ps1)
+void	ft_call_shell(char ps1)
 {
 	char	**splitted;
 	t_list	*root;
@@ -59,7 +59,6 @@ void	ft_call_shell(char 	ps1)
 			free (splitted);
 			root = ft_create_astree(root);
 			//print_tree(root);
-			sh_exec(root);
 		}
 	}
 }

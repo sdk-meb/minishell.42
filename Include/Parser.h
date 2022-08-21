@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/21 10:24:16 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:17:57 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 
 // Used structs :
-
 
 typedef struct s_env
 {
@@ -65,7 +64,7 @@ char	*ft_repair_string(char *old_line);
 
 // 2 // branch_line
 
-char	**ft_branch_line(char *line, char c);
+//char	**ft_branch_line(char *line, char c);
 int		ft_check_chars(char c, char *set);
 int		ft_get_next_quote(int i, char *line);
 int		ft_calculate_words(char *line, char c);
@@ -78,18 +77,22 @@ t_list	*return_first_node(t_list *lst);
 t_list	*ft_pipe_case(t_list *head);
 t_list	*ft_create_astree(t_list *head);
 char	**ft_readline(char ps1);
-void	ft_call_shell(char 	ps1);
+void	ft_call_shell(char ps1);
 bool	quotes_are_closed(char *line);
 int		ft_check_line(char *line);
 
 // Expandation files :
 
-int		check_if_single_quotes(char *str, int i);
-char	*get_env(char *str, int *len);
-char	*get_env_t(char *str, int *len);
 void	copy_env(char *env, char *new_str, int *j);
 void	skip_quote(char *str, int *i);
 void	copy(char *new_str, char *str);
+char	*ft_get_env(char *str, int *i);
+int		count_dq_case(char *str, int *i);
+int		count_sq_case(char *str, int *i);
+int		count_size(char *str);
+void	ft_copy_sq_case(char *str, char *new, int *i, int *j);
+void	ft_copy_dq_case(char *str, char *new, int *i, int *j);
+char	*ft_copy(char *str, char *new_str);
 char	*ft_expand(char *str);
 
 // [C] Execution files :
@@ -114,8 +117,6 @@ int		ft_isprint(int c);
 // FILE 4 //
 
 char	**ft_split(char const *s, char c);
-int		ft_wordscounter(char const *s, char c);
-char	*ft_write_words(char const *s, char c);
 
 // [E] //
 
@@ -134,5 +135,10 @@ int		ft_lstsize(t_list *lst);
 void	ft_lstadd_back_doubly(t_list **lst, t_list *new);
 t_list	*ft_new_token(char *string);
 t_list	*ft_create_list_for_tockens(char **splitted);
+
+int			ft_get_next_quote(int i, char *line);
+int			ft_wordscounter(char *s, char c);
+char		*ft_write_words(char *s, char c);
+char		**ft_branch_line(char *s, char c);
 
 #endif

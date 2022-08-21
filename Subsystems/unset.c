@@ -6,14 +6,14 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/21 10:41:29 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:37:25 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Include/minishell.h"
+#include "../Include/minishell.h"
 
-void    unset(t_cmd cmd)
+void	unset(t_cmd cmd)
 {
-    (void)cmd;
-    return ;
+	(void)cmd;
+	return ;
 }

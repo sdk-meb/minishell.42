@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 19:40:53 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:23:29 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_lstadd_back_doubly(t_list **lst, t_list *new)
 	}
 }
 
-char	ft_get_type(t_str tocken)
+char	ft_get_type(char *tocken)
 {
 	if (!ft_memcmp(tocken, "|", 2))
 		return ('|');

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 22:05:20 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/18 07:37:32 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:21:15 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ int	ft_check_consecutive_pipes_redirections(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '|')
+		if (str[i] == '|' || ft_is_redirection(str[i]))
 		{
 			while (str[++i] == ' ')
 				i++;
-			if (str[i] == '|')
+			if (str[i] == '|' || ft_is_redirection(str[i]))
 				return (FAILURE);
 		}
 		if (ft_is_redirection(str[i]) && ft_is_redirection(str[i + 1]))
