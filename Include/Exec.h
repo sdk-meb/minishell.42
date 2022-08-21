@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/20 21:33:15 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:07:42 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,18 @@
 
 void pipe_x(t_cmd fd_read, t_req ord);
 
+/* read form , write in */
+void	rf_wi(t_cmd cmd);
+
 void	ft_err(t_str str, t_req ord);
 
 bool	bult_c(t_cmd cmd);
+
+/* It allows to execute of a binary file to Overlay
+ by a child process and not bother the parent,
+ also it also duplicates output to the destination
+ and input from upstream) */
+void	fork_exec(t_cmd cmd,void (*bin)(t_cmd));
 
 void	signal_handler();
 void	sh_exec(t_cmd);

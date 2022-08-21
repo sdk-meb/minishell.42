@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 12:45:59 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/20 21:38:54 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:48:36 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void	redirection_pipe(t_cmd c_fd)
 		return ;
 }
 
-static void cmd_pipe_cmd(t_cmd c_fd)
+static void	cmd_pipe_cmd(t_cmd c_fd)
 {
-	int fds[2];
-	t_cmd fd_r;
+	int		fds[2];
+	t_cmd	fd_r;
 
 	fd_r = c_fd->right;
 	pipe(fds);
@@ -29,7 +29,7 @@ static void cmd_pipe_cmd(t_cmd c_fd)
 	if (fd_r->type == '|')
 		fd_r = fd_r->left;
 	(fd_r)->fd[STDIN_FILENO] = fds[STDIN_FILENO];
-	return;
+	return ;
 }
 
 void	pipe_x(t_cmd c_fd, t_req ord)

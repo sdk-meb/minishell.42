@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/20 15:16:13 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 11:54:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void    *_get_env(t_str var)
     return (ft_substr(env[i], len + 1, ft_strlen(env[i]) - len));
 }
 
-void    env()
+void    env(t_cmd cmd)
 {
     int i;
     char **env;
 
+    (void)cmd;
     i = 0;
     env = my_env(NULL, _GET);
     while (env[i])

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/17 13:34:15 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:29:55 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ static int get_next_sort(const char **env)
     return (arr[0]);
 }
 
-void    ex_port()
+static void    ex_port(t_cmd cmd)
 {
     char    **env;
     int     i;
     t_ptr   ptr;
 
+    (void)cmd;
     env = my_env(NULL, _GET);
     while (1)
     {
@@ -78,4 +79,15 @@ void    ex_port()
         ft_substr(env[i], 0, ft_strlen(env[i]) - ft_strlen(ptr) + 1), ptr + 1);
         sleep(1);
     }
+}
+
+void    export(t_cmd cmd)
+{
+    int i;
+
+    i = 0;
+    while (cmd->arv[++i])
+        set_env(cmd->arv[i]);
+    if (!cmd->arv[1])
+        fork_exec(cmd, ex_port);
 }

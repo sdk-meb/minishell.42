@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 19:44:48 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 10:24:16 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ typedef struct s_list
 {
 	char			*token;
 	char			type;
-	int			fd[2];
-	bool		err;
-	int			arg;
 	struct s_list	*next;
 	struct s_list	*prev;
 	struct s_list	*left;
 	struct s_list	*right;
+	int			fd[2];
+	bool		err;
+	int			arc;
+	char		*arv[];
 }	t_list;
 
 // [A] Tockenization files :
