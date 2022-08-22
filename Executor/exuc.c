@@ -6,39 +6,35 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 01:49:15 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 10:53:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-static void	cmd_path(t_cmd cmd)
+static void	cmd_path(t_cmd cmd, t_head pathname)
 {
-	t_cmd	mngr;
-	t_head	pathname;
-	pid_t	i;
+	struct stat	buf;
+	pid_t		i;
 
-	errno = 0;
-	mngr = cmd;
-	while (mngr->type != 'w')
-		mngr = mngr->next;
-	pathname = (t_head)ft_split(_get_env("PATH"), ':');
-	i = 0;
+	i = errno;
 	while (pathname && pathname[++i] && errno)
 	{
+		errno = 0;
+		buf.st_mode = 0;
 		pathname[i] = ft_strjoin(pathname[i], "/");
-		pathname[i] = ft_strjoin(pathname[i], mngr->token);
-		access(pathname[i], X_OK | F_OK);
-		if (!errno)
-			opendir(pathname[i]);
+		pathname[i] = ft_strjoin(pathname[i], cmd->cm->arv[0]);
+		access(pathname[i], F_OK | X_OK);
+		if (errno == SUCCESS)
+			lstat(pathname[i], &buf);
+		if (S_ISREG(buf.st_mode) == true)
+			break ;
+		errno = 1;
 	}
 	if (errno)
-	{
-		errno = 108;
-		ft_err(ft_strjoin("msh: command not found: ", mngr->token));
-	}
+		ft_err(ft_strjoin("msh: command not found: ", cmd->cm->arv[0]), 108);
 	else
-		cmd->cm->arv[0] = pathname[i]; 
+		cmd->cm->arv[0] = pathname[i];
 }
 
 static void	plea_arguments_value(t_cmd cmd)
@@ -63,10 +59,15 @@ static void	plea_arguments_value(t_cmd cmd)
 
 static void	exec_bin(t_cmd cmd)
 {
-	printf("_________%s__11111________\n",cmd->cm->arv[0]);
-	cmd_path(cmd);
-	printf("_________%s____333333______\n",cmd->cm->arv[0]);
+	errno = -1;
+	if (ft_memcmp(cmd->cm->arv[0], "./", 2) == SUCCESS ||
+		cmd->cm->arv[0][0] == '/')
+		errno = -1;
+	else
+		cmd_path(cmd, (t_head)ft_split(_get_env("PATH"), ':'));
 	execve(cmd->cm->arv[0], cmd->cm->arv, my_env(NULL, _GET));
+	if (ft_memcmp(cmd->cm->arv[0], "./", 2) && cmd->cm->arv[0][0] != '/')
+		errno = 0;
 }
 
 

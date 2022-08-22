@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 01:19:15 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 10:48:42 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ static void	cd(t_cmd cmd)
 {
 	errno = 0;
 	chdir(cmd->cm->arv[1]);
-	if (errno)
-		ft_err(cmd->cm->arv[1]);
+	ft_err(cmd->cm->arv[1], errno);
 }
 
 bool	bult_c(t_cmd cmd)
@@ -63,8 +62,6 @@ bool	bult_c(t_cmd cmd)
 	t_cmd	mngr;
 
 	mngr = cmd;
-	if (!mngr)
-		return (FAILURE);
 	if (ft_memcmp(mngr->cm->arv[0], "echo", 5) == SUCCESS)
 		return (echo(cmd), SUCCESS);
 	else if (ft_memcmp(mngr->cm->arv[0], "cd", 3) == SUCCESS)
@@ -75,6 +72,12 @@ bool	bult_c(t_cmd cmd)
 		return (env(cmd), SUCCESS);
 	else if (ft_memcmp(mngr->cm->arv[0], "unset", 4) == SUCCESS)
 		return (unset(cmd), SUCCESS);
+	else if (ft_memcmp(mngr->cm->arv[0], "exit", 5) == SUCCESS)
+	{
+		if (mngr->cm->arc == 2)
+			exit (ft_atoi(mngr->cm->arv[1]));
+		return (ft_err("msh: exit: too many arguments", 109), SUCCESS);
+	}
 	else if (ft_memcmp(mngr->cm->arv[0], "export", 4) == SUCCESS)
 		return (export(cmd), SUCCESS);
 	return (FAILURE);

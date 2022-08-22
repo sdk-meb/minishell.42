@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 01:18:03 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 09:33:59 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # include <dirent.h>
 # include <fcntl.h>
+
+#include <sys/stat.h>
 
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -53,7 +55,7 @@ void pipe_x(t_cmd fd_read);
 /* read form , write in */
 void	rf_wi(t_cmd cmd);
 
-void	ft_err(t_str str);
+void	ft_err(t_str str, int erno);
 
 bool	bult_c(t_cmd cmd);
 

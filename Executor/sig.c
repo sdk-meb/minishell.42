@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 01:30:56 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 10:31:10 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 		dup2(cmd->cm->fds[STDIN_FILENO], STDIN_FILENO);
 		dup2(cmd->cm->fds[STDOUT_FILENO], STDOUT_FILENO);
 		bin(cmd);
+		ft_err(NULL, errno);
 		exit(errno);
 	}
 	if (cmd->cm->fds[STDIN_FILENO] != STDIN_FILENO)
@@ -33,10 +34,7 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 	if (cmd->cm->fds[STDOUT_FILENO] != STDOUT_FILENO)
 		close(cmd->cm->fds[STDOUT_FILENO]);
 	if (id == RUSAGE_CHILDREN)
-	{
-		ft_err(NULL);
-		fork_exec(cmd, bin);
-	}
+		ft_err(NULL, errno);
 	waitpid(id, 0, 0);
 }
 
@@ -66,7 +64,7 @@ void	signal_handler(void)
 	sigemptyset(&(act.sa_mask));
 	sigaddset(&(act.sa_mask), SA_SIGINFO);
 	act.sa_sigaction = sa_sig;
-	sigaction(SIGINT, &act, &oact);
 	signal(SIGQUIT, SIG_IGN);
+	sigaction(SIGINT, &act, &oact);
 //	sigaction(SIGCHLD, &act, &oact);
 }
