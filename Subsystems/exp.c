@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/21 13:36:48 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 00:14:00 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static void	ex_port(t_cmd cmd)
 		printf("declare -x %s\"%s\"\n",
 			ft_substr(env[i], 0, ft_strlen(env[i]) - ft_strlen(ptr) + 1),
 			ptr + 1);
-		sleep(1);
 	}
 }
 
@@ -86,8 +85,8 @@ void	export(t_cmd cmd)
 	int	i;
 
 	i = 0;
-	while (cmd->arv[++i])
-		set_env(cmd->arv[i]);
-	if (!cmd->arv[1])
+	while (cmd->cm->arv[++i])
+		set_env(cmd->cm->arv[i]);
+	if (!cmd->cm->arv[1])
 		fork_exec(cmd, ex_port);
 }

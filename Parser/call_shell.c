@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/21 13:27:52 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 14:16:16 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_call_shell(char ps1)
 			root = ft_create_list_for_tockens(splitted);
 			free (splitted);
 			root = ft_create_astree(root);
-			//print_tree(root);
+			sh_exec(root);
 		}
 	}
 }

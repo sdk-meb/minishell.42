@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types__.h                                          :+:      :+:    :+:   */
+/*   mtypes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:01:43 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 11:40:36 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 01:18:46 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ typedef struct s_list	*t_cmd;		/* command tree */
 typedef short t_req;				/*  work request */
 
 /*   specific work request  */
-#define ERRMSG 0					/* add message to error name   */
-#define STRERR 1					/* sufficiency with error name */
 #define ERRON STRERR
 #define _RETURN 0
 

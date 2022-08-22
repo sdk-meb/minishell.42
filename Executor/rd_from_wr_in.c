@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/21 12:52:56 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 01:21:44 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ static void	hd_out_of(t_cmd cmd)
 	t_cmd	mngr;
 	int		fd[2];
 
-	mngr = cmd->next;
-	close(mngr->fd[STDIN_FILENO]);
+	mngr = cmd;
+	if (mngr->cm->fds[STDIN_FILENO] != STDIN_FILENO)
+		close(mngr->cm->fds[STDIN_FILENO]);
 	pipe(fd);
-	mngr->fd[STDIN_FILENO] = fd[STDIN_FILENO];
+	ft_err(NULL);
+	mngr->cm->fds[STDIN_FILENO] = fd[STDIN_FILENO];
 	write(fd[STDOUT_FILENO], mngr->token, sizeof(mngr->token));
-	close(mngr->fd[STDIN_FILENO]);
+	close(mngr->cm->fds[STDOUT_FILENO]);
+	ft_err(NULL);
 	cmd = cmd->next;
+	cmd->type = 'H';
 }
 
 static void	rd_out_of(t_cmd cmd)
@@ -31,9 +35,12 @@ static void	rd_out_of(t_cmd cmd)
 	t_cmd	mngr;
 
 	mngr = cmd->next;
-	close(mngr->fd[STDIN_FILENO]);
-	mngr->fd[STDIN_FILENO] = open(mngr->token, O_RDONLY);
+	if (mngr->cm->fds[STDIN_FILENO] != STDIN_FILENO)
+		close(mngr->cm->fds[STDIN_FILENO]);
+	mngr->cm->fds[STDIN_FILENO] = open(mngr->token, O_RDONLY);
+	ft_err(mngr->token);
 	cmd = cmd->next;
+	cmd->type = 'F';
 }
 
 static void	insert_doc(t_cmd cmd)
@@ -41,10 +48,12 @@ static void	insert_doc(t_cmd cmd)
 	t_cmd	mngr;
 
 	mngr = cmd->next;
-	close(mngr->fd[STDOUT_FILENO]);
-	mngr->fd[STDOUT_FILENO] = open(mngr->token, O_WRONLY | O_CREAT | O_APPEND,
-			0744);
+	if (mngr->cm->fds[STDOUT_FILENO] != STDOUT_FILENO)
+		close(mngr->cm->fds[STDOUT_FILENO]);
+	mngr->cm->fds[STDOUT_FILENO] = open(mngr->token, O_WRONLY |
+			O_CREAT | O_APPEND, 0744);
 	cmd = cmd->next;
+	cmd->type = 'F';
 }
 
 static void	insert_file(t_cmd cmd)
@@ -52,10 +61,13 @@ static void	insert_file(t_cmd cmd)
 	t_cmd	mngr;
 
 	mngr = cmd->next;
-	close(mngr->fd[STDOUT_FILENO]);
-	mngr->fd[STDOUT_FILENO] = open(mngr->token, O_WRONLY | O_CREAT | O_ACCMODE,
-			0744);
+	if (mngr->cm->fds[STDOUT_FILENO] != STDOUT_FILENO)
+		close(mngr->cm->fds[STDOUT_FILENO]);
+	mngr->cm->fds[STDOUT_FILENO] = open(mngr->token, O_WRONLY |
+			O_CREAT | O_ACCMODE, 0744);
+	ft_err(mngr->token);
 	cmd = cmd->next;
+	cmd->type = 'F';
 }
 
 void	rf_wi(t_cmd cmd)
@@ -63,7 +75,6 @@ void	rf_wi(t_cmd cmd)
 	t_cmd	mngr;
 
 	mngr = cmd;
-	pipe_x(cmd, 'R');
 	while (mngr)
 	{
 		if (mngr->type == HEREDOC)
@@ -75,7 +86,7 @@ void	rf_wi(t_cmd cmd)
 		else if (mngr->type == '>')
 			insert_file(mngr);
 		else
-			mngr->type = CMIN;/* command and argument */
+			cmd->cm->arc++;
 		mngr = mngr->next;
 	}
 }

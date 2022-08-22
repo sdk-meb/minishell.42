@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/21 13:17:57 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 22:52:28 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@
 
 // Used structs :
 
+typedef struct s_common_addr_for_command
+{
+	int				fds[2];
+	bool			err;
+	int				arc;
+	char			**arv;
+}				t_common_addr;
+
 typedef struct s_env
 {
 	char			*name;
@@ -43,14 +51,13 @@ typedef struct s_list
 {
 	char			*token;
 	char			type;
+
 	struct s_list	*next;
 	struct s_list	*prev;
 	struct s_list	*left;
 	struct s_list	*right;
-	int			fd[2];
-	bool		err;
-	int			arc;
-	char		*arv[];
+
+	t_common_addr	*cm;
 }	t_list;
 
 // [A] Tockenization files :

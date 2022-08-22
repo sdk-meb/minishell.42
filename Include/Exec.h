@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/21 13:17:08 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 01:18:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@
 
 /* __________________________________  */
 
-void pipe_x(t_cmd fd_read, t_req ord);
+void pipe_x(t_cmd fd_read);
 
 /* read form , write in */
 void	rf_wi(t_cmd cmd);
 
-void	ft_err(t_str str, t_req ord);
+void	ft_err(t_str str);
 
 bool	bult_c(t_cmd cmd);
 
