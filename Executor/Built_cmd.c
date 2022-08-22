@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 10:48:42 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 13:00:18 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	pwd(t_cmd cmd)
 {
 	char	*pathname;
 
-	pathname = (char *)new_heap(PATH_MAX, TEMPORARY, 1);
+	pathname = (char *)ft_calloc(PATH_MAX,1);//new_heap(PATH_MAX, TEMPORARY, 1);
 	getcwd(pathname, PATH_MAX);
 	write(cmd->cm->fds[STDOUT_FILENO], pathname, ft_strlen(pathname));
 	write(cmd->cm->fds[STDOUT_FILENO], "\n", 1);
@@ -64,21 +64,22 @@ bool	bult_c(t_cmd cmd)
 	mngr = cmd;
 	if (ft_memcmp(mngr->cm->arv[0], "echo", 5) == SUCCESS)
 		return (echo(cmd), SUCCESS);
-	else if (ft_memcmp(mngr->cm->arv[0], "cd", 3) == SUCCESS)
+	if (ft_memcmp(mngr->cm->arv[0], "cd", 3) == SUCCESS)
 		return (cd(cmd), SUCCESS);
-	else if (ft_memcmp(mngr->cm->arv[0], "pwd", 4) == SUCCESS)
+	if (ft_memcmp(mngr->cm->arv[0], "pwd", 4) == SUCCESS)
 		return (pwd(cmd), SUCCESS);
-	else if (ft_memcmp(mngr->cm->arv[0], "env", 4) == SUCCESS)
+	if (ft_memcmp(mngr->cm->arv[0], "env", 4) == SUCCESS)
 		return (env(cmd), SUCCESS);
-	else if (ft_memcmp(mngr->cm->arv[0], "unset", 4) == SUCCESS)
+	if (ft_memcmp(mngr->cm->arv[0], "unset", 4) == SUCCESS)
 		return (unset(cmd), SUCCESS);
-	else if (ft_memcmp(mngr->cm->arv[0], "exit", 5) == SUCCESS)
+	if (ft_memcmp(mngr->cm->arv[0], "exit", 5) == SUCCESS)
 	{
 		if (mngr->cm->arc == 2)
 			exit (ft_atoi(mngr->cm->arv[1]));
 		return (ft_err("msh: exit: too many arguments", 109), SUCCESS);
 	}
-	else if (ft_memcmp(mngr->cm->arv[0], "export", 4) == SUCCESS)
+	if (ft_memcmp(mngr->cm->arv[0], "export", 4) == SUCCESS)
 		return (export(cmd), SUCCESS);
+	
 	return (FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 10:53:03 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 14:34:02 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void	plea_arguments_value(t_cmd cmd)
 	mngr = cmd;
 	if (!mngr)
 		return ;
-	mngr->cm->arv = (char **) ft_calloc(sizeof(mngr->cm->arv) ,
+	
+	cmd->cm->arv = (char **) ft_calloc(sizeof(mngr->cm->arv) ,
 			cmd->cm->arc + 1);
 	ac = 0;
 	cmd->cm->arv[cmd->cm->arc] = NULL;
@@ -59,7 +60,7 @@ static void	plea_arguments_value(t_cmd cmd)
 
 static void	exec_bin(t_cmd cmd)
 {
-	errno = -1;
+	errno = -1; 
 	if (ft_memcmp(cmd->cm->arv[0], "./", 2) == SUCCESS ||
 		cmd->cm->arv[0][0] == '/')
 		errno = -1;
@@ -70,31 +71,26 @@ static void	exec_bin(t_cmd cmd)
 		errno = 0;
 }
 
-
 static void	common_addr(t_cmd cmd)
 {
-	t_cmd	mn_cmd;
-	t_cmd	mn_cmds;
+	t_cmd			mn_cmd;
+	t_common_addr	*cm;
 
-	mn_cmds = cmd;
-	while (mn_cmds)
+	mn_cmd = cmd;
+	if (!cmd)
+		return ;
+	if (mn_cmd->type == '|')
+		mn_cmd = cmd->left;
+	cm = (t_common_addr *) ft_calloc(sizeof(cm), 1);
+	cm->fds[STDIN_FILENO] = STDIN_FILENO;
+	cm->fds[STDOUT_FILENO] = STDOUT_FILENO;
+	cm->arv = NULL;
+	while (mn_cmd)
 	{
-		mn_cmd = mn_cmds;
-		if (mn_cmds->type == '|')
-			mn_cmd = mn_cmds->left;
-		mn_cmds->cm = (t_common_addr *) malloc(sizeof(mn_cmds->cm));
-		while (mn_cmd)
-		{
-			mn_cmd->cm = mn_cmds->cm;
-			mn_cmd = mn_cmd->next;
-		}
-		mn_cmds->cm->fds[STDIN_FILENO] = STDIN_FILENO;
-		mn_cmds->cm->fds[STDOUT_FILENO] = STDOUT_FILENO;
-		mn_cmds->cm->arv = NULL;
-		mn_cmds->cm->arc = 0;
-		mn_cmds->cm->err = 0;
-		mn_cmds = cmd->right;
+		mn_cmd->cm = cm;
+		mn_cmd = mn_cmd->next;
 	}
+	common_addr(cmd->right);
 }
 
 void	sh_exec(t_cmd cmd)
@@ -114,6 +110,7 @@ void	sh_exec(t_cmd cmd)
 	}
 	rf_wi(cmd);
 	plea_arguments_value(cmd);
+	return ;
 	if (bult_c(cmd))
 		fork_exec(cmd, exec_bin);
 }

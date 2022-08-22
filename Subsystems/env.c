@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/21 13:32:36 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 13:01:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	env_proc(char **env, t_str var, t_req ord)
 		i++;
 	if (ord == _ADD)
 	{
-		env = new_heap(sizeof(env) * (++i + 1), APPROVED, 1);
+		env = ft_calloc(sizeof(env) + 1, 1);//new_heap(sizeof(env) * (++i + 1), APPROVED, 1);
 		env[i] = NULL;
 		env[--i] = ft_strdup(var);
 	}

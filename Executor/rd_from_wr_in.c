@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 09:39:29 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 14:31:54 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,10 @@ static void	hd_out_of(t_cmd cmd)
 	if (mngr->cm->fds[STDIN_FILENO] != STDIN_FILENO)
 		close(mngr->cm->fds[STDIN_FILENO]);
 	pipe(fd);
-	ft_err(NULL, errno);
 	mngr->cm->fds[STDIN_FILENO] = fd[STDIN_FILENO];
 	write(fd[STDOUT_FILENO], mngr->token, sizeof(mngr->token));
 	close(mngr->cm->fds[STDOUT_FILENO]);
-	ft_err(NULL, errno);
-	cmd = cmd->next;
-	cmd->type = 'H';
+	cmd->next->type = 'H';
 }
 
 static void	rd_out_of(t_cmd cmd)
@@ -39,8 +36,7 @@ static void	rd_out_of(t_cmd cmd)
 		close(mngr->cm->fds[STDIN_FILENO]);
 	mngr->cm->fds[STDIN_FILENO] = open(mngr->token, O_RDONLY);
 	ft_err(mngr->token, errno);
-	cmd = cmd->next;
-	cmd->type = 'F';
+	cmd->next->type = 'F';
 }
 
 static void	insert_doc(t_cmd cmd)
@@ -51,9 +47,8 @@ static void	insert_doc(t_cmd cmd)
 	if (mngr->cm->fds[STDOUT_FILENO] != STDOUT_FILENO)
 		close(mngr->cm->fds[STDOUT_FILENO]);
 	mngr->cm->fds[STDOUT_FILENO] = open(mngr->token, O_WRONLY |
-			O_CREAT | O_APPEND, 0744);
-	cmd = cmd->next;
-	cmd->type = 'F';
+			O_CREAT | O_APPEND, 0644);
+	cmd->next->type = 'F';
 }
 
 static void	insert_file(t_cmd cmd)
@@ -64,10 +59,8 @@ static void	insert_file(t_cmd cmd)
 	if (mngr->cm->fds[STDOUT_FILENO] != STDOUT_FILENO)
 		close(mngr->cm->fds[STDOUT_FILENO]);
 	mngr->cm->fds[STDOUT_FILENO] = open(mngr->token, O_WRONLY |
-			O_CREAT | O_ACCMODE, 0744);
-	ft_err(mngr->token, errno);
-	cmd = cmd->next;
-	cmd->type = 'F';
+			O_TRUNC | O_CREAT, 0644);
+	cmd->next->type = 'F';
 }
 
 void	rf_wi(t_cmd cmd)
@@ -75,6 +68,7 @@ void	rf_wi(t_cmd cmd)
 	t_cmd	mngr;
 
 	mngr = cmd;
+	cmd->cm->arc = 0;
 	while (mngr)
 	{
 		if (mngr->type == HEREDOC)
@@ -85,7 +79,7 @@ void	rf_wi(t_cmd cmd)
 			insert_doc(mngr);
 		else if (mngr->type == '>')
 			insert_file(mngr);
-		else
+		else if (mngr->type == 'w')
 			cmd->cm->arc++;
 		mngr = mngr->next;
 	}

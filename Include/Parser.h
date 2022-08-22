@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/21 22:52:28 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 12:37:41 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 // Used structs :
 
-typedef struct s_common_addr_for_command
+typedef struct s_common_core
 {
 	int				fds[2];
 	bool			err;
