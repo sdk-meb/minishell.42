@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 13:00:18 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 20:54:19 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	pwd(t_cmd cmd)
 {
 	char	*pathname;
 
-	pathname = (char *)ft_calloc(PATH_MAX,1);//new_heap(PATH_MAX, TEMPORARY, 1);
+	pathname = (char *)ft_calloc(PATH_MAX,1);
 	getcwd(pathname, PATH_MAX);
 	write(cmd->cm->fds[STDOUT_FILENO], pathname, ft_strlen(pathname));
 	write(cmd->cm->fds[STDOUT_FILENO], "\n", 1);

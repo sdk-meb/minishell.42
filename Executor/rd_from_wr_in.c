@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 14:31:54 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 21:09:21 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	hd_out_of(t_cmd cmd)
 	mngr->cm->fds[STDIN_FILENO] = fd[STDIN_FILENO];
 	write(fd[STDOUT_FILENO], mngr->token, sizeof(mngr->token));
 	close(mngr->cm->fds[STDOUT_FILENO]);
-	cmd->next->type = 'H';
 }
 
 static void	rd_out_of(t_cmd cmd)

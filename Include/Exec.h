@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 09:33:59 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 21:09:29 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 
 /* __________________________________  */
 
-# define HEREDOC	0x33/* << redirection */
+# define HEREDOC	'H'/* << redirection */
 # define APNDDOC	0x2E/* >> redirection  : append document */
 
 /* __________________________________  */

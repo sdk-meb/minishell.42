@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:31:10 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 11:07:50 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 14:56:07 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_minishell()
 {
+	errno = 0;
 	ft_call_shell(PRIO_USER);
 }
 

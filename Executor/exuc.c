@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 14:34:02 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/22 23:22:31 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,28 @@ static void	cmd_path(t_cmd cmd, t_head pathname)
 	else
 		cmd->cm->arv[0] = pathname[i];
 }
-
+ 
 static void	plea_arguments_value(t_cmd cmd)
 {
 	t_cmd	mngr;
 	int		ac;
+	char	*av;
 
 	mngr = cmd;
 	if (!mngr)
 		return ;
-	
-	cmd->cm->arv = (char **) ft_calloc(sizeof(mngr->cm->arv) ,
-			cmd->cm->arc + 1);
+	av = "";
 	ac = 0;
-	cmd->cm->arv[cmd->cm->arc] = NULL;
-	while (mngr && ac < cmd->cm->arc)
+	while (mngr)
 	{
 		if (mngr->type == 'w')
-			cmd->cm->arv[ac++] = mngr->token;
+		{
+			av = ft_strjoin(av, mngr->token);
+			av = ft_strjoin(av, "\03");
+		}
 		mngr = mngr->next;
 	}
+	cmd->cm->arv = (char **)ft_split(av, '\03');
 }
 
 static void	exec_bin(t_cmd cmd)
@@ -110,7 +112,6 @@ void	sh_exec(t_cmd cmd)
 	}
 	rf_wi(cmd);
 	plea_arguments_value(cmd);
-	return ;
 	if (bult_c(cmd))
 		fork_exec(cmd, exec_bin);
 }
