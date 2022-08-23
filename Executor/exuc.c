@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 12:41:48 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 13:54:43 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	exec_bin(t_cmd cmd)
 	if (ft_memcmp(cmd->arv[0], "./", 2) == SUCCESS || cmd->arv[0][0] == '/')
 		errno = -1;
 	else
-		cmd_path(cmd, (t_head)ft_split(get_env("PATH"), ':'));
+		cmd_path(cmd, (t_head)ft_split(_get_env("PATH"), ':'));
 	execve(cmd->arv[0], cmd->arv, NULL);
 	if (ft_memcmp(cmd->arv[0], "./", 2) && cmd->arv[0][0] != '/')
 		errno = 0;

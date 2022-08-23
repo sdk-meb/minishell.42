@@ -6,69 +6,78 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 13:43:27 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 02:40:54 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-static void	set_env(t_str var)
+void	set_env(t_str var)
 {
-	t_env	**env;
+	char	**env;
+	int		i;
+	t_ptr	ptr;
 
+	i = -1;
 	env = my_env(NULL, _GET);
-	while (*env)
+	while (env[++i])
 	{
-		if (ft_memcmp((*env)->name, var, INT32_MAX) == SUCCESS)
+		ptr = ft_strchr(env[i], '=');
+		if (!ft_memcmp(env[i], var, ft_strlen(env[i]) - ft_strlen(ptr) + 1))
 		{
-			(*env)->content = ft_strdup(var);
+			free(env[i]);
+			env[i] = ft_substr(var, 0, ft_strlen(var));
 			return ;
 		}
 	}
-	env_proc(NULL, var);
+	env_proc(env, var, _ADD);
 }
 
-static t_env	*get_next_sort(t_env *env)
+static int	get_next_sort(const char **env)
 {
-	t_env		*temp1;
-	t_env		*temp2;
+	static char	*asc;
+	int			arr[2];
 
-	temp1 = env;
-	temp2 = env;
-	while (temp1)
+	arr[1] = -1;
+	if (!asc)
 	{
-		if (0 < ft_memcmp(temp2->name, temp1->name, INT32_MAX) && temp1->sort)
-			temp2 = temp1;
+		while (env[++arr[1]])
+			arr[0] = 0;
+		asc = (char *)ft_calloc(++arr[1] + 1, 1);
 	}
-	return (temp2);
+	arr[0] = 0;
+	while (asc[arr[0]])
+		arr[0]++;
+	arr[1] = -1;
+	while (env[++arr[1]])
+	{
+		if (!asc[arr[1]] && 0 <= ft_memcmp(env[arr[0]], env[arr[1]], INT32_MAX))
+			arr[0] = arr[1];
+	}
+	asc[arr[0]] = 1;
+	if (!env[arr[0]])
+		free((void *)asc);
+	return (arr[0]);
 }
 
 static void	ex_port(t_cmd cmd)
 {
-	t_env	**env;
-	t_env	*temp;
+	char	**env;
+	int		i;
+	t_ptr	ptr;
 
+	(void)cmd;
 	env = my_env(NULL, _GET);
-	temp = *env;
-	while (temp)
+	while (1)
 	{
-		temp = get_next_sort(*env);
-		temp->sort = 0;
-		write(cmd->out, "declare -x ", 12);
-		write(cmd->out, temp->name, INT32_MAX);
-		write(cmd->out, "=\"", 2);
-		write(cmd->out, "\"", 1);
+		i = get_next_sort((const char **)env);
+		if (!env[i])
+			break ;
+		ptr = ft_strchr(env[i], '=');
+		printf("declare -x %s\"%s\"\n",
+			ft_substr(env[i], 0, ft_strlen(env[i]) - ft_strlen(ptr) + 1),
+			ptr + 1);
 	}
-	temp = *env;
-	while (temp)
-	{
-		temp->sort = 1;
-		temp = temp->next;
-	}
-	if (cmd->out != STDOUT_FILENO)
-		close(cmd->out);
-	if (cmd->in != STDIN_FILENO)
-		close(cmd->in);
 }
 
 void	export(t_cmd cmd)
@@ -79,5 +88,5 @@ void	export(t_cmd cmd)
 	while (cmd->arv[++i])
 		set_env(cmd->arv[i]);
 	if (!cmd->arv[1])
-		ex_port(cmd);
+		fork_exec(cmd, ex_port);
 }

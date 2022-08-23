@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/23 12:31:19 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/21 14:16:16 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*prompt(char ps1)
 {
-	if (!ft_memcmp(get_env("USER"), "ROOT", 5))
+	if (!ft_memcmp(_get_env("USER"), "ROOT", 5))
 		return (ft_strdup("msh~1.0#>"));
 	if (ps1 == PRIO_USER)
 		return (ft_strdup("msh~1.0$>"));
