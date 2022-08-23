@@ -6,78 +6,80 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 02:40:54 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:19:02 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void	set_env(t_str var)
+static void	set_env(t_str var)
 {
-	char	**env;
-	int		i;
+	t_envv	**env;
+	t_envv	*envv;
 	t_ptr	ptr;
 
-	i = -1;
 	env = my_env(NULL, _GET);
-	while (env[++i])
+	envv = *env;
+	while (envv)
 	{
-		ptr = ft_strchr(env[i], '=');
-		if (!ft_memcmp(env[i], var, ft_strlen(env[i]) - ft_strlen(ptr) + 1))
+		if (ft_strncmp(envv->name, var, INT32_MAX) == SUCCESS)
 		{
-			free(env[i]);
-			env[i] = ft_substr(var, 0, ft_strlen(var));
+			if (envv->content)
+				free((void *)envv->content);
+			ptr = ft_memchr(var, '=', INT32_MAX);
+			envv->content = ft_substr(ptr, 1, INT32_MAX);
 			return ;
 		}
+		envv = envv->next;
 	}
-	env_proc(env, var, _ADD);
+	env_proc(NULL, var);
 }
 
-static int	get_next_sort(const char **env)
+static t_envv	*get_next_sort(t_envv *env)
 {
-	static char	*asc;
-	int			arr[2];
+	t_envv		*temp1;
+	t_envv		*temp2;
 
-	arr[1] = -1;
-	if (!asc)
+	temp1 = env;
+	temp2 = env;
+	while (temp1)
 	{
-		while (env[++arr[1]])
-			arr[0] = 0;
-		asc = (char *)ft_calloc(++arr[1] + 1, 1);
+		if (temp1->sort && 0 < ft_strncmp(temp2->name, temp1->name, INT32_MAX))
+			temp2 = temp1;
+		temp1 = temp1->next;
 	}
-	arr[0] = 0;
-	while (asc[arr[0]])
-		arr[0]++;
-	arr[1] = -1;
-	while (env[++arr[1]])
-	{
-		if (!asc[arr[1]] && 0 <= ft_memcmp(env[arr[0]], env[arr[1]], INT32_MAX))
-			arr[0] = arr[1];
-	}
-	asc[arr[0]] = 1;
-	if (!env[arr[0]])
-		free((void *)asc);
-	return (arr[0]);
+	if (temp2->sort == false)
+		return (NULL);
+	return (temp2);
 }
 
 static void	ex_port(t_cmd cmd)
 {
-	char	**env;
-	int		i;
-	t_ptr	ptr;
+	t_envv	**env;
+	t_envv	*envv;
 
-	(void)cmd;
 	env = my_env(NULL, _GET);
-	while (1)
+	envv = get_next_sort(*env);
+	while (envv)
 	{
-		i = get_next_sort((const char **)env);
-		if (!env[i])
-			break ;
-		ptr = ft_strchr(env[i], '=');
-		printf("declare -x %s\"%s\"\n",
-			ft_substr(env[i], 0, ft_strlen(env[i]) - ft_strlen(ptr) + 1),
-			ptr + 1);
+		envv->sort = false;
+		write(cmd->out, "declare -x ", 12);
+		write(cmd->out, envv->name, ft_strlen(envv->name));
+		write(cmd->out, "=\"", 2);
+		write(cmd->out, envv->content, ft_strlen(envv->content));
+		write(cmd->out, "\"\n", 2);
+		envv = get_next_sort(*env);
 	}
+	envv = *env;
+	while (envv)
+	{
+		envv->sort = true;
+		envv = envv->next;
+	}
+	if (cmd->out != STDOUT_FILENO)
+		close(cmd->out);
+	if (cmd->in != STDIN_FILENO)
+		close(cmd->in);
 }
 
 void	export(t_cmd cmd)
@@ -85,8 +87,8 @@ void	export(t_cmd cmd)
 	int	i;
 
 	i = 0;
+	if (!cmd->arv[1])
+		return (ex_port(cmd));
 	while (cmd->arv[++i])
 		set_env(cmd->arv[i]);
-	if (!cmd->arv[1])
-		fork_exec(cmd, ex_port);
 }
