@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/21 22:52:53 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 02:46:23 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ t_list	*ft_new_token(char *string)
 	new->token = ft_expand(string);
 	new->type = ft_get_type(string);
 
-	new->cm = NULL;
+	new->in = STDIN_FILENO;
+	new->out = STDOUT_FILENO;
+	new->arv = NULL;
+	
 	new->prev = NULL;
 	new->next = NULL;
 	new->left = NULL;

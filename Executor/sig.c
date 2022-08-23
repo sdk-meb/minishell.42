@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 21:55:08 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 02:47:02 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,18 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 	{
 		errno = 0;
 		signal(SIGINT, SIG_DFL);
-		dup2(cmd->cm->fds[STDIN_FILENO], STDIN_FILENO);
-		dup2(cmd->cm->fds[STDOUT_FILENO], STDOUT_FILENO);
+		if (cmd->in != STDIN_FILENO)
+			dup2(cmd->in, STDIN_FILENO);
+		if (cmd->out != STDOUT_FILENO)
+			dup2(cmd->out, STDOUT_FILENO);
 		bin(cmd);
 		ft_err(NULL, errno);
 		exit(errno);
 	}
-	if (cmd->cm->fds[STDIN_FILENO] != STDIN_FILENO)
-	 	close(cmd->cm->fds[STDIN_FILENO]);
-	if (cmd->cm->fds[STDOUT_FILENO] != STDOUT_FILENO)
-		close(cmd->cm->fds[STDOUT_FILENO]);
+	if (cmd->in != STDIN_FILENO)
+		close(cmd->in);
+	if (cmd->out != STDOUT_FILENO)
+		close(cmd->out);
 	if (id == RUSAGE_CHILDREN)
 		ft_err(NULL, errno);
 	waitpid(id, 0, 0);

@@ -6,31 +6,30 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 12:45:59 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 10:51:50 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 02:36:04 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-static void	cmd_pipe_cmd(t_cmd c_fd)
+static void	cmd_pipe_cmd(t_cmd cmd)
 {
 	int		fds[2];
-	t_cmd	fd_r;
 
-	fd_r = c_fd->right;
-	if (c_fd->cm->fds[STDOUT_FILENO] != STDOUT_FILENO)
-		close(c_fd->cm->fds[STDOUT_FILENO]);
+	if (cmd->left->out != STDOUT_FILENO)
+		close(cmd->left->out);
+	cmd->left->out = STDOUT_FILENO;
 	pipe(fds);
 	ft_err(NULL, errno);
-	(c_fd)->left->cm->fds[STDOUT_FILENO] = fds[STDOUT_FILENO];
-	if (fd_r->type == '|')
-		fd_r = fd_r->left;
-	ft_err(NULL, errno);
-	(fd_r)->cm->fds[STDIN_FILENO] = fds[STDIN_FILENO];
+	cmd->left->out = fds[STDOUT_FILENO];
+	if (cmd->right->type == '|')
+		cmd->right->left->in = fds[STDIN_FILENO];
+	else
+		cmd->right->in = fds[STDIN_FILENO];
 }
 
-void	pipe_x(t_cmd c_fd)
+void	pipe_x(t_cmd cmd)
 {
 	errno = 0;
-	cmd_pipe_cmd(c_fd);
+	cmd_pipe_cmd(cmd);
 }

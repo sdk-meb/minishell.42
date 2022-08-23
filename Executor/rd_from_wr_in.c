@@ -6,60 +6,50 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/22 21:09:21 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 03:04:24 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-static void	hd_out_of(t_cmd cmd)
+static void	hd_out_of(t_cmd mngr, t_cmd cmd)
 {
-	t_cmd	mngr;
 	int		fd[2];
 
-	mngr = cmd;
-	if (mngr->cm->fds[STDIN_FILENO] != STDIN_FILENO)
-		close(mngr->cm->fds[STDIN_FILENO]);
+	if (cmd->in != STDIN_FILENO)
+		close(cmd->in);
 	pipe(fd);
-	mngr->cm->fds[STDIN_FILENO] = fd[STDIN_FILENO];
+	cmd->in = fd[STDIN_FILENO];
 	write(fd[STDOUT_FILENO], mngr->token, sizeof(mngr->token));
-	close(mngr->cm->fds[STDOUT_FILENO]);
+	close(cmd->out);
+	ft_err(NULL, errno);
 }
 
-static void	rd_out_of(t_cmd cmd)
+static void	rd_out_of(t_cmd mngr, t_cmd cmd)
 {
-	t_cmd	mngr;
-
-	mngr = cmd->next;
-	if (mngr->cm->fds[STDIN_FILENO] != STDIN_FILENO)
-		close(mngr->cm->fds[STDIN_FILENO]);
-	mngr->cm->fds[STDIN_FILENO] = open(mngr->token, O_RDONLY);
+	if (cmd->in != STDIN_FILENO)
+		close(cmd->in);
+	cmd->in = open(mngr->token, O_RDONLY);
 	ft_err(mngr->token, errno);
-	cmd->next->type = 'F';
+	cmd->type = 'F';
 }
 
-static void	insert_doc(t_cmd cmd)
+static void	insert_doc(t_cmd mngr, t_cmd cmd)
 {
-	t_cmd	mngr;
-
-	mngr = cmd->next;
-	if (mngr->cm->fds[STDOUT_FILENO] != STDOUT_FILENO)
-		close(mngr->cm->fds[STDOUT_FILENO]);
-	mngr->cm->fds[STDOUT_FILENO] = open(mngr->token, O_WRONLY |
+	if (cmd->out != STDOUT_FILENO)
+		close(cmd->out);
+	cmd->out = open(mngr->token, O_WRONLY |
 			O_CREAT | O_APPEND, 0644);
-	cmd->next->type = 'F';
+	cmd->type = 'F';
 }
 
-static void	insert_file(t_cmd cmd)
+static void	insert_file(t_cmd mngr, t_cmd cmd)
 {
-	t_cmd	mngr;
-
-	mngr = cmd->next;
-	if (mngr->cm->fds[STDOUT_FILENO] != STDOUT_FILENO)
-		close(mngr->cm->fds[STDOUT_FILENO]);
-	mngr->cm->fds[STDOUT_FILENO] = open(mngr->token, O_WRONLY |
+	if (cmd->out != STDOUT_FILENO)
+		close(cmd->out);
+	cmd->out = open(mngr->token, O_WRONLY |
 			O_TRUNC | O_CREAT, 0644);
-	cmd->next->type = 'F';
+	mngr->type = 'F';
 }
 
 void	rf_wi(t_cmd cmd)
@@ -67,19 +57,19 @@ void	rf_wi(t_cmd cmd)
 	t_cmd	mngr;
 
 	mngr = cmd;
-	cmd->cm->arc = 0;
+	cmd->arc = 0;
 	while (mngr)
 	{
 		if (mngr->type == HEREDOC)
-			hd_out_of(mngr);
+			hd_out_of(mngr, cmd);
 		else if (mngr->type == '<')
-			rd_out_of(mngr);
+			rd_out_of(mngr->next, cmd);
 		else if (mngr->type == O_APPEND)
-			insert_doc(mngr);
+			insert_doc(mngr->next, cmd);
 		else if (mngr->type == '>')
-			insert_file(mngr);
+			insert_file(mngr->next, cmd);
 		else if (mngr->type == 'w')
-			cmd->cm->arc++;
+			cmd->arc++;
 		mngr = mngr->next;
 	}
 }
