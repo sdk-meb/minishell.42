@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 03:04:24 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 07:47:54 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	hd_out_of(t_cmd mngr, t_cmd cmd)
 	cmd->in = fd[STDIN_FILENO];
 	write(fd[STDOUT_FILENO], mngr->token, sizeof(mngr->token));
 	close(cmd->out);
+	cmd->out = STDOUT_FILENO;
 	ft_err(NULL, errno);
 }
 
@@ -31,24 +32,24 @@ static void	rd_out_of(t_cmd mngr, t_cmd cmd)
 		close(cmd->in);
 	cmd->in = open(mngr->token, O_RDONLY);
 	ft_err(mngr->token, errno);
-	cmd->type = 'F';
+	mngr->type = 'F';
 }
 
 static void	insert_doc(t_cmd mngr, t_cmd cmd)
 {
 	if (cmd->out != STDOUT_FILENO)
 		close(cmd->out);
-	cmd->out = open(mngr->token, O_WRONLY |
-			O_CREAT | O_APPEND, 0644);
-	cmd->type = 'F';
+	cmd->out = open(mngr->token, O_WRONLY
+			| O_CREAT | O_APPEND, 0644);
+	mngr->type = 'F';
 }
 
 static void	insert_file(t_cmd mngr, t_cmd cmd)
 {
 	if (cmd->out != STDOUT_FILENO)
 		close(cmd->out);
-	cmd->out = open(mngr->token, O_WRONLY |
-			O_TRUNC | O_CREAT, 0644);
+	cmd->out = open(mngr->token, O_WRONLY
+			| O_TRUNC | O_CREAT, 0644);
 	mngr->type = 'F';
 }
 

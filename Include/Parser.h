@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/23 02:35:50 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:30:43 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@
 // Used structs :
 
 
-typedef struct s_env
-{
-	char			*name;
-	char			*content;
-	struct s_env	*next;
-}	t_env;
-
 typedef struct s_list
 {
 	char			*token;
@@ -49,7 +42,7 @@ typedef struct s_list
 	struct s_list	*prev;
 	struct s_list	*left;
 	struct s_list	*right;
-	
+
 	int				in;
 	int				out;
 	bool			err;
@@ -59,7 +52,7 @@ typedef struct s_list
 
 // [A] Tockenization files :
 
-// 1 // repair line 
+// 1 // repair line
 
 void	ft_fill_quotes(char *old_line, char *new_line, int *i, int *j);
 void	ft_add_space_spchar(char *str, char *new, int *i, int *j);
@@ -126,11 +119,11 @@ char	**ft_split(char const *s, char c);
 
 // list environnement variables :
 
-t_env	*ft_lstlast_env(t_env *lst);
-int		ft_lstsize_env(t_env *lst);
-void	ft_lstadd_back(t_env **lst, t_env *new);
-t_env	*ft_new_env(char *str);
-t_env	*ft_create_list_for_env(char **splitted);
+// t_env	*ft_lstlast_env(t_env *lst);
+// int		ft_lstsize_env(t_env *lst);
+// void	ft_lstadd_back(t_env **lst, t_env *new);
+// t_env	*ft_new_env(char *str);
+// t_env	*ft_create_list_for_env(char **splitted);
 
 // list tockens :
 

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 02:39:24 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 09:00:59 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	pwd(t_cmd cmd)
 {
 	char	*pathname;
 
-	pathname = (char *)ft_calloc(PATH_MAX,1);
+	pathname = (char *)ft_calloc(PATH_MAX, 1);
 	getcwd(pathname, PATH_MAX);
 	write(cmd->out, pathname, ft_strlen(pathname));
 	write(cmd->out, "\n", 1);
@@ -76,10 +76,9 @@ bool	bult_c(t_cmd cmd)
 	{
 		if (mngr->arc == 2)
 			exit (ft_atoi(mngr->arv[1]));
-		return (ft_err("msh: exit: too many arguments", 109), SUCCESS);
+		return (ft_err("msh: exit: too many arguments", 0), SUCCESS);
 	}
-	if (ft_memcmp(mngr->arv[0], "export", 4) == SUCCESS)
+	if (ft_memcmp(mngr->arv[0], "export", 7) == SUCCESS)
 		return (export(cmd), SUCCESS);
-	
 	return (FAILURE);
 }

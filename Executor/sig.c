@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 02:47:02 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 07:12:06 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 		close(cmd->in);
 	if (cmd->out != STDOUT_FILENO)
 		close(cmd->out);
-	if (id == RUSAGE_CHILDREN)
-		ft_err(NULL, errno);
-	waitpid(id, 0, 0);
+	ft_err(NULL, errno);
+	signal(SIGINT, SIG_IGN);
+	wait(&id);
+	signal_handler();
 }
 
 static void	sa_sig(int sig, siginfo_t *info, void *parm)
