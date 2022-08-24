@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 09:00:59 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:37:09 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static void	echo(t_cmd cmd)
 	}
 	if (new_line)
 		write(cmd->out, "\n", 1);
-	if (cmd->out != 1)
-		close(cmd->out);
+	close_fd(cmd->in, cmd->out);
 	cmd->out = 1;
+	cmd->in = 0;
 }
 
 static void	pwd(t_cmd cmd)
@@ -45,9 +45,9 @@ static void	pwd(t_cmd cmd)
 	getcwd(pathname, PATH_MAX);
 	write(cmd->out, pathname, ft_strlen(pathname));
 	write(cmd->out, "\n", 1);
-	if (cmd->out != 1)
-		close(cmd->out);
+	close_fd(cmd->in, cmd->out);
 	cmd->out = 1;
+	cmd->in = 0;
 }
 
 static void	cd(t_cmd cmd)

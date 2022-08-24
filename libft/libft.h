@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 19:30:21 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 11:41:15 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/24 00:23:11 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ typedef struct integer
 # define APPROVED	0b1000	  /* memory approved by programme */
 # define TEMPORARY	0b10000 /* temporary memory */
 
+/* *** garbage collector (^,^) ***
+dangling pointer  /?  {dangle : hold something so that it hangs loosely} */
 typedef struct s_heap
 {
-	void			*dng_ptr; /* dangling pointer */ /*  {dangle : hold something so that it hangs loosely} */
+	void			*dng_ptr;
 	struct s_heap	*extra;
-	int dangel;
-}			t_heap; /* garbage collector */
+	int				dangel;
+}			t_heap;
 
 void	*new_heap(size_t, t_req ord, int dangel);
 void	c_delete(t_req ord, int dangel);
@@ -49,6 +51,7 @@ int		ft_isprint(int c);
 char	*ft_itoa(int i);
 void	*ft_memchr(const void *s, int c, size_t len);
 int		ft_memcmp(const void *s1, const void *s2, size_t len);
+int		ft_strnindex(const void *s, int c, int len);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_memset(void *b, int c, size_t len);

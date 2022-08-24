@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnindex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 15:31:10 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 01:15:37 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/08/23 19:59:40 by mes-sadk          #+#    #+#             */
+/*   Updated: 2022/08/24 00:11:43 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Include/minishell.h"
+#include "libft.h"
 
-void	ft_minishell(void)
+int	ft_strnindex(const void *s, int c, int len)
 {
-	errno = 0;
-	ft_call_shell(PRIO_USER);
-}
+	int	i;
 
-int	main(int ac, char *av[], char *env[])
-{
-	signal_handler();
-	if (ac == 1)
+	i = -1;
+	while (i++ < len && s && *(unsigned char *)s)
 	{
-		env_proc(env, NULL);
-		ft_minishell();
+		if (*(unsigned char *)s == (unsigned char) c)
+			return (i);
+		s++;
 	}
-	else
-	{
-		opendir(av[1]);
-		if (!errno)
-			errno = EISDIR;
-		perror(av[1]);
-		exit (errno);
-	}
-	return (_RETURN);
+	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 19:15:25 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:38:41 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ void	env(t_cmd cmd)
 		write(cmd->out, "\n", 2);
 		envv = envv->next;
 	}
-	if (cmd->out != STDOUT_FILENO)
-		close(cmd->out);
-	if (cmd->in != STDIN_FILENO)
-		close(cmd->in);
+	close_fd(cmd->in, cmd->out);
+	cmd->out = 1;
+	cmd->in = 0;
 }
 
 static void	unset_envv(t_str var)
@@ -56,7 +55,7 @@ static void	unset_envv(t_str var)
 		prev = envv;
 		envv = envv->next;
 	}
-	ft_err("unset: invalid parameter name", 0);
+	ft_err("unset: invalid parameter name", 109);
 }
 
 void	unset(t_cmd cmd)
@@ -71,8 +70,7 @@ void	unset(t_cmd cmd)
 	{
 		unset_envv(cmd->arv[i]);
 	}
-	if (cmd->out != STDOUT_FILENO)
-		close(cmd->out);
-	if (cmd->in != STDIN_FILENO)
-		close(cmd->in);
+	close_fd(cmd->in, cmd->out);
+	cmd->out = 1;
+	cmd->in = 0;
 }
