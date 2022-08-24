@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/23 18:54:53 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:30:06 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**ft_readline(char ps1)
 	int		i;
 	char	**splitted;
 
-	i = 0;
+	i = 10000;
 	line = readline(prompt(ps1));
 	if (!line)
 		exit (1);

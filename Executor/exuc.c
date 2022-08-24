@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 18:58:35 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:04:40 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	cmd_path(t_cmd cmd, t_head pathname)
 		errno = 1;
 	}
 	if (errno)
-		ft_err(ft_strjoin("msh: command not found: ", cmd->arv[0]), 108);
+		ft_err(ft_strjoin("msh: command not found: ", cmd->arv[0]), 127);
 	else
 		cmd->arv[0] = pathname[i];
 }

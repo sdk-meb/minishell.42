@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 21:38:41 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:43:42 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static void	unset_envv(t_str var)
 		prev = envv;
 		envv = envv->next;
 	}
-	ft_err("unset: invalid parameter name", 109);
 }
 
 void	unset(t_cmd cmd)
@@ -63,12 +62,17 @@ void	unset(t_cmd cmd)
 	int	i;
 
 	i = 0;
-	if (!cmd->arv[1] || cmd->arv[i][0] == '$'
-			|| cmd->arv[i][0] == '\'' || cmd->arv[i][0] == '\"')
-		return (ft_err("unset: not enough arguments", 109));
-	while (cmd->arv[++i])
+	while (cmd->arv[i])
 	{
-		unset_envv(cmd->arv[i]);
+		if (!cmd->arv[i] || cmd->arv[i][0] == '$'
+			|| cmd->arv[i][0] == '\'' || cmd->arv[i][0] == '\"')
+		{
+			stat_loc(1);
+			ft_err("unset: not enough arguments", 109);
+			i++;
+		}
+		else
+			unset_envv(cmd->arv[i++]);
 	}
 	close_fd(cmd->in, cmd->out);
 	cmd->out = 1;

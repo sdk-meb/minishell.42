@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 00:14:53 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:07:55 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@
 # include "../libft/mtypes.h"
 /* __________________________________  */
 
-# define HEREDOC 'H'	 /* << redirection */
-# define APNDDOC 0x2E /* >> redirection  : append document */
-
+# define HEREDOC	'H'	 /* << redirection */
+# define APNDDOC	0x2E /* >> redirection  : append document */
 /* __________________________________  */
 
 void	pipe_x(t_cmd fd_read);
@@ -47,8 +46,9 @@ void	close_fd(int from, int to);
 void	rf_wi(t_cmd cmd);
 
 void	ft_err(t_str str, int erno);
+int		stat_loc(int statu);
 
-bool	bult_c(t_cmd cmd);
+bool	bult_c(t_cmd cmd);/* exit status $? */
 
 /* It allows to execute of a binary file to Overlay
  by a child process and not bother the parent,
@@ -56,7 +56,7 @@ bool	bult_c(t_cmd cmd);
  and input from upstream) */
 void	fork_exec(t_cmd cmd, void (*bin)(t_cmd));
 
-void	signal_handler(void);
+void	signal_handler();
 void	sh_exec(t_cmd cmd);
 
 /* __________________________________  */

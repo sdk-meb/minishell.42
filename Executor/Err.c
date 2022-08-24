@@ -6,14 +6,25 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 07:36:20 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 00:05:54 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:07:44 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
+int	stat_loc(int statu)
+{
+	static int	qm;
+
+	if (statu != -42)
+		qm = statu;
+	return (qm);
+}
+
 void	ft_err(t_str err_msg, int erno)
 {
+	if (erno == 127)
+		stat_loc(erno);
 	errno = erno;
 	if (erno == SUCCESS)
 		return ;
