@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/25 19:51:37 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:52:47 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 		ft_err(NULL, errno);
 	wait(&id);
 	glb_sig(SIGINT);
+	return ;
 }
 
 void	signal_handler(t_req ord)
