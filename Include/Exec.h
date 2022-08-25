@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 12:07:55 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:03:51 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,13 @@
 # include <sys/syslimits.h>
 # include "minishell.h"
 # include "../libft/mtypes.h"
+# include "/goinfre/mes-sadk/homebrew/opt/readline/include/readline/readline.h"
+
 /* __________________________________  */
 
 # define HEREDOC	'H'	 /* << redirection */
 # define APNDDOC	0x2E /* >> redirection  : append document */
+# define glb		glb_sig(EMPTY)
 /* __________________________________  */
 
 void	pipe_x(t_cmd fd_read);
@@ -47,6 +50,7 @@ void	rf_wi(t_cmd cmd);
 
 void	ft_err(t_str str, int erno);
 int		stat_loc(int statu);
+int		glb_sig(int sig);
 
 bool	bult_c(t_cmd cmd);/* exit status $? */
 
@@ -56,7 +60,7 @@ bool	bult_c(t_cmd cmd);/* exit status $? */
  and input from upstream) */
 void	fork_exec(t_cmd cmd, void (*bin)(t_cmd));
 
-void	signal_handler();
+void	signal_handler(t_req ord);
 void	sh_exec(t_cmd cmd);
 
 /* __________________________________  */

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 22:26:50 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:42:34 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	unset_envv(t_str var)
 			free((void *)envv->name);
 			prev->next = envv->next;
 			if (*env == envv)
-				(*env) = prev;
+				(*env) = prev->next;
 			return (free((void *)envv));
 		}
 		prev = envv;

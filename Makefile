@@ -1,8 +1,10 @@
 NAME	= minishell
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
-LINKER	= -lreadline
-INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'
+LINKER	= -lreadline -L/goinfre/mes-sadk/homebrew/opt/readline/lib
+
+INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'\
+			'-I/goinfre/mes-sadk/homebrew/opt/readline/include'
 LIBFT 	= libft/libft.a
 
 #regular colors :
@@ -35,7 +37,7 @@ OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 
 all: $(NAME)
 
-$(LIBFT): 
+$(LIBFT):
 	@make -C libft/
 
 $(NAME): $(LIBFT) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)

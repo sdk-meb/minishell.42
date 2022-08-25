@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/25 11:58:37 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:08:31 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ static void	exec_bin(t_cmd cmd)
 	char	*av[29];
 
 	av[28] = NULL;
+	set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
+	set_env(ft_strjoin("SHELL=", cmd->arv[0]));
 	errno = -1;
-
 	if (ft_memcmp(cmd->arv[0], "./", 2) == SUCCESS || cmd->arv[0][0] == '/')
 	{
 		if (ft_memcmp(cmd->arv[0], "./", 2) == SUCCESS)
