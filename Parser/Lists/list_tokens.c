@@ -59,20 +59,12 @@ void	ft_lstadd_back_doubly(t_list **lst, t_list *new)
 
 char	*ft_get_type(char *tocken)
 {
-	if (ft_memcmp(tocken, "(", 2) == 0)
-		return ("l_par");
-	if (ft_memcmp(tocken, ")", 2) == 0)
-		return ("r_par");
 	if (ft_memcmp(tocken, "|", 2) == 0)
 		return ("PIPE");
 	if (ft_memcmp(tocken, ">", 2) == 0)
 		return ("OUT_RED");
 	if (ft_memcmp(tocken, "<", 2) == 0)
 		return ("IN_RED");
-	if (ft_memcmp(tocken, "&&", 3) == 0)
-		return ("t_AND");
-	if (ft_memcmp(tocken, "||", 3) == 0)
-		return ("t_OR");
 	if (ft_memcmp(tocken, ">>", 3) == 0)
 		return ("APPEND_OUT_RED");
 	if (ft_memcmp(tocken, "<<", 3) == 0)
@@ -81,7 +73,7 @@ char	*ft_get_type(char *tocken)
 		return ("word");
 }
 
-t_list	*ft_new_token(char *string)
+t_list	*ft_new_token(char *last, char *string)
 {
 	int				i;
 	t_list			*new;
@@ -89,8 +81,10 @@ t_list	*ft_new_token(char *string)
 	new = ft_calloc(1, sizeof(t_list));
 	if (!new)
 		return (NULL);
-	i = 0;
-	new->token = ft_expand(string);
+	if (ft_strcmp(last, "unset") == 0)
+		new->token = string;
+	else
+		new->token = ft_expand(string);
 	new->type = ft_get_type(string);
 	new->prev = NULL;
 	new->next = NULL;
@@ -109,7 +103,7 @@ t_list	*ft_create_list_for_tockens(char **splitted)
 	head = ft_new_token(splitted[i++]);
 	while (splitted[i])
 	{
-		new = ft_new_token(splitted[i]);
+		new = ft_new_token(splited[i - 1], splitted[i]);
 		ft_lstadd_back_doubly(&head, new);
 		i++;
 	}

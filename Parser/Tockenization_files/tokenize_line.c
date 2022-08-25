@@ -12,17 +12,7 @@
 
 #include "../../Include/minishell.h"
 
-int	ft_get_next_quote(int i, char *line)
-{
-	char	quote_type;
-
-	quote_type = line[i++];
-	while (line[i] && line[i] != quote_type)
-		i++;
-	return (i);
-}
-
-int	ft_wordscounter(char *s, char c)
+int	ft_count_tokens(char *s)
 {
 	int	count;
 	int	i;
@@ -31,19 +21,16 @@ int	ft_wordscounter(char *s, char c)
 	count = 0;
 	while (s[i])
 	{
-		while (s[i] == c)
-			i++;
+		skip_space(str, &i);
 		if (ft_is_quote(s[i]))
 		{
-			i = ft_get_next_quote(i, s);
-			while (ft_is_quote(s[i + 1]))
-				i = ft_get_next_quote(i + 1, s);
+			while (ft_is_quote(s[i]))
+				i = ft_get_next_quote(i++, s);
 			count++;
-			i++;
 		}
-		else if (s[i] != c && s[i])
+		else if (s[i] != SPACE && s[i])
 			count++;
-		while (s[i] != c && s[i])
+		while (s[i] != SPACE && s[i])
 		{
 			if (ft_is_quote(s[i]))
 				i = ft_get_next_quote(i, s);
@@ -53,20 +40,18 @@ int	ft_wordscounter(char *s, char c)
 	return (count);
 }
 
-char	*ft_write_words(char *s, char c)
+char	*ft_create_tokens(char *s)
 {
 	int		i;
 	char	*str;
 
 	i = 0;
-	if (ft_is_quote(s[i]))
+	while (ft_is_quote(s[i]))
 	{
 		i = ft_get_next_quote(i, s);
-		while (ft_is_quote(s[i + 1]))
-			i = ft_get_next_quote(i + 1, s);
 		i++;
 	}
-	while (s[i] && s[i] != c)
+	while (s[i] && s[i] != ' ')
 	{
 		if (ft_is_quote(s[i]))
 			i = ft_get_next_quote(i, s);
@@ -81,46 +66,31 @@ char	*ft_write_words(char *s, char c)
 	return (NULL);
 }
 
-static char	**ft_freestr(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free (tab[i]);
-		i++;
-	}
-	free (tab);
-	return (NULL);
-}
-
-char	**ft_branch_line(char *s, char c)
+char	**ft_tokenize_line(char *s)
 {
 	int		i;
-	int		nb_words;
-	char	**tdstr;
+	int		nb_tokens;
+	char	**tdstr;	
 
 	if (s)
 	{
-		nb_words = ft_wordscounter(s, c);
-		tdstr = (char **)malloc(sizeof(char *) * (nb_words + 1));
-		if (!tdstr)
-			return (NULL);
-		i = -1;
-		while (++i < nb_words)
+		nb_tokens = ft_count_tokens(s);
+		tdstr = (char **)malloc(sizeof(char *) * (nb_tokens + 1));
+		if (tdstr)
 		{
-			while (*s == c)
-				s++;
-			tdstr[i] = ft_write_words(s, c);
-			if (!tdstr[i])
-				return (ft_freestr(tdstr));
-			s = s + strlen(tdstr[i]);
+			i = -1;
+			while (++i < nb_tokens)
+			{
+				while (*s == SPACE)
+					s++;
+				tdstr[i] = ft_create_tokens(s);
+				if (!tdstr[i])
+					return (ft_freestr(tdstr));
+				s = s + strlen(tdstr[i]);
+			}
+			tdstr[i] = 0;
+			return (tdstr);
 		}
-		tdstr[i] = 0;
-		return (tdstr);
 	}
 	return (NULL);
 }
-
-// "<<" 

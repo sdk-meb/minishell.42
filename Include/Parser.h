@@ -28,6 +28,7 @@
 
 # define SUCCESS	0
 # define FAILURE	1
+# define SPACE		' '
 
 // Used structs :
 
@@ -41,6 +42,7 @@ typedef struct s_env
 typedef struct s_list
 {
 	char			*token;
+	char			*file;
 	char			*type;
 	int				fd[2][2];
 	struct s_list	*next;
@@ -60,12 +62,12 @@ char	*ft_repair_string(char *old_line);
 
 // 2 // branch_line
 
-//char	**ft_branch_line(char *line, char c);
+char	**ft_tokenize_line(char *s);
 int		ft_check_chars(char c, char *set);
 int		ft_get_next_quote(int i, char *line);
-int		ft_calculate_words(char *line, char c);
-char	*ft_allocate_fill_str(char *line);
-char	**ft_free_strings(char **ptr);
+int		ft_count_tokens(char *line);
+int		ft_count_tokens(char *s)
+char	**ft_freestr(char **str)
 
 // [B] Parsing files :
 

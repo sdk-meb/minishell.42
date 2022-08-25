@@ -98,6 +98,21 @@ int	ft_check_consecutive_redirections(char *str)
 	return (SUCCESS);
 }
 
+int	and(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '&' && ft_is_special(str[i + 1]))
+			return (FAILURE);
+		else if (ft_is_special(str[i] && str[i + 1] == '&')
+			return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
 int	ft_check_line(char *line)
 {
 	int	i;
