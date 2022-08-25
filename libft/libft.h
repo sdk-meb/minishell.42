@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 19:30:21 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 00:23:11 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/24 20:27:09 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef struct s_heap
 	struct s_heap	*extra;
 	int				dangel;
 }			t_heap;
-
+/*  requirement  order  APPROVED or TEMPORARY (memory)
+		dangel for group id if you want to remeve on of group */
 void	*new_heap(size_t, t_req ord, int dangel);
 void	c_delete(t_req ord, int dangel);
 

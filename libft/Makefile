@@ -6,14 +6,9 @@
 #    By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/22 17:37:03 by mes-sadk          #+#    #+#              #
-#    Updated: 2022/08/23 20:09:55 by mes-sadk         ###   ########.fr        #
+#    Updated: 2022/08/24 20:19:53 by mes-sadk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-# ***MAKEFILE***
-#
-#target : dependenses
-#	action
 
 NAME = libft.a
 CC = gcc
@@ -34,13 +29,8 @@ SRC =	ft_atoi.c ft_isascii.c ft_memcmp.c ft_putendl_fd.c \
 		ft_isalpha.c ft_memchr.c ft_putchar_fd.c ft_strchr.c \
 		ft_strlcpy.c ft_strrchr.c leak_chap.c ft_strnindex.c
 
-BONUS_SRC = ft_lstnew.c ft_lstadd_front.c ft_lstadd_back.c \
-	   	ft_lstsize.c ft_lstlast.c ft_lstdelone.c \
-		ft_lstclear.c ft_lstiter.c ft_lstmap.c
-
 
 OBJ					= $(SRC:.c=.o)
-BONUS_OBJ			= $(BONUS_SRC:.c=.o)
 
 %.o:%.c libft.h
 	@${CC}   ${CFLAGS} -o $@ -c $<
@@ -51,11 +41,8 @@ $(NAME): $(OBJ) libft.h
 	@ar -rc $(NAME) $(OBJ)
 	@echo "${GREEN} • libft archive file was archived ./${NAME}${NO_COLOR}"
 
-bonus: $(OBJ) $(BONUS_OBJ) libft.h
-	@ar -r $(NAME) $(OBJ) $(BONUS_OBJ)
-
 clean:
-	@rm -f $(OBJ) $(BONUS_OBJ)
+	@rm -f $(OBJ)
 	@echo "${RED} • ALL libft object files were deleted${NO_COLOR}"
 
 fclean: clean

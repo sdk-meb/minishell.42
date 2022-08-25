@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:19:52 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 00:27:20 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/24 22:14:42 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_envv	**my_env(t_envv **env, t_req ord);/* get global environment */
 
 void	env_proc(char **env_v, t_str var); /* environment processing */
 void	*get_env(t_str var);
+void	set_env(t_str var);
+void	unset_envv(t_str var);
 /* buiting command */
 void	env(t_cmd cmd);
 

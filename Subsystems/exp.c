@@ -6,13 +6,13 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 00:28:51 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/24 21:57:55 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-static void	set_env(t_str var)
+void	set_env(t_str var)
 {
 	t_envv	**env;
 	t_envv	*envv;

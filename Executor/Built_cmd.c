@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/23 19:37:09 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/25 12:48:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ static void	echo(t_cmd cmd)
 
 	new_line = true;
 	i = 0;
-	if (ft_memcmp(cmd->arv[1], "-n", 3) == SUCCESS)
-	{
-		i = 1;
+	while (ft_memcmp(cmd->arv[++i], "-n", 2) == SUCCESS)
 		new_line = false;
-	}
-	while (cmd->arv[++i])
+	while (cmd->arv[i])
 	{
 		write(cmd->out, cmd->arv[i],
 			ft_strlen(cmd->arv[i]));
-		write(cmd->out, " ", 1);
+		if (cmd->arv[++i])
+			write(cmd->out, " ", 1);
 	}
 	if (new_line)
 		write(cmd->out, "\n", 1);
@@ -54,7 +52,13 @@ static void	cd(t_cmd cmd)
 {
 	errno = 0;
 	chdir(cmd->arv[1]);
-	ft_err(cmd->arv[1], errno);
+	if (errno)
+		ft_err(cmd->arv[1], errno);
+	else
+	{
+		set_env(ft_strjoin("OLDPWD=", get_env("PWD")));
+		getcwd(get_env("PWD"), PATH_MAX);
+	}
 }
 
 bool	bult_c(t_cmd cmd)
@@ -69,13 +73,13 @@ bool	bult_c(t_cmd cmd)
 	if (ft_memcmp(mngr->arv[0], "pwd", 4) == SUCCESS)
 		return (pwd(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "env", 4) == SUCCESS)
-		return (env(cmd), SUCCESS);
+	 	return (env(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "unset", 4) == SUCCESS)
 		return (unset(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "exit", 5) == SUCCESS)
 	{
-		if (mngr->arc == 2)
-			exit (ft_atoi(mngr->arv[1]));
+		if (mngr->arc <= 2)
+			exit (ft_atoi(mngr->arv[mngr->arc - 1]));
 		return (ft_err("msh: exit: too many arguments", 0), SUCCESS);
 	}
 	if (ft_memcmp(mngr->arv[0], "export", 7) == SUCCESS)

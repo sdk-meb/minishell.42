@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 12:08:32 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/24 22:21:26 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,23 @@
 t_envv	**my_env(t_envv **env, t_req ord)
 {
 	static t_envv	**envr;
+	t_envv			*mng;
 
 	if (ord == SAVE)
 		envr = env;
+	if (ord == _SET && envr)
+	{
+		while (*envr)
+		{
+			mng = *envr;
+			free((void *)mng->content);
+			free((void *)mng->name);
+			*envr = mng->next;
+			free((void *)mng);
+		}
+		free((void *)envr);
+		return (NULL);
+	}
 	env = envr;
 	return (env);
 }
@@ -83,5 +97,9 @@ void	env_proc(char **env_v, t_str var)
 	{
 		while (*env_v)
 			add_to_env(env, new_env(*env_v++));
+		set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
+		set_env(ft_strjoin("SHELL=./minishell", get_env("SHLVL")));
+		unset_envv("ZSH");
+		unset_envv("_");
 	}
 }
