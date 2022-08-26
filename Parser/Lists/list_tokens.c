@@ -73,7 +73,7 @@ char	*ft_get_type(char *tocken)
 		return ("word");
 }
 
-t_list	*ft_new_token(char *last, char *string)
+t_list	*ft_new_token(char *string)
 {
 	int				i;
 	t_list			*new;
@@ -81,10 +81,7 @@ t_list	*ft_new_token(char *last, char *string)
 	new = ft_calloc(1, sizeof(t_list));
 	if (!new)
 		return (NULL);
-	if (ft_strcmp(last, "unset") == 0)
-		new->token = string;
-	else
-		new->token = ft_expand(string);
+	new->token = ft_expand(string);
 	new->type = ft_get_type(string);
 	new->prev = NULL;
 	new->next = NULL;
@@ -103,8 +100,17 @@ t_list	*ft_create_list_for_tockens(char **splitted)
 	head = ft_new_token(splitted[i++]);
 	while (splitted[i])
 	{
-		new = ft_new_token(splited[i - 1], splitted[i]);
-		ft_lstadd_back_doubly(&head, new);
+		if (ft_strncmp(splitted[i], "<<", 2) == 0)
+        {
+			i++;
+            while (splitted[i + 1] && !ft_strcmp(splitted[i + 1], "<<"))
+                i = i + 2;
+        }
+		if (splitted[i])
+		{
+			new = ft_new_token(splitted[i]);
+			ft_lstadd_back_doubly(&head, new);
+		}
 		i++;
 	}
 	return (head);

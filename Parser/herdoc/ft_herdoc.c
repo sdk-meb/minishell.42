@@ -2,23 +2,37 @@
 
 #include "../Include/minishell.h"
 
-int    ft_heredoc(t_list *head)
+char    *ft_heredoc(char *delim)
 {
-    int     fd[2];
     char    *line;
+    char    *temp;
 
-    pipe(fd);
+    temp = malloc(sizeof(char *));
     while (1)
     {
         line = readline("> ");
-        if (!line || ft_strcmp(head->token, line) == 0)
+        if (!line || ft_strcmp(delim, line) == 0)
         {
             free(line);
-            close(fd[1]);
-            return (fd[0]);
+            return (temp);
         }
-        ft_putstr_fd(line, fd[1]);
-        ft_putstr_fd("\n", fd[0]);
+        temp = ft_strjoin(temp, "\n");
+        temp = ft_strjoin(temp, line);
         free(line);
     }
+    return (temp);
+}
+
+char    **handel_heredoc(char **str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (ft_strcmp(str[i], "<<") == 0)
+           str[i + 1] = ft_heredoc(str[i + 1]);
+        i++;
+    }
+    return (str);
 }

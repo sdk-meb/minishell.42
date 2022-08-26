@@ -1,107 +1,134 @@
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include "Include/minishell.h"
+#include <unistd.h>
+#include "libft/libft.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
-int	ft_is_quote(char c)
+
+typedef struct s_list
 {
-	if (c == '\'' || c == '\"')
-		return (1);
-	else
-		return (0);
+	char			*token;
+	char			*file;
+	char			*type;
+	int				fd[2][2];
+	struct s_list	*next;
+	struct s_list	*prev;
+	struct s_list	*left;
+	struct s_list	*right;
+}	t_list;
+void	ft_lstadd_back_doubly(t_list **lst, t_list *new)
+{
+	t_list		*temp;
+
+	if (lst)
+	{
+		if (*lst == NULL)
+			*lst = new;
+		else
+		{
+			temp = *lst;
+			while (temp->next != NULL)
+				temp = temp->next;
+			temp->next = new;
+			new->prev = temp;
+		}
+	}
 }
 
-char	*get_env(char *str, int *len)
-{
-	char	*env;
-	char	*new;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
-	while (str[j] && str[j] != ' ' && str[j] != '$' && !ft_is_quote(str[j]))
-		j++;
-	env = malloc(sizeof(char) * (j + 1));
-	if (!env)
+char  *ft_heredoc(char *delim)
+{
+    char    *line;
+    char    *temp;
+
+    temp = malloc(sizeof(char *));
+    while (1)
+    {
+        line = readline("> ");
+        if (!line || ft_strncmp(delim, line, 4) == 0)
+        {
+            free(line);
+            return (temp);
+        }
+        temp = ft_strjoin(temp, " ");
+        temp = ft_strjoin(temp, line);
+        free(line);
+    }
+    return (temp);
+}
+
+char    **handel_heredoc(char **str)
+{
+    int     i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (ft_strncmp(str[i], "<<", 2) == 0)
+        {
+            temp = str[i + 1];
+            str[i + 1] = ft_heredoc(str[i + 1]);
+        }
+        i++;
+    }
+    return str;
+}
+
+t_list	*ft_new_token(char *string)
+{
+	int				i;
+	t_list			*new;
+
+	new = ft_calloc(1, sizeof(t_list));
+	if (!new)
 		return (NULL);
-	while (i < j)
-	{
-		env[i] = str[i];
-		i++;
-	}
-	env[i] = '\0';
-	new = getenv(env);
-	(*len) = (*len) + j + 1;
-	return (free(env), new);
+	new->token = string;
+	//new->type = ft_get_type(string);
+	new->prev = NULL;
+	new->next = NULL;
+	new->left = NULL;
+	new->right = NULL;
+	return (new);
 }
 
-void	get_size_between_double_bracket(char *str, int *i, int *size, int *minus)
+t_list	*ft_create_list_for_tockens(char **splitted)
 {
-	(*i)++;
-	while (str[*i] != '\"')
-	{
-		if (str[(*i)] == '$')
-			*size = strlen(get_env(&str[++(*i)], minus)) + *size;
-		(*i)++;
-		(*size)++;
-	}
-	printf("\nDOUBLE = %d\n", (*size));
-	*size -= 1;
-}
-
-void	get_size_between_single_bracket(char *str, int *i, int *size)
-{
-	(*i)++;
-	while (str[(*i)] != '\'')
-	{
-		(*size)++;
-		(*i)++;
-	}
-	*size -= 1;
-}
-
-void	test_t(char *str)
-{
-	int	i;
-	int	minus;
-	int	size;
+	t_list	*head;
+	t_list	*new;
+	int		i;
 
 	i = 0;
-	size = 0;
-	minus = 0;
-	while (str[i])
+	head = ft_new_token(splitted[i++]);
+	while (splitted[i])
 	{
-		if (str[i] == '\"')
-			get_size_between_double_bracket(str, &i, &size, &minus);
-		if (str[i] == '\'')
-			get_size_between_single_bracket(str, &i, &size);
-		if (str[i] == '$')
-			size = strlen(get_env(&str[++i], &minus)) + size;
+		if (ft_strncmp(splitted[i], "<<", 2) == 0)
+        {
+			i++;
+            while (splitted[i + 1] && ft_strncmp(splitted[i + 1], "<<", 2) == 0)
+                i = i + 2;
+        }
+		new = ft_new_token(splitted[i]);
+		ft_lstadd_back_doubly(&head, new);
 		i++;
 	}
-	printf("%lu\n", size + strlen(str));
+	return (head);
 }
 
-int	main(void)
+int main ()
 {
-	char	*str = "'hello $USER'\"hello $USER\"'$USER'";
-	test_t(str);
+    char    *str = "cat << bbbb << dddd << eeee";
+    char **new_str = ft_split(str, ' ');
+    new_str = handel_heredoc(new_str);
+    int i = 0;
+    t_list  *head = ft_create_list_for_tockens(new_str);
+    free(new_str);
+    //int i = 0;
+    while (head)
+    {
+        printf("%s", head->token);
+        head = head->next;
+        i++;
+    }
 }
-
-
-char	*the_expander(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (str[i] == '\'')
-			ft_calcul and_expand();
-		i++;
-	}
-}
-
-'_____'"_______"

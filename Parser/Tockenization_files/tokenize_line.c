@@ -21,7 +21,7 @@ int	ft_count_tokens(char *s)
 	count = 0;
 	while (s[i])
 	{
-		skip_space(str, &i);
+		skip_space(s, &i);
 		if (ft_is_quote(s[i]))
 		{
 			while (ft_is_quote(s[i]))

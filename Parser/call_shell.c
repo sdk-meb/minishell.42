@@ -50,6 +50,7 @@ char	**ft_readline(char ps1)
 void	ft_call_shell(char ps1)
 {
 	char	**splitted;
+
 	t_list	*root;
 
 	while (1)
@@ -57,13 +58,8 @@ void	ft_call_shell(char ps1)
 		splitted = ft_readline(ps1);
 		if (splitted && *splitted)
 		{
+			splitted = handel_heredoc(splitted);
 			root = ft_create_list_for_tockens(splitted);
-			while (root)
-			{
-				printf("%s ", root->token);
-				root = root->next;
-			}
-			puts("\n");
 			free (splitted);
 			root = ft_create_astree(root);
 			//print_tree(root);
