@@ -6,11 +6,34 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/25 18:42:34 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/26 22:27:52 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
+
+char	**env_to_argv(t_envv **env)
+{
+	t_envv	*mng;
+	int		size;
+	char	**argv;
+
+	size = 0;
+	mng = *env;
+	while (size++, mng)
+		mng = mng->next;
+	mng = *env;
+	argv = (t_head) malloc(sizeof(argv) * size);
+	argv[--size] = NULL;
+	while (mng)
+	{
+		argv[--size] = ft_strjoin(mng->name, "=");
+		argv[size] = ft_strjoin(argv[size], mng->content);
+		mng = mng->next;
+	}
+	return (argv);
+}
+
 
 void	env(t_cmd cmd)
 {

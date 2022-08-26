@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/25 19:08:31 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/26 22:29:12 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ static void	plea_arguments_value(t_cmd cmd)
 
 static void	exec_bin(t_cmd cmd)
 {
-	char	*av[29];
+	char	**av;
 
-	av[28] = NULL;
-	set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
+//	set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
 	set_env(ft_strjoin("SHELL=", cmd->arv[0]));
+	av = env_to_argv(my_env(NULL, _GET));
 	errno = -1;
 	if (ft_memcmp(cmd->arv[0], "./", 2) == SUCCESS || cmd->arv[0][0] == '/')
 	{
@@ -76,7 +76,7 @@ static void	exec_bin(t_cmd cmd)
 	else
 	{
 		cmd_path(cmd, (t_head)ft_split(get_env("PATH"), ':'));
-		execve(cmd->arv[0], cmd->arv, NULL);
+		execve(cmd->arv[0], cmd->arv, av);
 	}
 	if (ft_memcmp(cmd->arv[0], "./", 2) && cmd->arv[0][0] != '/')
 		errno = 0;

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/25 12:48:03 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/26 19:41:34 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,29 @@ static void	echo(t_cmd cmd)
 	cmd->in = 0;
 }
 
+static void	ft_exit(t_cmd cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd->arc > 2 && cmd->arv[1][i])
+		if (ft_isdigit(cmd->arv[1][i++]) == FAILURE)
+			return (ft_err("msh: exit: too many arguments", 109));
+	if (cmd->arc > 2)
+		ft_err("msh: exit: numeric argument required", 109);
+	exit (ft_atoi(cmd->arv[cmd->arc - 1]));
+}
+
 static void	pwd(t_cmd cmd)
 {
 	char	*pathname;
 
+	if (cmd->arv[1] && cmd->arv[1][0] == '-' && (cmd->arv[1][1]
+			|| (cmd->arv[1][1] == '-' && cmd->arv[1][2])))
+	{
+		close_fd(cmd->in, cmd->out);
+		return (ft_err("pwd: invalid option\n", 109));
+	}
 	pathname = (char *)ft_calloc(PATH_MAX, 1);
 	getcwd(pathname, PATH_MAX);
 	write(cmd->out, pathname, ft_strlen(pathname));
@@ -52,13 +71,13 @@ static void	cd(t_cmd cmd)
 {
 	errno = 0;
 	chdir(cmd->arv[1]);
-	if (errno)
-		ft_err(cmd->arv[1], errno);
-	else
+	if (errno == SUCCESS)
 	{
 		set_env(ft_strjoin("OLDPWD=", get_env("PWD")));
 		getcwd(get_env("PWD"), PATH_MAX);
 	}
+	else
+		ft_err(cmd->arv[1], errno);
 }
 
 bool	bult_c(t_cmd cmd)
@@ -77,11 +96,7 @@ bool	bult_c(t_cmd cmd)
 	if (ft_memcmp(mngr->arv[0], "unset", 4) == SUCCESS)
 		return (unset(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "exit", 5) == SUCCESS)
-	{
-		if (mngr->arc <= 2)
-			exit (ft_atoi(mngr->arv[mngr->arc - 1]));
-		return (ft_err("msh: exit: too many arguments", 0), SUCCESS);
-	}
+		return (ft_exit(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "export", 7) == SUCCESS)
 		return (export(cmd), SUCCESS);
 	return (FAILURE);

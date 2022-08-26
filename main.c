@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:31:10 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/25 18:03:36 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:57:10 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_minishell()
 
 int	main(int ac, char *av[], char *env[])
 {
-	signal_handler(APPROVED);
+	signal_handler();
 	if (ac == 1)
 	{
 		env_proc(env, NULL);

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/25 18:03:51 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/26 14:52:48 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool	bult_c(t_cmd cmd);/* exit status $? */
  and input from upstream) */
 void	fork_exec(t_cmd cmd, void (*bin)(t_cmd));
 
-void	signal_handler(t_req ord);
+void	signal_handler();
 void	sh_exec(t_cmd cmd);
 
 /* __________________________________  */
