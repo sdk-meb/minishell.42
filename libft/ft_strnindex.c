@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 19:59:40 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 00:11:43 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/27 22:54:30 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 int	ft_strnindex(const void *s, int c, int len)
 {
-	int	i;
+	int		i;
+	t_ptr	ptr;
 
-	i = -1;
-	while (i++ < len && s && *(unsigned char *)s)
+	ptr = (t_ptr)s;
+	i = 0;
+	while (i++ < len && ptr && *(unsigned char *)ptr)
 	{
-		if (*(unsigned char *)s == (unsigned char) c)
+		if (*(unsigned char *)ptr == (unsigned char) c)
 			return (i);
-		s++;
+		ptr++;
 	}
-	return (-1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/26 21:17:04 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/27 20:56:18 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 		signal(SIGINT, SIG_DFL);
 		dup2(cmd->in, STDIN_FILENO);
 		dup2(cmd->out, STDOUT_FILENO);
-		return (bin(cmd));
+		bin(cmd);
+		exit (1);
 	}
 	glb_sig(SIGCHLD);
 	close_fd(cmd->in, cmd->out);

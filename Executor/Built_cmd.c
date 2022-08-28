@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/26 19:41:34 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/27 23:36:47 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,28 @@
 static void	echo(t_cmd cmd)
 {
 	int	new_line;
-	int	i;
+	int	i[2];
 
 	new_line = true;
-	i = 0;
-	while (ft_memcmp(cmd->arv[++i], "-n", 2) == SUCCESS)
-		new_line = false;
-	while (cmd->arv[i])
+	i[0] = 0;
+	while (cmd->arv[++i[0]] && cmd->arv[i[0]][0] ==  '-')
 	{
-		write(cmd->out, cmd->arv[i],
-			ft_strlen(cmd->arv[i]));
-		if (cmd->arv[++i])
+		i[1] = 1;
+		while (cmd->arv[i[0]][i[1]] == 'n')
+			i[1]++;
+		if (cmd->arv[i[0]][i[1]])
+			break ;
+		new_line = false;
+	}
+	while (cmd->arv[i[0]])
+	{
+		write(cmd->out, cmd->arv[i[0]], ft_strlen(cmd->arv[i[0]]));
+		if (cmd->arv[++i[0]])
 			write(cmd->out, " ", 1);
 	}
 	if (new_line)
 		write(cmd->out, "\n", 1);
 	close_fd(cmd->in, cmd->out);
-	cmd->out = 1;
-	cmd->in = 0;
 }
 
 static void	ft_exit(t_cmd cmd)
@@ -45,6 +49,8 @@ static void	ft_exit(t_cmd cmd)
 			return (ft_err("msh: exit: too many arguments", 109));
 	if (cmd->arc > 2)
 		ft_err("msh: exit: numeric argument required", 109);
+	if (cmd->arc == 1)
+		exit(0);
 	exit (ft_atoi(cmd->arv[cmd->arc - 1]));
 }
 

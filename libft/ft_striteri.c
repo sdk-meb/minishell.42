@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 12:08:57 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 07:21:17 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/27 22:09:19 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 	i = 0;
 	if (!s)
 		return ;
-	while (*s)
-		f(i++, s++);
+	while (s[i])
+	{
+		f(i, s);
+		i++;
+	}
 }

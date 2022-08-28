@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 22:21:26 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/28 00:45:33 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static t_envv	*new_env(t_str str)
 		return (NULL);
 	new->content = ft_strdup(ft_memchr(str, '=', INT32_MAX));
 	new->name = ft_substr(str, 0, ft_strlen(str) - ft_strlen(new->content));
-	new->content = ft_substr(new->content, 1, INT32_MAX);
+	if (new->content)
+		new->content = ft_substr(new->content, 1, INT32_MAX);
 	new->next = NULL;
 	new->sort = 1;
 	return (new);
@@ -98,7 +99,7 @@ void	env_proc(char **env_v, t_str var)
 		while (*env_v)
 			add_to_env(env, new_env(*env_v++));
 		set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
-		set_env(ft_strjoin("SHELL=./minishell", get_env("SHLVL")));
+		set_env("SHELL=./minishell");
 		unset_envv("ZSH");
 		unset_envv("_");
 	}

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/26 22:29:12 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:02:35 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,16 @@
 static void	cmd_path(t_cmd cmd, t_head pathname)
 {
 	struct stat	buf;
-	pid_t		i;
 
-	i = errno;
-	while (pathname && pathname[++i] && errno)
-	{
-		errno = 0;
-		buf.st_mode = 0;
-		pathname[i] = ft_strjoin(pathname[i], "/");
-		pathname[i] = ft_strjoin(pathname[i], cmd->arv[0]);
-		access(pathname[i], F_OK | X_OK);
-		if (errno == SUCCESS)
-			lstat(pathname[i], &buf);
-		if (S_ISREG(buf.st_mode) == true)
-			break ;
-		errno = 1;
-	}
-	if (errno)
-		ft_err(ft_strjoin("msh: command not found: ", cmd->arv[0]), 127);
+	if (!pathname || !pathname[0])
+		return (ft_err("msh: command not found", 109));
+	pathname[0] = ft_strjoin(pathname[0], "/");
+	pathname[0] = ft_strjoin(pathname[0], cmd->arv[0]);
+	lstat(pathname[0], &buf);
+	if (S_ISREG(buf.st_mode) == false)
+		cmd_path(cmd, &(pathname[1]));
 	else
-		cmd->arv[0] = pathname[i];
+		cmd->arv[0] = pathname[0];
 }
 
 static void	plea_arguments_value(t_cmd cmd)
@@ -62,8 +52,6 @@ static void	exec_bin(t_cmd cmd)
 {
 	char	**av;
 
-//	set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
-	set_env(ft_strjoin("SHELL=", cmd->arv[0]));
 	av = env_to_argv(my_env(NULL, _GET));
 	errno = -1;
 	if (ft_memcmp(cmd->arv[0], "./", 2) == SUCCESS || cmd->arv[0][0] == '/')

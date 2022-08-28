@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:19:52 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/26 21:13:00 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/28 10:23:16 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_envv
 {
 	t_str			name;
 	t_str			content;
+	bool			eq;
 	int				sort;
 	struct s_envv	*next;
 }	t_envv;

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 21:57:55 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/28 11:39:08 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@ void	set_env(t_str var)
 	env = my_env(NULL, _GET);
 	envv = *env;
 	i = ft_strnindex(var, '=', INT32_MAX);
+	if (!i)
+		i = ft_strlen(var);
 	while (envv)
 	{
-		if (ft_strncmp(envv->name, var, i) == SUCCESS)
+		if (ft_strncmp(envv->name, var, i - 1) == SUCCESS)
 		{
 			if (envv->content)
 				free((void *)envv->content);
-			envv->content = ft_substr(var, i + 1, INT32_MAX);
+			envv->content = ft_substr(var, i, INT32_MAX);
 			return ;
 		}
 		envv = envv->next;
@@ -67,6 +69,7 @@ static void	ex_port(t_cmd cmd)
 		envv->sort = false;
 		write(cmd->out, "declare -x ", 12);
 		write(cmd->out, envv->name, ft_strlen(envv->name));
+		if (envv->eq == true)
 		write(cmd->out, "=\"", 2);
 		write(cmd->out, envv->content, ft_strlen(envv->content));
 		write(cmd->out, "\"\n", 2);
@@ -83,13 +86,24 @@ static void	ex_port(t_cmd cmd)
 
 void	export(t_cmd cmd)
 {
-	int	i;
+	int	arg;
+	int	c;
 
-	i = 0;
+	arg = 0;
 	if (!cmd->arv[1])
 		return (ex_port(cmd));
-	while (cmd->arv[++i])
-		set_env(cmd->arv[i]);
+	while (cmd->arv[++arg])
+	{
+		c = -1;
+		while (cmd->arv[arg][++c] && (cmd->arv[arg][c] != '=' || !c))
+			if (ft_isalpha(cmd->arv[arg][c]) && cmd->arv[arg][c] != '_')
+				break ;
+		if (cmd->arv[arg][c] && (cmd->arv[arg][c] != '=' || !c))
+			ft_err("msh: export: not a valid identifier", 109);
+		else
+			set_env(cmd->arv[arg]);
+	}
+	unset_envv("_");
 	cmd->out = 1;
 	cmd->in = 0;
 }
