@@ -107,7 +107,7 @@ int	and(char *str)
 	{
 		if (str[i] == '&' && ft_is_special(str[i + 1]))
 			return (FAILURE);
-		else if (ft_is_special(str[i] && str[i + 1] == '&')
+		else if (ft_is_special(str[i] && str[i + 1] == '&'))
 			return (FAILURE);
 	}
 	return (SUCCESS);
