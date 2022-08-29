@@ -32,7 +32,7 @@ SRC =	ft_atoi.c ft_isascii.c ft_memcmp.c ft_putendl_fd.c \
 		ft_tolower.c ft_isalnum.c ft_itoa.c ft_memset.c \
 		ft_split.c ft_strlcat.c ft_strnstr.c ft_toupper.c \
 		ft_isalpha.c ft_memchr.c ft_putchar_fd.c ft_strchr.c \
-		ft_strlcpy.c ft_strrchr.c leak_chap.c
+		ft_strlcpy.c ft_strrchr.c leak_chap.c ft_strcmp
 
 BONUS_SRC = ft_lstnew.c ft_lstadd_front.c ft_lstadd_back.c \
 	   	ft_lstsize.c ft_lstlast.c ft_lstdelone.c \
