@@ -113,7 +113,8 @@ int		ft_isprint(int c);
 
 // FILE 4 //
 
-char	**ft_split(char const *s, char c);
+char    *ft_heredoc(char *delim);
+char    **handel_heredoc(char **str);
 
 // [E] //
 
