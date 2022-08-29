@@ -6,16 +6,18 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/28 00:45:33 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:45:49 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-static t_str	get_name(t_str str)
+static t_str	get_name(t_str strr)
 {
     int	cas_e;
+	char	*str;
 
+	str = (char *)strr;
     cas_e = 0;
 	if (!str)
 		return (NULL);
@@ -24,31 +26,36 @@ static t_str	get_name(t_str str)
 	return (ft_substr(str, 0, cas_e));
 }
 
-static t_str	get_tenor(t_str str)
+t_str	get_tenor(t_str strr)
 {
     int	cas_e;
+char	*str;
 
+	str = (char *)strr;
     cas_e = 0;
 	if (!str)
 		return (NULL);
 	while (str[cas_e] && str[cas_e] != '=')
 		cas_e++;
 	if (str[cas_e] == '=')
-		return (ft_substr(str, cas_e + 1, ft_strlen(str) - case_e  + 1));
+		return (ft_substr(str, cas_e + 1, ft_strlen(str) - cas_e  + 1));
 	return (NULL);
 }
 
 static t_envv	*new_env(t_str str)
 {
 	t_envv	*new;
-
+	
 	new = (t_envv *) ft_calloc(1, sizeof(new));
 	if (!new)
 		return (NULL);
+
+	get_tenor(str);
+	get_name(str);
+	new->content = get_tenor(str);
 	new->name = get_name(str);
 	new->next = NULL;
 	new->sort = 1;
-	new->content = get_tenor(str);
 	return (new);
 }
 

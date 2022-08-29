@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/27 23:36:47 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:43:33 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,19 @@ static void	ft_exit(t_cmd cmd)
 	int	i;
 
 	i = 0;
-	while (cmd->arc > 2 && cmd->arv[1][i])
-		if (ft_isdigit(cmd->arv[1][i++]) == FAILURE)
+	while (cmd->arc > 2 && ft_isdigit(cmd->arv[1][i]) == SUCCESS)
+		if (cmd->arv[1][++i] == '\0')
+		{
+			stat_loc(1);
 			return (ft_err("msh: exit: too many arguments", 109));
+		}
 	if (cmd->arc > 2)
+	{
 		ft_err("msh: exit: numeric argument required", 109);
+		exit(255);
+	}
 	if (cmd->arc == 1)
-		exit(0);
+		exit(1);
 	exit (ft_atoi(cmd->arv[cmd->arc - 1]));
 }
 
@@ -81,9 +87,10 @@ static void	cd(t_cmd cmd)
 	{
 		set_env(ft_strjoin("OLDPWD=", get_env("PWD")));
 		getcwd(get_env("PWD"), PATH_MAX);
+		return ;
 	}
-	else
-		ft_err(cmd->arv[1], errno);
+	ft_err(cmd->arv[1], errno);
+	stat_loc(1);
 }
 
 bool	bult_c(t_cmd cmd)

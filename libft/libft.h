@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 19:30:21 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/27 22:08:48 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:02:01 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include "mtypes.h"
 

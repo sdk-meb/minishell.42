@@ -6,16 +6,16 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 12:58:31 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/27 22:11:52 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/29 16:44:51 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char *ft_strnstr2(t_ptr haystack, t_ptr needle, size_t len)
+static char	*ft_strnstr2(t_ptr haystack, t_ptr needle, size_t len)
 {
 	int	i;
-	
+
 	i = 0;
 	while (len-- && *haystack)
 	{

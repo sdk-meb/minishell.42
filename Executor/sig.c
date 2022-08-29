@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/27 20:56:18 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:12:18 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	glb_sig(int sig)
 		osig = sig;
 	return (osig);
 }
+
 
 static void	sa_sig(int sig)
 {
@@ -57,6 +58,7 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 	if (id == RUSAGE_CHILDREN)
 		ft_err(NULL, errno);
 	wait(&id);
+	//stat_loc( id);
 	glb_sig(SIGINT);
 }
 

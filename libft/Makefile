@@ -6,7 +6,7 @@
 #    By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/22 17:37:03 by mes-sadk          #+#    #+#              #
-#    Updated: 2022/08/27 22:12:12 by mes-sadk         ###   ########.fr        #
+#    Updated: 2022/08/29 18:01:35 by mes-sadk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,12 @@ SRC =	ft_atoi.c ft_isascii.c ft_memcmp.c ft_putendl_fd.c \
 		ft_tolower.c ft_isalnum.c ft_itoa.c ft_memset.c \
 		ft_split.c ft_strlcat.c ft_strnstr.c ft_toupper.c \
 		ft_isalpha.c ft_memchr.c ft_putchar_fd.c ft_strchr.c \
-		ft_strlcpy.c ft_strrchr.c leak_chap.c ft_strnindex.c
-
+		ft_strlcpy.c ft_strrchr.c ft_strnindex.c\
+		leak_chap.c  leak_chap2.c
 
 OBJ					= $(SRC:.c=.o)
 
-%.o:%.c libft.h
+%.o:%.c libft.h mtypes.h
 	@${CC}   ${CFLAGS} -o $@ -c $<
 
 all: $(NAME)

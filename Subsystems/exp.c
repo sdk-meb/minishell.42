@@ -6,36 +6,11 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/28 11:39:08 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:37:05 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-void	set_env(t_str var)
-{
-	t_envv	**env;
-	t_envv	*envv;
-	int		i;
-
-	env = my_env(NULL, _GET);
-	envv = *env;
-	i = ft_strnindex(var, '=', INT32_MAX);
-	if (!i)
-		i = ft_strlen(var);
-	while (envv)
-	{
-		if (ft_strncmp(envv->name, var, i - 1) == SUCCESS)
-		{
-			if (envv->content)
-				free((void *)envv->content);
-			envv->content = ft_substr(var, i, INT32_MAX);
-			return ;
-		}
-		envv = envv->next;
-	}
-	env_proc(NULL, var);
-}
 
 static t_envv	*next_declare(t_envv *env)
 {
@@ -57,6 +32,20 @@ static t_envv	*next_declare(t_envv *env)
 	return (temp2);
 }
 
+static void	write_exp(t_cmd cmd, t_envv	*envv)
+{
+	write(cmd->out, "declare -x ", 12);
+	write(cmd->out, envv->name, ft_strlen(envv->name));
+	if (envv->content)
+	{
+		write(cmd->out, "=\"", 2);
+		write(cmd->out, envv->content, ft_strlen(envv->content));
+		write(cmd->out, "\"", 1);
+	}
+	write(cmd->out, "\n", 1);
+	envv->sort = false;
+}
+
 static void	ex_port(t_cmd cmd)
 {
 	t_envv	**env;
@@ -66,13 +55,7 @@ static void	ex_port(t_cmd cmd)
 	envv = next_declare(*env);
 	while (envv)
 	{
-		envv->sort = false;
-		write(cmd->out, "declare -x ", 12);
-		write(cmd->out, envv->name, ft_strlen(envv->name));
-		if (envv->eq == true)
-		write(cmd->out, "=\"", 2);
-		write(cmd->out, envv->content, ft_strlen(envv->content));
-		write(cmd->out, "\"\n", 2);
+		write_exp(cmd, envv);
 		envv = next_declare(*env);
 	}
 	envv = *env;

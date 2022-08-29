@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/27 21:02:35 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:57:19 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	cmd_path(t_cmd cmd, t_head pathname)
 	struct stat	buf;
 
 	if (!pathname || !pathname[0])
-		return (ft_err("msh: command not found", 109));
+		return (ft_err("msh: command not found", 127));
 	pathname[0] = ft_strjoin(pathname[0], "/");
 	pathname[0] = ft_strjoin(pathname[0], cmd->arv[0]);
 	lstat(pathname[0], &buf);

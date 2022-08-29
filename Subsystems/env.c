@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/28 00:45:33 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:00:54 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,35 @@ char	**env_to_argv(t_envv **env)
 	return (argv);
 }
 
+void	set_env(t_str var)
+{
+	t_envv	**env;
+	t_envv	*envv;
+	int		i;
+
+	env = my_env(NULL, _GET);
+	envv = *env;
+	i = ft_strnindex(var, '=', INT32_MAX);
+	if (!i)
+		i = ft_strlen(var) + 1;
+	while (envv)
+	{
+		if (ft_strncmp(envv->name, var, i - 1) == SUCCESS)
+		{
+			if (envv->content)
+			{
+			 	free((void *)envv->content);
+				envv->content = NULL;
+			}
+			if (ft_strnindex(var, '=', INT32_MAX))
+				envv->content = get_tenor(var);
+			return ;
+		}
+		envv = envv->next;
+	}
+	env_proc(NULL, var);
+}
+
 void	env(t_cmd cmd)
 {
 	t_envv	**env;
@@ -88,13 +117,17 @@ void	*get_env(t_str var)
 	t_envv	*envv;
 
 	if (ft_strncmp(var, "?", 2) == SUCCESS)
-		return (ft_itoa(stat_loc(-42)));
+		return (ft_itoa(stat_loc(EMPTY)));
 	env = my_env(NULL, _GET);
 	envv = *env;
 	while (envv->next)
 	{
 		if (ft_strncmp(envv->name, var, INT32_MAX) == SUCCESS)
-			return ((void *)envv->content);
+		{
+			if (envv->content)
+				return ((void *)envv->content);
+			break ;
+		}
 		envv = envv->next;
 	}
 	return ("");

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:19:52 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/28 10:23:16 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:11:20 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@
 
 typedef struct s_envv
 {
-	t_str			name;
-	t_str			content;
-	bool			eq;
+	t_ptr			name;
+	t_ptr			content;
 	int				sort;
 	struct s_envv	*next;
 }	t_envv;
@@ -35,6 +34,8 @@ void	*get_env(t_str var);
 void	set_env(t_str var);
 void	unset_envv(t_str var);
 char	**env_to_argv(t_envv **env);
+t_str	get_tenor(t_str strr);
+
 /* buiting command */
 void	env(t_cmd cmd);
 
