@@ -2,12 +2,6 @@
 
 #include "../../Include/minishell.h"
 
-void	skip_space(char *str, int *i)
-{
-	while (str[*i])
-		(*i)++;
-}
-
 int	ft_get_next_quote(int i, char *line)
 {
 	char	quote_type;

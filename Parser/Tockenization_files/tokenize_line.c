@@ -14,19 +14,20 @@
 
 int	ft_count_tokens(char *s)
 {
-	int	count;
-	int	i;
+	static int	count;
+	static int	i;
 
-	i = 0;
-	count = 0;
 	while (s[i])
 	{
-		skip_space(s, &i);
+		while (s[i] == ' ')
+			i++;
 		if (ft_is_quote(s[i]))
 		{
-			while (ft_is_quote(s[i]))
-				i = ft_get_next_quote(i++, s);
+			i = ft_get_next_quote(i, s);
+			while (ft_is_quote(s[i + 1]))
+				i = ft_get_next_quote(i + 1, s);
 			count++;
+			i++;
 		}
 		else if (s[i] != SPACE && s[i])
 			count++;
@@ -86,7 +87,7 @@ char	**ft_tokenize_line(char *s)
 				tdstr[i] = ft_create_tokens(s);
 				if (!tdstr[i])
 					return (ft_freestr(tdstr));
-				s = s + strlen(tdstr[i]);
+				s = s + ft_strlen(tdstr[i]);
 			}
 			tdstr[i] = 0;
 			return (tdstr);

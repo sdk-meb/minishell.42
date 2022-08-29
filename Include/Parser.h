@@ -65,9 +65,8 @@ char	*ft_repair_string(char *old_line);
 char	**ft_tokenize_line(char *s);
 int		ft_check_chars(char c, char *set);
 int		ft_get_next_quote(int i, char *line);
-int		ft_count_tokens(char *line);
-int		ft_count_tokens(char *s)
-char	**ft_freestr(char **str)
+int		ft_count_tokens(char *s);
+char	**ft_freestr(char **str);
 
 // [B] Parsing files :
 

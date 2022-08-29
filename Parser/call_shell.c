@@ -32,7 +32,7 @@ char	**ft_readline(char ps1)
 	if (!line)
 		exit (1);
 	else if (!*line)
-		return (ft_readline(PRIO_USER));
+		return (ft_readline());
 	while (line && line[i] && ft_isprint(line[i]))
 		i++;
 	if (!line || !line[i])
