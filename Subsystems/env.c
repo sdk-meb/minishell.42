@@ -36,35 +36,50 @@ t_envv	**my_env(t_envv **env, t_req ord)
 	return (env);
 }
 
-static t_envv	*new_env(t_str str)
+char	**env_to_argv(t_envv **env)
 {
-	t_envv	*new;
+	t_envv	*mng;
+	int		size;
+	char	**argv;
 
-	new = (t_envv *) ft_calloc(1, sizeof(new));
-	if (!new)
-		return (NULL);
-	new->content = ft_strdup(ft_memchr(str, '=', INT32_MAX));
-	new->name = ft_substr(str, 0, ft_strlen(str) - ft_strlen(new->content));
-	if (new->content)
-		new->content = ft_substr(new->content, 1, INT32_MAX);
-	new->next = NULL;
-	new->sort = 1;
-	return (new);
+	size = 0;
+	mng	= *env;
+	while (size++, mng)
+		mng = mng->next;
+	mng = *env;
+	argv = (t_head) malloc(sizeof(argv) * size);
+	argv[--size] = NULL;
+	while (mng)
+	{
+		argv[--size] = ft_strjoin(mng->name, "=");
+		argv[size] = ft_strjoin(argv[size], mng->content);
+		mng = mng->next;
+	}
+	return (argv);
 }
 
-static void	add_to_env(t_envv **env, t_envv *new)
+void	env(t_cmd cmd)
 {
-	t_envv	*temp;
+	t_envv	**env;
+	t_envv	*envv;
 
-	if (*env == NULL)
-		*env = new;
-	else
+	env = my_env(NULL, _GET);
+	envv = *env;
+	while (envv)
 	{
-		temp = *env;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
+		if (envv->content)
+		{
+			write(cmd->out, envv->name, ft_strlen(envv->name));
+			write(cmd->out, "=", 2);
+			write(cmd->out, envv->content, ft_strlen(envv->content));
+			write(cmd->out, "\n", 2);
+		}
+		envv = envv->next;
 	}
+	write(cmd->out,"_=/usr/bin/env\n", 16);
+	close_fd(cmd->in, cmd->out);
+	cmd->out = 1;
+	cmd->in = 0;
 }
 
 void	*get_env(t_str var)
@@ -83,24 +98,4 @@ void	*get_env(t_str var)
 		envv = envv->next;
 	}
 	return ("");
-}
-
-void	env_proc(char **env_v, t_str var)
-{
-	t_envv	**env;
-
-	env = my_env(NULL, _GET);
-	if (!env)
-		env = my_env((t_envv **)ft_calloc(sizeof(env), 1), SAVE);
-	if (var)
-		add_to_env(env, new_env(var));
-	else if (env_v && *env_v)
-	{
-		while (*env_v)
-			add_to_env(env, new_env(*env_v++));
-		set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
-		set_env("SHELL=./minishell");
-		unset_envv("ZSH");
-		unset_envv("_");
-	}
 }

@@ -12,52 +12,6 @@
 
 #include "../Include/minishell.h"
 
-char	**env_to_argv(t_envv **env)
-{
-	t_envv	*mng;
-	int		size;
-	char	**argv;
-
-	size = 0;
-	mng = *env;
-	while (size++, mng)
-		mng = mng->next;
-	mng = *env;
-	argv = (t_head) malloc(sizeof(argv) * size);
-	argv[--size] = NULL;
-	while (mng)
-	{
-		argv[--size] = ft_strjoin(mng->name, "=");
-		argv[size] = ft_strjoin(argv[size], mng->content);
-		mng = mng->next;
-	}
-	return (argv);
-}
-
-
-void	env(t_cmd cmd)
-{
-	t_envv	**env;
-	t_envv	*envv;
-
-	env = my_env(NULL, _GET);
-	envv = *env;
-	while (envv)
-	{
-		if (envv->content)
-		{
-			write(cmd->out, envv->name, ft_strlen(envv->name));
-			write(cmd->out, "=", 2);
-			write(cmd->out, envv->content, ft_strlen(envv->content));
-			write(cmd->out, "\n", 2);
-		}
-		envv = envv->next;
-	}
-	write(cmd->out,"_=/usr/bin/env\n", 16);
-	close_fd(cmd->in, cmd->out);
-	cmd->out = 1;
-	cmd->in = 0;
-}
 
 void	unset_envv(t_str var)
 {
