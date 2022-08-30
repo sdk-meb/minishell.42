@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/30 08:16:33 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 22:22:59 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	hd_out_of(t_cmd mngr, t_cmd cmd)
 	close_fd(cmd->in, STDOUT_FILENO);
 	pipe(fd);
 	cmd->in = fd[STDIN_FILENO];
-	write(fd[STDOUT_FILENO], mngr->token, sizeof(mngr->token));
-	close(cmd->out);
-	cmd->out = STDOUT_FILENO;
+	write(fd[STDOUT_FILENO], mngr->token, ft_strlen(mngr->token));
+	close(fd[STDOUT_FILENO]);
+	mngr->symbol = 'F';
 }
 
 static void	rd_out_of(t_cmd mngr, t_cmd cmd)
@@ -59,7 +59,7 @@ void	rf_wi(t_cmd cmd)
 	while (mngr)
 	{
 		if (mngr->symbol == HEREDOC)
-			hd_out_of(mngr, cmd);
+			hd_out_of(mngr->next, cmd);
 		else if (mngr->symbol == '<')
 			rd_out_of(mngr->next, cmd);
 		else if (mngr->symbol == O_APPEND)

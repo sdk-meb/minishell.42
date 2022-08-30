@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/30 08:10:35 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 22:37:18 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ char	**ft_readline(char ps1)
 	int		i;
 	char	**splitted;
 
-	i = 10000;
+	i = 0;
+	glb_sig(SIGINT);
 	line = readline(prompt(ps1));
+	glb_sig(SIGCHLD);
 	if (!line)
 		exit (1);
 	else if (!*line)
@@ -39,7 +41,7 @@ char	**ft_readline(char ps1)
 	if (!ft_check_line(line))
 	{
 		line = ft_repair_string(line);
-		splitted = ft_branch_line(line, ' ');
+		splitted = ft_tokenize_line(line);
 		return (free(line), splitted);
 	}
 	return (free(line), NULL);

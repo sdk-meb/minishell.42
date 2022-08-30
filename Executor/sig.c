@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/30 08:40:44 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 18:30:29 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ int	glb_sig(int sig)
 
 static void	sa_sig(int sig)
 {
-	if (sig == SIGINT && glb == _EXECUTE_OK)
+	if (sig == SIGINT && glb_sig(EMPTY) == _EXECUTE_OK)
 		glb_sig(RL_STATE_READCMD);
-	if (sig == SIGINT && glb == SIGINT)
+	if (sig == SIGINT && glb_sig(EMPTY) == SIGINT)
 	{
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT && glb == SIGCHLD)
+	if (sig == SIGQUIT && glb_sig(EMPTY) == SIGCHLD)
 		ft_err("Quit: 3\n", 109);
 }
 
