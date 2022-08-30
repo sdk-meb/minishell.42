@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/29 19:00:54 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 08:42:10 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**env_to_argv(t_envv **env)
 	char	**argv;
 
 	size = 0;
-	mng	= *env;
+	mng = *env;
 	while (size++, mng)
 		mng = mng->next;
 	mng = *env;
@@ -75,7 +75,7 @@ void	set_env(t_str var)
 		{
 			if (envv->content)
 			{
-			 	free((void *)envv->content);
+				free((void *)envv->content);
 				envv->content = NULL;
 			}
 			if (ft_strnindex(var, '=', INT32_MAX))
@@ -105,7 +105,7 @@ void	env(t_cmd cmd)
 		}
 		envv = envv->next;
 	}
-	write(cmd->out,"_=/usr/bin/env\n", 16);
+	write(cmd->out, "_=/usr/bin/env\n", 16);
 	close_fd(cmd->in, cmd->out);
 	cmd->out = 1;
 	cmd->in = 0;

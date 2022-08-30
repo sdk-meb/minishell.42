@@ -38,9 +38,11 @@ int	ft_failure(int error)
 	if (error == 1)
 		printf("minishell: parse error near `|'\n");
 	if (error == 3)
-		printf("qoutes not closed\n");
+		printf("minishell : qoutes not closed\n");
 	if (error == 4)
-		printf("Error : consecutive pipes\n");
+		printf("minishell : zsh: parse error near `|'\n");
+	if (error == 5)
+		printf("minishell : parse error near `<' `>'\n");
 	return (FAILURE);
 }
 
@@ -51,22 +53,62 @@ int	ft_check_consecutive_pipes_redirections(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '|' || ft_is_redirection(str[i]))
+		if (str[i] == '|')
 		{
 			while (str[++i] == ' ')
 				i++;
-			if (str[i] == '|' || ft_is_redirection(str[i]))
+			if (str[i] == '|')
 				return (FAILURE);
 		}
-		if (ft_is_redirection(str[i]) && ft_is_redirection(str[i + 1]))
-			if (ft_is_redirection(str[i + 2]))
+		i++;
+	}
+	return (0);
+}
+
+int	ft_check_consecutive_redirections(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_is_redirection(str[i]))
+		{
+			if(str[i + 1] == ' ')
+			{
+				i++;
+				while(str[i] == ' ')
+					i++;
+				if (ft_is_redirection(str[i]))
+					return (FAILURE);
+			}
+		}
+		if (ft_is_redirection(str[i]))
+		{
+			if (ft_is_redirection(str[i + 1]) && ft_is_redirection(str[i + 2]))
 				return (FAILURE);
+		}
 		if ((str[i] == '>' && str[i + 1] == '<')
 			|| (str[i] == '<' && str[i + 1] == '>'))
 			return (FAILURE);
 		i++;
 	}
-	return (0);
+	return (SUCCESS);
+}
+
+int	and(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '&' && ft_is_special(str[i + 1]))
+			return (FAILURE);
+		else if (ft_is_special(str[i] && str[i + 1] == '&'))
+			return (FAILURE);
+	}
+	return (SUCCESS);
 }
 
 int	ft_check_line(char *line)
@@ -83,5 +125,7 @@ int	ft_check_line(char *line)
 		return (ft_failure(3));
 	if (ft_check_consecutive_pipes_redirections(line))
 		return (ft_failure(4));
+	if (ft_check_consecutive_redirections(line))
+		return (ft_failure(5));
 	return (SUCCESS);
 }

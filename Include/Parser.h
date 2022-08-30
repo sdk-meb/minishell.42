@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/23 21:29:25 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 08:06:40 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 # define SUCCESS	0
 # define FAILURE	1
+# define SPACE		' '
 
 
 // Used structs :
@@ -43,7 +44,10 @@ typedef struct s_env
 typedef struct s_list
 {
 	char			*token;
-	char			type;
+	char			symbol;
+
+	char			*file;
+	char			*type;
 
 	struct s_list	*next;
 	struct s_list	*prev;
@@ -68,12 +72,11 @@ char	*ft_repair_string(char *old_line);
 
 // 2 // branch_line
 
-//char	**ft_branch_line(char *line, char c);
+char	**ft_tokenize_line(char *s);
 int		ft_check_chars(char c, char *set);
 int		ft_get_next_quote(int i, char *line);
-int		ft_calculate_words(char *line, char c);
-char	*ft_allocate_fill_str(char *line);
-char	**ft_free_strings(char **ptr);
+int		ft_count_tokens(char *s);
+char	**ft_freestr(char **str);
 
 // [B] Parsing files :
 
@@ -120,7 +123,8 @@ int		ft_isprint(int c);
 
 // FILE 4 //
 
-char	**ft_split(char const *s, char c);
+char    *ft_heredoc(char *delim);
+char    **handel_heredoc(char **str);
 
 // [E] //
 

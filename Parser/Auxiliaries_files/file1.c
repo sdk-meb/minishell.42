@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:33:54 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/18 22:51:12 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/16 19:23:34 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	print_tree(t_list *root)
 {
 	if (root == NULL)
 	{
-		printf("%s\n", (void *)root);
+		printf("%s\n", "NULL");
 		return ;
 	}
-	printf("                     I AM ROOT == %c\n", root->type);
+	printf("                     I AM ROOT == %s\n", root->token);
 	if (root->left)
-		printf("MY LEFT IS [%c]", root->left->type);
+		printf("MY LEFT IS [%s]", root->left->token);
 	if (root->right)
-		printf("				  MY RIGHT IS [%c]\n", root->right->type);
+		printf("				  MY RIGHT IS [%s]\n", root->right->token);
 	print_tree(root->left);
 	print_tree(root->right);
 }

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/29 18:45:49 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 08:46:18 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,41 @@
 
 static t_str	get_name(t_str strr)
 {
-    int	cas_e;
 	char	*str;
+	int		cas_e;
 
 	str = (char *)strr;
-    cas_e = 0;
+	cas_e = 0;
 	if (!str)
 		return (NULL);
-	while (str[cas_e]  && str[cas_e] != '=')
+	while (str[cas_e] && str[cas_e] != '=')
 		cas_e++;
 	return (ft_substr(str, 0, cas_e));
 }
 
 t_str	get_tenor(t_str strr)
 {
-    int	cas_e;
-char	*str;
+	int		cas_e;
+	char	*str;
 
 	str = (char *)strr;
-    cas_e = 0;
+	cas_e = 0;
 	if (!str)
 		return (NULL);
 	while (str[cas_e] && str[cas_e] != '=')
 		cas_e++;
 	if (str[cas_e] == '=')
-		return (ft_substr(str, cas_e + 1, ft_strlen(str) - cas_e  + 1));
+		return (ft_substr(str, cas_e + 1, ft_strlen(str) - cas_e + 1));
 	return (NULL);
 }
 
 static t_envv	*new_env(t_str str)
 {
 	t_envv	*new;
-	
+
 	new = (t_envv *) ft_calloc(1, sizeof(new));
 	if (!new)
 		return (NULL);
-
 	get_tenor(str);
 	get_name(str);
 	new->content = get_tenor(str);

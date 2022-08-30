@@ -42,7 +42,7 @@ $(LIBFT): $(shell find libft -type f | (grep '\.o\>' & grep '\.h\>'))
 
 $(NAME): $(LIBFT) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
 	@$(CC) $(CFLAGS) $(LINKER) $(LIBFT) -o $(NAME) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
-	@echo "${BIGreen} • An executable file has been generated $(BIYellow)./${NAME}${NC}"
+	@echo "${BIGreen} • An executable file has been generated $(BIYellow)./${NAME}${NO_COLOR}"
 
 bonus:
 

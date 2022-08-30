@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 12:45:59 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/24 01:05:25 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 08:16:17 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	cmd_pipe_cmd(t_cmd cmd)
 	cmd->left->out = STDOUT_FILENO;
 	pipe(fds);
 	cmd->left->out = fds[STDOUT_FILENO];
-	if (cmd->right->type == '|')
+	if (cmd->right->symbol == '|')
 		cmd->right->left->in = fds[STDIN_FILENO];
 	else
 		cmd->right->in = fds[STDIN_FILENO];

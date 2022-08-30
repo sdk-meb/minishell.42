@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/29 18:57:19 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 08:38:42 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	plea_arguments_value(t_cmd cmd)
 	av = "";
 	while (mngr)
 	{
-		if (mngr->type == 'w')
+		if (mngr->symbol == 'w')
 		{
 			av = ft_strjoin(av, mngr->token);
 			av = ft_strjoin(av, "\003");
@@ -57,8 +57,8 @@ static void	exec_bin(t_cmd cmd)
 	if (ft_memcmp(cmd->arv[0], "./", 2) == SUCCESS || cmd->arv[0][0] == '/')
 	{
 		if (ft_memcmp(cmd->arv[0], "./", 2) == SUCCESS)
-			ft_memmove((void *)cmd->arv[0], (void *)(cmd->arv[0] + 2)
-				, ft_strlen(cmd->arv[0]) - 1);
+			ft_memmove((void *)cmd->arv[0], (void *)(cmd->arv[0] + 2),
+				ft_strlen(cmd->arv[0]) - 1);
 		execve(cmd->arv[0], cmd->arv, av);
 	}
 	else
@@ -74,7 +74,7 @@ void	sh_exec(t_cmd cmd)
 {
 	if (!cmd)
 		return ;
-	if (cmd->type == '|')
+	if (cmd->symbol == '|')
 	{
 		pipe_x (cmd);
 		rf_wi(cmd->left);

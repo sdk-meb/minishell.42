@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Err.c                                              :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 07:36:20 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/30 08:39:22 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/08/30 08:04:44 by rel-hach          #+#    #+#             */
+/*   Updated: 2022/08/30 08:48:42 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "libft.h"
 
-int	stat_loc(int statu)
+int	ft_strcmp(const char *ss1, const char *ss2)
 {
-	static int	qm[1];
+	char	*s1;
+	char	*s2;
 
-	if (statu != EMPTY)
-		qm[0] = statu;
-	return (qm[0]);
-}
-
-void	ft_err(t_str err_msg, int erno)
-{
-	errno = erno;
-	if (erno == 127)
-		stat_loc(erno);
-	if (erno == SUCCESS)
-		return ;
-	if (errno > 0 && errno < sys_nerr)
-		perror(err_msg);
-	else
+	s1 = (char *)ss1;
+	s2 = (char *)ss2;
+	while (*s1 != '\0' || *s2 != '\0')
 	{
-		write(2, err_msg, ft_strlen(err_msg));
-		write(2, "\n", 1);
+		if (*s1 != *s2)
+			return ((unsigned char)*s1 - (unsigned char)*s2);
+		s1++;
+		s2++;
 	}
-	errno = 0;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/29 12:43:33 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 08:38:20 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	echo(t_cmd cmd)
 
 	new_line = true;
 	i[0] = 0;
-	while (cmd->arv[++i[0]] && cmd->arv[i[0]][0] ==  '-')
+	while (cmd->arv[++i[0]] && cmd->arv[i[0]][0] == '-')
 	{
 		i[1] = 1;
 		while (cmd->arv[i[0]][i[1]] == 'n')
@@ -45,11 +45,10 @@ static void	ft_exit(t_cmd cmd)
 
 	i = 0;
 	while (cmd->arc > 2 && ft_isdigit(cmd->arv[1][i]) == SUCCESS)
+	{
 		if (cmd->arv[1][++i] == '\0')
-		{
-			stat_loc(1);
-			return (ft_err("msh: exit: too many arguments", 109));
-		}
+			return (stat_loc(1), ft_err("msh: exit: too many arguments", 109));
+	}
 	if (cmd->arc > 2)
 	{
 		ft_err("msh: exit: numeric argument required", 109);
@@ -105,7 +104,7 @@ bool	bult_c(t_cmd cmd)
 	if (ft_memcmp(mngr->arv[0], "pwd", 4) == SUCCESS)
 		return (pwd(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "env", 4) == SUCCESS)
-	 	return (env(cmd), SUCCESS);
+		return (env(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "unset", 4) == SUCCESS)
 		return (unset(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "exit", 5) == SUCCESS)

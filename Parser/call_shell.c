@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/24 12:30:06 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 08:10:35 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**ft_readline(char ps1)
 	if (!line)
 		exit (1);
 	else if (!*line)
-		return (ft_readline(PRIO_USER));
+		return (ft_readline(ps1));
 	while (line && line[i] && ft_isprint(line[i]))
 		i++;
 	add_history(line);
@@ -48,6 +48,7 @@ char	**ft_readline(char ps1)
 void	ft_call_shell(char ps1)
 {
 	char	**splitted;
+
 	t_list	*root;
 
 	while (1)
@@ -55,6 +56,7 @@ void	ft_call_shell(char ps1)
 		splitted = ft_readline(ps1);
 		if (splitted && *splitted)
 		{
+			splitted = handel_heredoc(splitted);
 			root = ft_create_list_for_tockens(splitted);
 			free (splitted);
 			root = ft_create_astree(root);

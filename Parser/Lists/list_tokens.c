@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/23 02:46:23 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 08:17:46 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void	ft_lstadd_back_doubly(t_list **lst, t_list *new)
 		}
 	}
 }
-
-char	ft_get_type(char *tocken)
+char	ft_get_symbol(char *tocken)
 {
 	if (!ft_memcmp(tocken, "|", 2))
 		return ('|');
@@ -69,21 +68,35 @@ char	ft_get_type(char *tocken)
 		return (HEREDOC);
 	if (!ft_memcmp(tocken, "<<", 3))
 		return (APNDDOC);
+	return ('w');
+}
+char	*ft_get_type(char *tocken)
+{
+	if (ft_memcmp(tocken, "|", 2) == 0)
+		return ("PIPE");
+	if (ft_memcmp(tocken, ">", 2) == 0)
+		return ("OUT_RED");
+	if (ft_memcmp(tocken, "<", 2) == 0)
+		return ("IN_RED");
+	if (ft_memcmp(tocken, ">>", 3) == 0)
+		return ("APPEND_OUT_RED");
+	if (ft_memcmp(tocken, "<<", 3) == 0)
+		return ("HEREDOC");
 	else
-		return ('w');
+		return ("w");
 }
 
 t_list	*ft_new_token(char *string)
 {
-	int				i;
 	t_list			*new;
 
 	new = ft_calloc(1, sizeof(t_list));
 	if (!new)
 		return (NULL);
-	i = 0;
 	new->token = ft_expand(string);
 	new->type = ft_get_type(string);
+	new->symbol = ft_get_symbol(string);
+
 
 	new->in = STDIN_FILENO;
 	new->out = STDOUT_FILENO;
@@ -106,8 +119,17 @@ t_list	*ft_create_list_for_tockens(char **splitted)
 	head = ft_new_token(splitted[i++]);
 	while (splitted[i])
 	{
-		new = ft_new_token(splitted[i]);
-		ft_lstadd_back_doubly(&head, new);
+		if (ft_strncmp(splitted[i], "<<", 2) == 0)
+        {
+			i++;
+            while (splitted[i + 1] && !ft_strcmp(splitted[i + 1], "<<"))
+                i = i + 2;
+        }
+		if (splitted[i])
+		{
+			new = ft_new_token(splitted[i]);
+			ft_lstadd_back_doubly(&head, new);
+		}
 		i++;
 	}
 	return (head);
