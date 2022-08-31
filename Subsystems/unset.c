@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/30 08:43:56 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:51:38 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	unset_envv(t_str var)
 	env = my_env(NULL, _GET);
 	envv = *env;
 	prev = *env;
+	stat_loc(0);
 	while (envv)
 	{
 		if (ft_strncmp(envv->name, var, INT32_MAX) == SUCCESS)
@@ -35,6 +36,7 @@ void	unset_envv(t_str var)
 		prev = envv;
 		envv = envv->next;
 	}
+	stat_loc(1);
 }
 
 void	unset(t_cmd cmd)
@@ -42,6 +44,7 @@ void	unset(t_cmd cmd)
 	int	i;
 
 	i = 0;
+	stat_loc(0);
 	while (cmd->arv[i])
 	{
 		if (!cmd->arv[i] || cmd->arv[i][0] == '$'

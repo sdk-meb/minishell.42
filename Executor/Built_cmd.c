@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/31 16:52:00 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:54:37 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	echo(t_cmd cmd)
 
 	new_line = true;
 	i[0] = 0;
+	stat_loc(0);
 	while (cmd->arv[++i[0]] && cmd->arv[i[0]][0] == '-')
 	{
 		i[1] = 1;
@@ -69,6 +70,7 @@ static void	pwd(t_cmd cmd)
 		close_fd(cmd->in, cmd->out);
 		return (ft_err("pwd: invalid option\n", 109));
 	}
+	stat_loc(0);
 	pathname = (char *)ft_calloc(PATH_MAX, 1);
 	getcwd(pathname, PATH_MAX);
 	write(cmd->out, pathname, ft_strlen(pathname));
@@ -84,6 +86,7 @@ static void	cd(t_cmd cmd)
 	chdir(cmd->arv[1]);
 	if (errno == SUCCESS)
 	{
+		stat_loc(0);
 		set_env(ft_strjoin("OLDPWD=", get_env("PWD")));
 		getcwd(get_env("PWD"), PATH_MAX);
 		return ;

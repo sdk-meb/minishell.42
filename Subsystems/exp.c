@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/29 18:37:05 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:52:07 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	ex_port(t_cmd cmd)
 	t_envv	*envv;
 
 	env = my_env(NULL, _GET);
+	stat_loc(0);
 	envv = next_declare(*env);
 	while (envv)
 	{
@@ -73,6 +74,7 @@ void	export(t_cmd cmd)
 	int	c;
 
 	arg = 0;
+	stat_loc(0);
 	if (!cmd->arv[1])
 		return (ex_port(cmd));
 	while (cmd->arv[++arg])
