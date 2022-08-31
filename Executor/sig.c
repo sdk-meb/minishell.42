@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/30 18:30:29 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:57:10 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,42 +23,53 @@ int	glb_sig(int sig)
 	return (osig);
 }
 
+static void	help_child(t_cmd cmd)
+{
+	int	statu;
+
+	statu = -1;
+	while (statu++ < 255)
+		if (statu != cmd->out && statu != cmd->in && statu != STDERR_FILENO)
+			close(statu);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	dup2(cmd->in, STDIN_FILENO);
+	dup2(cmd->out, STDOUT_FILENO);
+}
+
+void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
+{
+	int	statu;
+
+	statu = fork();
+	if (statu == PRIO_PROCESS)
+	{
+		help_child(cmd);
+		bin(cmd);
+		ft_exit (1);
+	}
+	glb_sig(SIGCHLD);
+	close_fd(cmd->in, cmd->out);
+	if (statu == RUSAGE_CHILDREN)
+		ft_err(NULL, errno);
+	while (cmd->last == true && waitpid(0, &statu, WUNTRACED) != -1)
+		track_child(statu);
+	if (cmd->last == true)
+		glb_sig(SIGINT);
+}
+
 static void	sa_sig(int sig)
 {
 	if (sig == SIGINT && glb_sig(EMPTY) == _EXECUTE_OK)
 		glb_sig(RL_STATE_READCMD);
 	if (sig == SIGINT && glb_sig(EMPTY) == SIGINT)
 	{
+		track_child(130);
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT && glb_sig(EMPTY) == SIGCHLD)
-		ft_err("Quit: 3\n", 109);
-}
-
-void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
-{
-	pid_t	id;
-
-	id = fork();
-	if (id == PRIO_PROCESS)
-	{
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		dup2(cmd->in, STDIN_FILENO);
-		dup2(cmd->out, STDOUT_FILENO);
-		bin(cmd);
-		exit (1);
-	}
-	glb_sig(SIGCHLD);
-	close_fd(cmd->in, cmd->out);
-	if (id == RUSAGE_CHILDREN)
-		ft_err(NULL, errno);
-	wait(&id);
-	stat_loc(id);
-	glb_sig(SIGINT);
 }
 
 void	signal_handler(void)

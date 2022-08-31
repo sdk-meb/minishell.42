@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/30 22:37:18 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 09:03:52 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static char	*prompt(char ps1)
 {
 	if (!ft_memcmp(get_env("USER"), "ROOT", 5))
-		return (ft_strdup("msh~1.0#>"));
+		return ("msh~1.0#>");
 	if (ps1 == PRIO_USER)
-		return (ft_strdup("msh~1.0$>"));
+		return ("msh~1.0$>");
 	return (NULL);
 }
 
@@ -32,7 +32,7 @@ char	**ft_readline(char ps1)
 	line = readline(prompt(ps1));
 	glb_sig(SIGCHLD);
 	if (!line)
-		exit (1);
+		ft_exit (1);
 	else if (!*line)
 		return (ft_readline(ps1));
 	while (line && line[i] && ft_isprint(line[i]))

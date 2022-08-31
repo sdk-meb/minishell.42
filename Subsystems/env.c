@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/30 08:42:10 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:42:22 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,19 @@ t_envv	**my_env(t_envv **env, t_req ord)
 
 	if (ord == SAVE)
 		envr = env;
-	if (ord == _SET && envr)
+	if (ord == EMPTY && envr)
 	{
 		while (*envr)
 		{
 			mng = *envr;
-			free((void *)mng->content);
+			if (mng->content)
+				free((void *)mng->content);
 			free((void *)mng->name);
 			*envr = mng->next;
 			free((void *)mng);
 		}
 		free((void *)envr);
+		envr = NULL;
 		return (NULL);
 	}
 	env = envr;

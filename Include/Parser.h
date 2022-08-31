@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/30 19:18:10 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:52:29 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_list
 	struct s_list	*left;
 	struct s_list	*right;
 
+	bool			last;
 	int				in;
 	int				out;
 	bool			err;

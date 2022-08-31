@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/30 08:47:25 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 09:42:56 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	rf_wi(t_cmd cmd);
 void	ft_err(t_str str, int erno);
 int		stat_loc(int statu);
 int		glb_sig(int sig);
+void	track_child(int statu);
+void	ft_exit(char ex_it);
 
 bool	bult_c(t_cmd cmd);/* exit status $? */
 

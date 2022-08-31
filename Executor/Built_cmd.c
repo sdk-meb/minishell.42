@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/30 08:38:20 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:52:00 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	echo(t_cmd cmd)
 		i[1] = 1;
 		while (cmd->arv[i[0]][i[1]] == 'n')
 			i[1]++;
-		if (cmd->arv[i[0]][i[1]])
+		if (cmd->arv[i[0]][i[1]] || i[1] == 1)
 			break ;
 		new_line = false;
 	}
@@ -39,7 +39,7 @@ static void	echo(t_cmd cmd)
 	close_fd(cmd->in, cmd->out);
 }
 
-static void	ft_exit(t_cmd cmd)
+static void	b_exit(t_cmd cmd)
 {
 	int	i;
 
@@ -55,7 +55,7 @@ static void	ft_exit(t_cmd cmd)
 		exit(255);
 	}
 	if (cmd->arc == 1)
-		exit(1);
+		exit(0);
 	exit (ft_atoi(cmd->arv[cmd->arc - 1]));
 }
 
@@ -108,7 +108,7 @@ bool	bult_c(t_cmd cmd)
 	if (ft_memcmp(mngr->arv[0], "unset", 4) == SUCCESS)
 		return (unset(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "exit", 5) == SUCCESS)
-		return (ft_exit(cmd), SUCCESS);
+		return (b_exit(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "export", 7) == SUCCESS)
 		return (export(cmd), SUCCESS);
 	return (FAILURE);
