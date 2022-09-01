@@ -6,39 +6,11 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 09:35:43 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 22:00:01 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-static void	echo(t_cmd cmd)
-{
-	int	new_line;
-	int	i[2];
-
-	new_line = true;
-	i[0] = 0;
-	while (cmd->arv[++i[0]] && cmd->arv[i[0]][0] == '-')
-	{
-		i[1] = 1;
-		while (cmd->arv[i[0]][i[1]] == 'n')
-			i[1]++;
-		if (cmd->arv[i[0]][i[1]] || i[1] == 1)
-			break ;
-		new_line = false;
-	}
-	while (cmd->arv[i[0]])
-	{
-		write(cmd->out, cmd->arv[i[0]], ft_strlen(cmd->arv[i[0]]));
-		if (cmd->arv[++i[0]])
-			write(cmd->out, " ", 1);
-	}
-	if (new_line)
-		write(cmd->out, "\n", 1);
-	close_fd(cmd->in, cmd->out);
-	exit(0);
-}
 
 static void	b_exit(t_cmd cmd)
 {

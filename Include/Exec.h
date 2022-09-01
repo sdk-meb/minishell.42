@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/31 09:42:56 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 21:20:34 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	track_child(int statu);
 void	ft_exit(char ex_it);
 
 bool	bult_c(t_cmd cmd);/* exit status $? */
+void	echo(t_cmd cmd);
 
 /* It allows to execute of a binary file to Overlay
  by a child process and not bother the parent,

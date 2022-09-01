@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 09:54:19 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 22:05:58 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ static void	cmd_path(t_cmd cmd, t_head pathname)
 	struct stat	buf;
 
 	if (!pathname)
-		ft_err("msh: No such file or directory", 127), exit(127);
+	{
+		ft_err("msh: No such file or directory", 127);
+		exit(127);
+	}
 	if (!pathname[0])
 		return (ft_err("msh: command not found", 127), exit(127));
 	pathname[0] = ft_strjoin(pathname[0], "/");
@@ -73,6 +76,7 @@ static void	exec_bin(t_cmd cmd)
 
 void	sh_exec(t_cmd cmd)
 {
+	printf("_____EXEC____\n");
 	if (!cmd)
 		return ;
 	if (cmd->symbol == '|')

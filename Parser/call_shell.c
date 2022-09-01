@@ -6,20 +6,21 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/01 07:56:59 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:45:16 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
+// colour will be removed -> readline error
 static char	*prompt(char ps1)
 {
 	if (!ft_memcmp(get_env("USER"), "ROOT", 5) && stat_loc(EMPTY))
-		return ("\033[0;34m $>\033[0;37m");
+		return ("\033[4;33mM-Shell\033[0;34m $>\033[0;37m");
 	if (ps1 == PRIO_USER && stat_loc(EMPTY))
-		return ("\033[0;31m $>\033[0;37m");
+		return ("\033[4;33mM-Shell\033[0;31m $>\033[0;37m");
 	else if (ps1 == PRIO_USER)
-		return ("\033[0;32m $>\033[0;37m");
+		return ("\033[4;33mM-Shell\033[0;32m $>\033[0;37m");
 	return (NULL);
 }
 

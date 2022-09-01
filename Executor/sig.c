@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 10:27:13 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:06:21 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ static void	sa_sig(int sig)
 {
 	if (sig == SIGINT && glb_sig(EMPTY) == _EXECUTE_OK)
 		glb_sig(RL_STATE_READCMD);
+	if (glb_sig(EMPTY) == HEREDOC)
+	{
+		write(1, "\n", 1);
+		glb_sig(SIGINT);
+	}
 	if (sig == SIGINT && glb_sig(EMPTY) == SIGINT)
 	{
 		track_child(130);

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 10:09:56 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:22:45 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	set_env(t_str var)
 	{
 		if (ft_strncmp(envv->name, var, i - 1) == SUCCESS)
 		{
-			if (envv->content)
+			if (envv->content && ft_strnindex(var, '=', INT32_MAX))
 			{
 				free((void *)envv->content);
 				envv->content = NULL;
@@ -121,9 +121,9 @@ void	*get_env(t_str var)
 		return (ft_itoa(stat_loc(EMPTY)));
 	env = my_env(NULL, _GET);
 	envv = *env;
-	while (envv->next)
+	while (envv)
 	{
-		if (ft_strncmp(envv->name, var, INT32_MAX) == SUCCESS)
+		if (ft_strcmp(envv->name, var) == SUCCESS)
 		{
 			if (envv->content)
 				return ((void *)envv->content);
