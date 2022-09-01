@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/31 09:03:52 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 23:58:32 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char	**ft_readline(char ps1)
 void	ft_call_shell(char ps1)
 {
 	char	**splitted;
-
 	t_list	*root;
 
 	while (1)

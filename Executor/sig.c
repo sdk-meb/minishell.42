@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/31 16:57:10 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 22:58:20 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 
 static void	sa_sig(int sig)
 {
-	if (sig == SIGINT && glb_sig(EMPTY) == _EXECUTE_OK)
-		glb_sig(RL_STATE_READCMD);
+	//if (sig == SIGINT && glb_sig(EMPTY) == _EXECUTE_OK)
+	//	glb_sig(RL_STATE_READCMD);
 	if (sig == SIGINT && glb_sig(EMPTY) == SIGINT)
 	{
 		track_child(130);
 		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		// rl_replace_line("", 0);
+		// rl_on_new_line();
+		// rl_redisplay();
 	}
 }
 

@@ -1,6 +1,16 @@
-// HEADER 42 _________________ BY = rel-hach //
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander_utils1.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/31 21:05:49 by rel-hach          #+#    #+#             */
+/*   Updated: 2022/09/01 01:38:51 by rel-hach         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 int	count_dq_case(char *str, int *i)
 {
@@ -12,8 +22,13 @@ int	count_dq_case(char *str, int *i)
 	{
 		if (str[(*i)] == '$')
 		{
-			(*i)++;
-			size = size + ft_strlen(ft_get_env(str, i));
+			if (ft_isdigit(str[(*i) + 1]) == 0)
+				*i = *i + 2;
+			else
+			{
+				(*i)++;
+				size = size + ft_strlen(ft_get_env(str, i));
+			}
 		}
 		else
 		{

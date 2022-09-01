@@ -1,29 +1,29 @@
 // HEADER 42 ____ USER = rel-hach //
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 char *heredoc_waiting(int fds[2])
 {
 	char	*temp;
-	int		statu;
+	int		status;
 
 	close(fds[STDOUT_FILENO]);
-	wait(&statu);
+	wait(&status);
 	glb_sig(SIGINT);
-	stat_loc(statu);
+	stat_loc(status);
 	temp = ft_calloc(100001 , 1);
-	statu = read(fds[STDIN_FILENO], temp, 10000);
-	if (statu < 0)
+	status = read(fds[STDIN_FILENO], temp, 10000);
+	if (status < 0)
 		return NULL;
-	temp[statu] = '\0';
+	temp[status] = '\0';
 	close(fds[STDIN_FILENO]);
 	return (temp);
 }
 
-char *ft_heredoc(char *delim)
+char	*ft_heredoc(char *delim)
 {
-	char *line;
-	int fds[2];
+	char	*line;
+	int		fds[2];
 
 	pipe(fds);
 	glb_sig(SIGCHLD);
@@ -39,6 +39,8 @@ char *ft_heredoc(char *delim)
 			free(line);
 			break;
 		}
+		if (ft_is_quote(delim[0]) == 0)
+			line = ft_expand_heredoc(line);
 		write(fds[STDOUT_FILENO], line, ft_strlen(line));
 		write(fds[STDOUT_FILENO], "\n", 1);
 		free(line);
@@ -49,7 +51,7 @@ char *ft_heredoc(char *delim)
 
 char **handel_heredoc(char **str)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (str[i])
