@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/29 18:37:05 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 09:39:57 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	ex_port(t_cmd cmd)
 		envv = envv->next;
 	}
 	close_fd(cmd->in, cmd->out);
+	exit (0);
 }
 
 void	export(t_cmd cmd)
@@ -73,8 +74,9 @@ void	export(t_cmd cmd)
 	int	c;
 
 	arg = 0;
+	stat_loc(0);
 	if (!cmd->arv[1])
-		return (ex_port(cmd));
+		return (fork_exec(cmd, ex_port));
 	while (cmd->arv[++arg])
 	{
 		c = -1;

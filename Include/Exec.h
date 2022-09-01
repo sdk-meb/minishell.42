@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/31 21:51:48 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:04:43 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # include <sys/syslimits.h>
 # include "minishell.h"
 # include "../libft/mtypes.h"
+# include "/Users/rel-hach/.brew/Cellar/readline/8.1.2/include/readline/readline.h"
+
 /* __________________________________  */
 
 # define HEREDOC	'H'	 /* << redirection */

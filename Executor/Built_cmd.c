@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/31 16:52:00 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 09:35:43 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	echo(t_cmd cmd)
 	if (new_line)
 		write(cmd->out, "\n", 1);
 	close_fd(cmd->in, cmd->out);
+	exit(0);
 }
 
 static void	b_exit(t_cmd cmd)
@@ -67,7 +68,8 @@ static void	pwd(t_cmd cmd)
 			|| (cmd->arv[1][1] == '-' && cmd->arv[1][2])))
 	{
 		close_fd(cmd->in, cmd->out);
-		return (ft_err("pwd: invalid option\n", 109));
+		ft_err("pwd: invalid option", 109);
+		exit (1);
 	}
 	pathname = (char *)ft_calloc(PATH_MAX, 1);
 	getcwd(pathname, PATH_MAX);
@@ -76,6 +78,7 @@ static void	pwd(t_cmd cmd)
 	close_fd(cmd->in, cmd->out);
 	cmd->out = 1;
 	cmd->in = 0;
+	exit (0);
 }
 
 static void	cd(t_cmd cmd)
@@ -84,6 +87,7 @@ static void	cd(t_cmd cmd)
 	chdir(cmd->arv[1]);
 	if (errno == SUCCESS)
 	{
+		stat_loc(0);
 		set_env(ft_strjoin("OLDPWD=", get_env("PWD")));
 		getcwd(get_env("PWD"), PATH_MAX);
 		return ;
@@ -98,13 +102,13 @@ bool	bult_c(t_cmd cmd)
 
 	mngr = cmd;
 	if (ft_memcmp(mngr->arv[0], "echo", 5) == SUCCESS)
-		return (echo(cmd), SUCCESS);
+		return (fork_exec(cmd, echo), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "cd", 3) == SUCCESS)
 		return (cd(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "pwd", 4) == SUCCESS)
-		return (pwd(cmd), SUCCESS);
+		return (fork_exec(cmd, pwd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "env", 4) == SUCCESS)
-		return (env(cmd), SUCCESS);
+		return (fork_exec(cmd, env), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "unset", 4) == SUCCESS)
 		return (unset(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "exit", 5) == SUCCESS)

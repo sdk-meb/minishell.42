@@ -1,10 +1,10 @@
 NAME	= minishell
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
-LINKER	= -lreadline #-L/Users/rel-hach/.brew/opt/readline/lib
+LINKER	= -lreadline -L/Users/rel-hach/.brew/opt/readline/lib
 
 INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'\
-			#'I/Users/rel-hach/.brew/opt/readline/include'
+			'-I/Users/rel-hach/.brew/opt/readline/include'
 LIBFT 	= libft/libft.a
 
 #regular colors :
