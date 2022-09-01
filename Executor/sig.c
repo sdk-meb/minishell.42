@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/31 16:57:10 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 10:08:10 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	glb_sig(int sig)
 	return (osig);
 }
 
-static void	help_child(t_cmd cmd)
+static void	help_child(t_cmd cmd, void (*bin)(t_cmd))
 {
 	int	statu;
 
@@ -35,6 +35,9 @@ static void	help_child(t_cmd cmd)
 	signal(SIGINT, SIG_DFL);
 	dup2(cmd->in, STDIN_FILENO);
 	dup2(cmd->out, STDOUT_FILENO);
+
+	bin(cmd);
+	ft_exit (1);
 }
 
 void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
@@ -43,11 +46,7 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 
 	statu = fork();
 	if (statu == PRIO_PROCESS)
-	{
-		help_child(cmd);
-		bin(cmd);
-		ft_exit (1);
-	}
+		help_child(cmd, bin);
 	glb_sig(SIGCHLD);
 	close_fd(cmd->in, cmd->out);
 	if (statu == RUSAGE_CHILDREN)

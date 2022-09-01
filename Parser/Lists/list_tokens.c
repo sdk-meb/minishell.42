@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   list_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/30 22:06:18 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:53:46 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 t_list	*ft_lstlast(t_list *lst)
 {
@@ -72,21 +72,23 @@ char	ft_get_symbol(char *tocken)
 	return ('w');
 }
 
-t_list	*ft_new_token(char *string)
+
+t_list	*ft_new_token(char *heredoc, char *string)
 {
 	t_list			*new;
 
 	new = ft_calloc(1, sizeof(t_list));
 	if (!new)
 		return (NULL);
-	new->token = ft_expand(string);
+	if (!ft_strcmp(heredoc, "<<"))
+		new->token = string;
+	else
+		new->token = ft_expand(string);
 	new->symbol = ft_get_symbol(string);
-
-
+	new->type = string;
 	new->in = STDIN_FILENO;
 	new->out = STDOUT_FILENO;
 	new->arv = NULL;
-	
 	new->prev = NULL;
 	new->next = NULL;
 	new->left = NULL;
@@ -101,12 +103,15 @@ t_list	*ft_create_list_for_tockens(char **splitted)
 	int		i;
 
 	i = 0;
-	head = ft_new_token(splitted[i++]);
+	head = ft_new_token(splitted[0], splitted[i++]);
 	while (splitted[i])
 	{
-		new = ft_new_token(splitted[i]);
+		new = ft_new_token(splitted[i - 1], splitted[i]);
 		ft_lstadd_back_doubly(&head, new);
 		i++;
 	}
 	return (head);
 }
+
+/// echo hello > file1.txt aaaaaa 
+// output :	hello aaaaaa
