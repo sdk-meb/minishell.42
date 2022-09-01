@@ -1,8 +1,10 @@
 NAME	= minishell
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
-LINKER	= -lreadline
-INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'
+LINKER	= -lreadline #-L/Users/rel-hach/.brew/opt/readline/lib
+
+INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'\
+			#'I/Users/rel-hach/.brew/opt/readline/include'
 LIBFT 	= libft/libft.a
 
 #regular colors :
@@ -21,9 +23,9 @@ BICyan=\033[1;96m
 BIWhite=\033[1;97m
 
 MAIN 			= main.c
-SRC_PARSER		= $(shell find Parser -type f | grep \\.c)
-SRC_SUBSYSTEMS	= $(shell find Subsystems -type f | grep \\.c)
-SRC_EXECUTOR	= $(shell find Executor -type f | grep \\.c)
+SRC_PARSER		= $(shell find Parser -type f | grep \\.c$)
+SRC_SUBSYSTEMS	= $(shell find Subsystems -type f | grep \\.c$)
+SRC_EXECUTOR	= $(shell find Executor -type f | grep '\.c\>')
 
 MAIN_O				= $(MAIN:.c=.o)
 OBJ_PARSER 			= $(SRC_PARSER:.c=.o)
@@ -35,12 +37,12 @@ OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 
 all: $(NAME)
 
-$(LIBFT): 
+$(LIBFT): $(shell find libft -type f | (grep '\.o\>' & grep '\.h\>'))
 	@make -C libft/
 
 $(NAME): $(LIBFT) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
 	@$(CC) $(CFLAGS) $(LINKER) $(LIBFT) -o $(NAME) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
-	@echo "${BIGreen} • An executable file has been generated $(BIYellow)./${NAME}${NC}"
+	@echo "${BIGreen} • An executable file has been generated $(BIYellow)./${NAME}${NO_COLOR}"
 
 bonus:
 
@@ -48,7 +50,7 @@ bonus:
 clean:
 	@rm -rf ${OBJ_PARSER} $(MAIN_O) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)
 	@make clean -C libft/
-	@echo "$(BIRed) • object files has been successfully deleted${NC}"
+	@echo "$(BIRed) • object files has been successfully deleted${NO_COLOR}"
 
 fclean: clean
 	@rm -rf ${NAME}

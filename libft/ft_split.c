@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 10:18:49 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 07:29:21 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:44:28 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,30 @@
 
 static int	ft_words(const char *str, char c)
 {
-	int	i;
-	int	r;
+	int		i;
+	t_ptr	ptr;
+	int		r;
 
 	i = 0;
+	ptr = (t_ptr)str;
 	r = 0;
-	if (!str)
+	if (!ptr)
 		return (0);
-	while (*str)
+	while (*ptr)
 	{
-		if (*str != c && r == 0)
+		if (*ptr != c && r == 0)
 		{
 			r = 1;
 			i++;
 		}
-		else if (*str == c)
+		else if (*ptr == c)
 			r = 0;
-		str++;
+		ptr++;
 	}
 	return (i);
 }
 
-static char	**ft_free(char **f)
+static char	**s_free(char **f)
 {
 	while (*f)
 		free(*f++);
@@ -82,7 +84,7 @@ char	**ft_split(char const *s, char c)
 		{
 			h[spl.j] = ft_sub(s, spl.n, spl.i);
 			if (!h[spl.j++])
-				return (ft_free(h));
+				return (s_free(h));
 			spl.n = -1;
 		}
 	}

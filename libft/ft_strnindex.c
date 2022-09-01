@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strnindex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 08:04:44 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/01 01:48:47 by rel-hach         ###   ########.fr       */
+/*   Created: 2022/08/23 19:59:40 by mes-sadk          #+#    #+#             */
+/*   Updated: 2022/08/27 22:54:30 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *ss1, const char *ss2)
+int	ft_strnindex(const void *s, int c, int len)
 {
-	char	*s1;
-	char	*s2;
+	int		i;
+	t_ptr	ptr;
 
-	s1 = (char *)ss1;
-	s2 = (char *)ss2;
-	while (*s1 != '\0' || *s2 != '\0')
+	ptr = (t_ptr)s;
+	i = 0;
+	while (i++ < len && ptr && *(unsigned char *)ptr)
 	{
-		if (*s1 != *s2)
-			return ((unsigned char)*s1 - (unsigned char)*s2);
-		s1++;
-		s2++;
+		if (*(unsigned char *)ptr == (unsigned char) c)
+			return (i);
+		ptr++;
 	}
 	return (0);
 }

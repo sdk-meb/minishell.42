@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 22:05:20 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 17:01:52 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:13:31 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	ft_failure(int error)
 {
 	if (error == 1)
 		printf("minishell: parse error near `|'\n");
-	if (error == 2)
-		printf("minishell: command not found\n");
 	if (error == 3)
 		printf("minishell : qoutes not closed\n");
 	if (error == 4)

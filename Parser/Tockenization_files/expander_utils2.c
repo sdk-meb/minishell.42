@@ -1,6 +1,16 @@
-// 42 HEADER ___ BY = rel-hach //
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander_utils2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/31 21:06:05 by rel-hach          #+#    #+#             */
+/*   Updated: 2022/09/01 01:38:35 by rel-hach         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 void	copy_env(char *env, char *new_str, int *j)
 {
@@ -57,10 +67,15 @@ char	*ft_copy(char *str, char *new_str)
 			ft_copy_dq_case(str, new_str, &i, &j);
 		if (str[i] == '$')
 		{
-			i++;
-			env = ft_get_env(str, &i);
-			if (env)
-				copy_env(env, new_str, &j);
+			if (ft_isdigit(str[i + 1]) == 0)
+				i = i + 2;
+			else 
+			{
+				i++;
+				env = ft_get_env(str, &i);
+				if (env)
+					copy_env(env, new_str, &j);
+			}
 		}
 	}
 	new_str[j] = '\0';

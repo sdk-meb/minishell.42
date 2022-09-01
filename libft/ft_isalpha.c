@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 11:22:54 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 07:23:47 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/28 09:13:15 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 int	ft_isalpha(int c)
 {
 	if ((c <= 'z' && c >= 'a') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	return (0);
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }

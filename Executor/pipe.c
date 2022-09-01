@@ -6,28 +6,36 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 12:45:59 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 10:59:51 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/30 08:16:17 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void ft_pipe(int fds[3][2], t_req ord)
+void	close_fd(int from, int to)
 {
-	if (ord == _GET)
-	{
-		pipe(fds[STDIN_FILENO - 1]);
-		dup2(fds[STDIN_FILENO - 1][STDIN_FILENO], STDIN_FILENO);
-		pipe(fds[STDOUT_FILENO - 1]);
-		dup2(fds[STDOUT_FILENO - 1][STDOUT_FILENO], STDOUT_FILENO);
-		// pipe(fds[STDERR_FILENO - 1]);
-		// dup2(fds[STDERR_FILENO - 1][STDERR_FILENO], STDERR_FILENO);
-		return;
-	}
-	close(fds[STDIN_FILENO][0]);
-	close(fds[STDIN_FILENO][1]);
-	close(fds[STDOUT_FILENO][0]);
-	close(fds[STDOUT_FILENO][1]);
-	// close(fds[STDERR_FILENO][0]);
-	// close(fds[STDERR_FILENO][1]);
+	if (from != STDIN_FILENO)
+		close(from);
+	if (to != STDOUT_FILENO)
+		close(to);
+}
+
+static void	cmd_pipe_cmd(t_cmd cmd)
+{
+	int		fds[2];
+
+	close_fd(STDIN_FILENO, cmd->left->out);
+	cmd->left->out = STDOUT_FILENO;
+	pipe(fds);
+	cmd->left->out = fds[STDOUT_FILENO];
+	if (cmd->right->symbol == '|')
+		cmd->right->left->in = fds[STDIN_FILENO];
+	else
+		cmd->right->in = fds[STDIN_FILENO];
+}
+
+void	pipe_x(t_cmd cmd)
+{
+	errno = 0;
+	cmd_pipe_cmd(cmd);
 }

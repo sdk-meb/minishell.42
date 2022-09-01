@@ -6,11 +6,11 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 15:03:52 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:53:46 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 t_list	*ft_lstlast(t_list *lst)
 {
@@ -57,32 +57,38 @@ void	ft_lstadd_back_doubly(t_list **lst, t_list *new)
 	}
 }
 
-char	*ft_get_type(char *tocken)
+char	ft_get_symbol(char *tocken)
 {
-	if (ft_memcmp(tocken, "|", 2) == 0)
-		return ("PIPE");
-	if (ft_memcmp(tocken, ">", 2) == 0)
-		return ("OUT_RED");
-	if (ft_memcmp(tocken, "<", 2) == 0)
-		return ("IN_RED");
-	if (ft_memcmp(tocken, ">>", 3) == 0)
-		return ("APPEND_OUT_RED");
-	if (ft_memcmp(tocken, "<<", 3) == 0)
-		return ("HEREDOC");
-	else
-		return ("word");
+	if (!ft_memcmp(tocken, "|", 2))
+		return ('|');
+	if (!ft_memcmp(tocken, ">", 2))
+		return ('>');
+	if (!ft_memcmp(tocken, "<", 2))
+		return ('<');
+	if (!ft_memcmp(tocken, ">>", 3))
+		return (O_APPEND);
+	if (!ft_memcmp(tocken, "<<", 3))
+		return (HEREDOC);
+	return ('w');
 }
 
-t_list	*ft_new_token(char *string)
+
+t_list	*ft_new_token(char *heredoc, char *string)
 {
-	int				i;
 	t_list			*new;
 
 	new = ft_calloc(1, sizeof(t_list));
 	if (!new)
 		return (NULL);
-	new->token = ft_expand(string);
-	new->type = ft_get_type(string);
+	if (!ft_strcmp(heredoc, "<<"))
+		new->token = string;
+	else
+		new->token = ft_expand(string);
+	new->symbol = ft_get_symbol(string);
+	new->type = string;
+	new->in = STDIN_FILENO;
+	new->out = STDOUT_FILENO;
+	new->arv = NULL;
 	new->prev = NULL;
 	new->next = NULL;
 	new->left = NULL;
@@ -97,21 +103,15 @@ t_list	*ft_create_list_for_tockens(char **splitted)
 	int		i;
 
 	i = 0;
-	head = ft_new_token(splitted[i++]);
+	head = ft_new_token(splitted[0], splitted[i++]);
 	while (splitted[i])
 	{
-		if (ft_strncmp(splitted[i], "<<", 2) == 0)
-        {
-			i++;
-            while (splitted[i + 1] && !ft_strcmp(splitted[i + 1], "<<"))
-                i = i + 2;
-        }
-		if (splitted[i])
-		{
-			new = ft_new_token(splitted[i]);
-			ft_lstadd_back_doubly(&head, new);
-		}
+		new = ft_new_token(splitted[i - 1], splitted[i]);
+		ft_lstadd_back_doubly(&head, new);
 		i++;
 	}
 	return (head);
 }
+
+/// echo hello > file1.txt aaaaaa 
+// output :	hello aaaaaa

@@ -6,74 +6,131 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/17 19:48:15 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:42:22 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Include/minishell.h"
+#include "../Include/minishell.h"
 
-char  **my_env(char **env, t_req ord)
+t_envv	**my_env(t_envv **env, t_req ord)
 {
-    static char **envr;
+	static t_envv	**envr;
+	t_envv			*mng;
 
-    if (ord == SAVE)
-        envr = env;
-    env = envr;
-    return(env);    
+	if (ord == SAVE)
+		envr = env;
+	if (ord == EMPTY && envr)
+	{
+		while (*envr)
+		{
+			mng = *envr;
+			if (mng->content)
+				free((void *)mng->content);
+			free((void *)mng->name);
+			*envr = mng->next;
+			free((void *)mng);
+		}
+		free((void *)envr);
+		envr = NULL;
+		return (NULL);
+	}
+	env = envr;
+	return (env);
 }
 
-void    *_get_env(t_str var)
+char	**env_to_argv(t_envv **env)
 {
-    char **env;
-    int     i;
-    size_t   len;
+	t_envv	*mng;
+	int		size;
+	char	**argv;
 
-    i = 0;
-    len = ft_strlen(var);
-    env = my_env(NULL, _GET);
-    while (env[i])
-    {
-        while (env[i] && ft_memcmp(env[i], var, len))
-            i++;
-        if (env[i] && ft_memcmp(ft_substr(env[i], len, 1), "=", len))
-            break;        
-    }
-    if (!env[i])
-        return (NULL);
-    return (ft_substr(env[i], len + 1, ft_strlen(env[i]) - len));
+	size = 0;
+	mng = *env;
+	while (size++, mng)
+		mng = mng->next;
+	mng = *env;
+	argv = (t_head) malloc(sizeof(argv) * size);
+	argv[--size] = NULL;
+	while (mng)
+	{
+		argv[--size] = ft_strjoin(mng->name, "=");
+		argv[size] = ft_strjoin(argv[size], mng->content);
+		mng = mng->next;
+	}
+	return (argv);
 }
 
-void    env()
+void	set_env(t_str var)
 {
-    int i;
-    char **env;
+	t_envv	**env;
+	t_envv	*envv;
+	int		i;
 
-    i = 0;
-    env = my_env(NULL, _GET);
-    while (env[i])
-        printf("%s\n", env[i++]);
+	env = my_env(NULL, _GET);
+	envv = *env;
+	i = ft_strnindex(var, '=', INT32_MAX);
+	if (!i)
+		i = ft_strlen(var) + 1;
+	while (envv)
+	{
+		if (ft_strncmp(envv->name, var, i - 1) == SUCCESS)
+		{
+			if (envv->content)
+			{
+				free((void *)envv->content);
+				envv->content = NULL;
+			}
+			if (ft_strnindex(var, '=', INT32_MAX))
+				envv->content = get_tenor(var);
+			return ;
+		}
+		envv = envv->next;
+	}
+	env_proc(NULL, var);
 }
 
-void   env_proc(char **env, t_str var,t_req ord)
+void	env(t_cmd cmd)
 {
-    int i;
-    char **_env;
+	t_envv	**env;
+	t_envv	*envv;
 
-    i = 0;
-    _env = env;
-    while (env[i])
-        i++;
-    if (ord == _ADD)
-    {
-        env = new_heap(sizeof(env) * (++i + 1), APPROVED, 1);
-        env[i] = NULL;
-        env[--i] = ft_strdup(var);
-    }
-    while (i--)
-    {
-        env[i] = ft_strdup(_env[i]);
-        if (ord == _ADD)
-            free(_env[i]);
-    }
-    my_env(env, SAVE);
+	env = my_env(NULL, _GET);
+	envv = *env;
+	while (envv)
+	{
+		if (envv->content)
+		{
+			write(cmd->out, envv->name, ft_strlen(envv->name));
+			write(cmd->out, "=", 2);
+			write(cmd->out, envv->content, ft_strlen(envv->content));
+			write(cmd->out, "\n", 2);
+		}
+		envv = envv->next;
+	}
+	write(cmd->out, "_=/usr/bin/env\n", 16);
+	close_fd(cmd->in, cmd->out);
+	cmd->out = 1;
+	cmd->in = 0;
+}
+
+void	*get_env(t_str var)
+{
+	t_envv	**env;
+	t_envv	*envv;
+
+	if (ft_strncmp(var, "?", 2) == SUCCESS)
+		return (ft_itoa(stat_loc(EMPTY)));
+	env = my_env(NULL, _GET);
+	envv = *env;
+	while (envv->next)
+	{
+		if (ft_strncmp(envv->name, var, INT32_MAX) == SUCCESS)
+		{
+			if (envv->content)
+				return ((void *)envv->content);
+			break ;
+		}
+		envv = envv->next;
+	}
+	return ("");
 }

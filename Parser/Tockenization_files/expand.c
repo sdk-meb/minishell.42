@@ -6,16 +6,16 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 18:39:32 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:56:21 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 char	*ft_get_env(char *str, int *i)
 {
 	int		j;
-	char	temp[1000];
+	char	temp[1000000];
 	char	*env;
 
 	j = 0;
@@ -37,5 +37,5 @@ char	*ft_expand(char *str)
 	if (!new)
 		return (NULL);
 	new = ft_copy(str, new);
-	return (new);
+	return (free(str), new);
 }

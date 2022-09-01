@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 18:35:08 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/08/31 23:58:32 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static char	*prompt(char ps1)
 {
-	if (!ft_memcmp(_get_env("USER"), "ROOT", 5))
-		return (ft_strdup("msh~1.0#>"));
+	if (!ft_memcmp(get_env("USER"), "ROOT", 5))
+		return ("msh~1.0#>");
 	if (ps1 == PRIO_USER)
-		return (ft_strdup("msh~1.0$>"));
+		return ("msh~1.0$>");
 	return (NULL);
 }
 
@@ -28,20 +28,20 @@ char	**ft_readline(char ps1)
 	char	**splitted;
 
 	i = 0;
+	glb_sig(SIGINT);
 	line = readline(prompt(ps1));
+	glb_sig(SIGCHLD);
 	if (!line)
-		exit (1);
+		ft_exit (1);
 	else if (!*line)
-		return (ft_readline());
+		return (ft_readline(ps1));
 	while (line && line[i] && ft_isprint(line[i]))
 		i++;
-	if (!line || !line[i])
-		return (NULL);
 	add_history(line);
 	if (!ft_check_line(line))
 	{
 		line = ft_repair_string(line);
-		splitted = ft_branch_line(line, ' ');
+		splitted = ft_tokenize_line(line);
 		return (free(line), splitted);
 	}
 	return (free(line), NULL);
@@ -50,7 +50,6 @@ char	**ft_readline(char ps1)
 void	ft_call_shell(char ps1)
 {
 	char	**splitted;
-
 	t_list	*root;
 
 	while (1)
@@ -62,7 +61,7 @@ void	ft_call_shell(char ps1)
 			root = ft_create_list_for_tockens(splitted);
 			free (splitted);
 			root = ft_create_astree(root);
-			//print_tree(root);
+			sh_exec(root);
 		}
 	}
 }

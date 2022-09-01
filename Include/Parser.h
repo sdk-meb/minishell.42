@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 13:32:21 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:44:23 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,27 @@ typedef struct s_env
 typedef struct s_list
 {
 	char			*token;
+	char			symbol;
+
 	char			*file;
 	char			*type;
-	int				fd[2][2];
+
 	struct s_list	*next;
 	struct s_list	*prev;
 	struct s_list	*left;
 	struct s_list	*right;
+
+	bool			last;
+	int				in;
+	int				out;
+	bool			err;
+	int				arc;
+	char			**arv;
 }	t_list;
 
 // [A] Tockenization files :
 
-// 1 // repair line 
+// 1 // repair line
 
 void	ft_fill_quotes(char *old_line, char *new_line, int *i, int *j);
 void	ft_add_space_spchar(char *str, char *new, int *i, int *j);
@@ -115,6 +124,10 @@ int		ft_isprint(int c);
 
 char    *ft_heredoc(char *delim);
 char    **handel_heredoc(char **str);
+int		count_size_heredoc(char *str);
+char	*ft_copy_herdoc(char *str, char *new_str);
+char	*ft_expand_heredoc(char *str);
+
 
 // [E] //
 
@@ -131,7 +144,7 @@ t_env	*ft_create_list_for_env(char **splitted);
 t_list	*ft_lstlast(t_list *lst);
 int		ft_lstsize(t_list *lst);
 void	ft_lstadd_back_doubly(t_list **lst, t_list *new);
-t_list	*ft_new_token(char *string);
+t_list	*ft_new_token(char *heredoc, char *string);
 t_list	*ft_create_list_for_tockens(char **splitted);
 
 int			ft_get_next_quote(int i, char *line);
