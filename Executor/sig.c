@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 10:08:10 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/01 10:27:13 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	help_child(t_cmd cmd, void (*bin)(t_cmd))
 	signal(SIGINT, SIG_DFL);
 	dup2(cmd->in, STDIN_FILENO);
 	dup2(cmd->out, STDOUT_FILENO);
-
 	bin(cmd);
 	ft_exit (1);
 }
