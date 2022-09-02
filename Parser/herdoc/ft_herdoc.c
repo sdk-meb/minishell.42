@@ -22,38 +22,30 @@ char *heredoc_waiting(int fds[2])
 
 char	*copy_new_delim(char *delim, char *new_delim)
 {
-	int	i;
-	int	j;
+	char    c;
+    int i;
+    int j;
 
-	i = 0;
-	j = 0;
-	while (delim[i])
+    i = 0;
+    j = 0;
+    c = delim[i];
+    i++;
+	while (delim[i] && delim[i] != c)
 	{
-		while (ft_is_quote(delim[i]))
-			i++;
 		new_delim[j++] = delim[i++];
 	}
 	return (free(delim), new_delim);
 }
 
-char	*ft_remove_quotes(char *delim)
+char	*ft_remove_quotes(char *delim, int quote)
 {
 	int		i;
 	int		j;
-	int		count;
+	int		size;
 	char	*new;
 
-	i = 0;
-	j = 0;
-	count = 0;
-	while (delim[i])
-	{
-		if (ft_is_quote(delim[i]))
-			i++;
-		count++;
-		i++;
-	}
-	new = malloc(sizeof(char ) * count + 1);
+	size = ft_strlen(delim) - 2;
+	new = malloc(sizeof(char ) * size + 1);
 	if(!new)
 		return (NULL);
 	return (copy_new_delim(delim, new));
@@ -72,10 +64,11 @@ char	*ft_heredoc(char *delim)
 		return (heredoc_waiting(fds));
 	signal(SIGINT, SIG_DFL);
 	close(fds[STDIN_FILENO]);
-	if (!ft_is_quote(delim[0]))
-		quote = 0;
+	if (ft_is_quote(delim[0]))
+		ft_remove_quotes(delim, &quote);
 	if (quotes_are_closed(delim))
 		exit (1);
+    if 
 	delim = ft_remove_quotes(delim);
 	while (1)
 	{

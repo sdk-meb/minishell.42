@@ -18,7 +18,7 @@ void	ft_fill_quotes(char *old_line, char *new_line, int *i, int *j)
 
 	c = old_line[(*i)];
 	new_line[(*j)++] = old_line[(*i)++];
-	while (old_line[(*i)] != c)
+	while (old_line[(*i)] && old_line[(*i)] != c)
 		new_line[(*j)++] = old_line[(*i)++];
 }
 
@@ -63,7 +63,7 @@ char	*ft_repair_string(char *old_line)
 	i = 0;
 	j = 0;
 	count = ft_count_special_characters(old_line);
-	if (!ft_count_special_characters(old_line))
+	if (ft_count_special_characters(old_line) == 0)
 		return (old_line);
 	new_line = malloc(sizeof(char) * ft_strlen(old_line) + (count * 2) + 1);
 	if (!new_line)
