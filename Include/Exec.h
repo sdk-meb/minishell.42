@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 21:20:34 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/02 18:36:09 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 /* __________________________________  */
 
 void	pipe_x(t_cmd fd_read);
-void	close_fd(int from, int to);
+void	close_fd(int *from, int *to);
 
 /* read form , write in */
 void	rf_wi(t_cmd cmd);
@@ -51,9 +51,11 @@ void	ft_err(t_str str, int erno);
 int		stat_loc(int statu);
 int		glb_sig(int sig);
 void	track_child(int statu);
-void	ft_exit(char ex_it);
+void	ft_exit(int ex_it, bool pros);
+void	free_tree(t_cmd cmd);
+t_cmd	save_get_cmd(void **cmd);
 
-bool	bult_c(t_cmd cmd);/* exit status $? */
+bool	bult_c(t_cmd cmd);
 void	echo(t_cmd cmd);
 
 /* It allows to execute of a binary file to Overlay

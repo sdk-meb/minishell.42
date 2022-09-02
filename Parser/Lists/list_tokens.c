@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/01 20:07:06 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:53:31 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ t_list	*ft_new_token(char *heredoc, char *string)
 	new = ft_calloc(1, sizeof(t_list));
 	if (!new)
 		return (NULL);
-	new->type = string;
 	if (!ft_strcmp(heredoc, "<<"))
 		new->token = string;
 	else
 		new->token = ft_expand(string);
 	new->symbol = ft_get_symbol(string);
+	new->type = string;
 	new->in = STDIN_FILENO;
 	new->out = STDOUT_FILENO;
 	new->arv = NULL;

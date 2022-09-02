@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 19:30:21 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/30 08:49:31 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/02 15:28:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	*new_heap(size_t, t_req ord, int dangel);
 void	c_delete(t_req ord, int dangel);
 void	c_merge(void *ptr, t_req ord, int dangel);
 t_heap	**governor(t_req ord);
+void	*freen(void **ptr);
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);

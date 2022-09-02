@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 22:05:58 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:07:18 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ static void	cmd_path(t_cmd cmd, t_head pathname)
 
 	if (!pathname)
 	{
-		ft_err("msh: No such file or directory", 127);
+		ft_err(ft_strjoin(cmd->arv[0], " :: No such file or directory"), EMPTY);
 		exit(127);
 	}
 	if (!pathname[0])
-		return (ft_err("msh: command not found", 127), exit(127));
+	{
+		ft_err(ft_strjoin(cmd->arv[0]," :: command not found"), EMPTY);
+		exit(127);
+	}
 	pathname[0] = ft_strjoin(pathname[0], "/");
 	pathname[0] = ft_strjoin(pathname[0], cmd->arv[0]);
 	lstat(pathname[0], &buf);
@@ -46,11 +49,13 @@ static void	plea_arguments_value(t_cmd cmd)
 		if (mngr->symbol == 'w')
 		{
 			av = ft_strjoin(av, mngr->token);
+			c_merge(av, TEMPORARY, EMPTY);
 			av = ft_strjoin(av, "\003");
+			c_merge(av, TEMPORARY, EMPTY);
 		}
 		mngr = mngr->next;
 	}
-	cmd->arv = (char **)ft_split(av, '\03');
+	cmd->arv = (char **)ft_split(av, '\003');
 }
 
 static void	exec_bin(t_cmd cmd)
@@ -76,8 +81,7 @@ static void	exec_bin(t_cmd cmd)
 
 void	sh_exec(t_cmd cmd)
 {
-	printf("_____EXEC____\n");
-	if (!cmd)
+	if (glb_sig(EMPTY) == RL_STATE_READCMD || !cmd)
 		return ;
 	if (cmd->symbol == '|')
 	{

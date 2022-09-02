@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 19:06:21 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:15:01 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	glb_sig(int sig)
 {
 	static int	osig;
 
-	if (sig == SIGINT || sig == SIGCHLD)
+	if (sig != EMPTY)
 		osig = sig;
 	return (osig);
 }
@@ -36,36 +36,37 @@ static void	help_child(t_cmd cmd, void (*bin)(t_cmd))
 	dup2(cmd->in, STDIN_FILENO);
 	dup2(cmd->out, STDOUT_FILENO);
 	bin(cmd);
-	ft_exit (1);
+	ft_exit (1, RUSAGE_CHILDREN  + 1);
 }
 
 void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 {
 	int	statu;
 
+	if (glb_sig(EMPTY) == RL_STATE_READCMD || cmd->in == -1 || cmd->out == -1)
+		return ;
 	statu = fork();
 	if (statu == PRIO_PROCESS)
 		help_child(cmd, bin);
-	glb_sig(SIGCHLD);
-	close_fd(cmd->in, cmd->out);
+	close_fd(&(cmd->in), &(cmd->out));
 	if (statu == RUSAGE_CHILDREN)
 		ft_err(NULL, errno);
 	while (cmd->last == true && waitpid(0, &statu, WUNTRACED) != -1)
 		track_child(statu);
 	if (cmd->last == true)
-		glb_sig(SIGINT);
+		glb_sig(RL_STATE_READCMD);
 }
 
 static void	sa_sig(int sig)
 {
-	if (sig == SIGINT && glb_sig(EMPTY) == _EXECUTE_OK)
-		glb_sig(RL_STATE_READCMD);
-	if (glb_sig(EMPTY) == HEREDOC)
+	if (sig != SIGINT)
+		return ;
+	if (glb_sig(EMPTY) == HEREDOC || glb_sig(EMPTY) == _EXECUTE_OK)
 	{
 		write(1, "\n", 1);
-		glb_sig(SIGINT);
+		glb_sig(RL_STATE_READCMD);
 	}
-	if (sig == SIGINT && glb_sig(EMPTY) == SIGINT)
+	else if (glb_sig(EMPTY) == RL_STATE_READCMD)
 	{
 		track_child(130);
 		write(1, "\n", 1);
@@ -77,7 +78,7 @@ static void	sa_sig(int sig)
 
 void	signal_handler(void)
 {
-	glb_sig(SIGINT);
+	glb_sig(_EXECUTE_OK);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sa_sig);
 }

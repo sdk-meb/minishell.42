@@ -9,7 +9,8 @@ char *heredoc_waiting(int fds[2])
 
 	close(fds[STDOUT_FILENO]);
 	wait(&status);
-	glb_sig(SIGINT);
+	if (status ==  0)
+		glb_sig(_EXECUTE_OK);
 	temp = ft_calloc(OPEN_MAX + 1 , 1);
 	status = read(fds[STDIN_FILENO], temp, OPEN_MAX);
 	if (status < 0)
@@ -69,8 +70,8 @@ char	*ft_heredoc(char *delim)
 	glb_sig(HEREDOC);
 	if (fork())
 		return (heredoc_waiting(fds));
-	rl_clear_history();
 	signal(SIGINT, SIG_DFL);
+	rl_clear_history();
 	close(fds[STDIN_FILENO]);
 	if (!ft_is_quote(delim[0]))
 		quote = 0;
@@ -92,7 +93,7 @@ char	*ft_heredoc(char *delim)
 		free(line);
 	}
 	close(fds[STDOUT_FILENO]);
-	exit(SUCCESS);
+	return (ft_exit(SUCCESS, RUSAGE_CHILDREN + 1), NULL);
 }
 
 char **handel_heredoc(char **str)

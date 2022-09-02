@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 22:00:01 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:25:55 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ static void	b_exit(t_cmd cmd)
 	while (cmd->arc > 2 && ft_isdigit(cmd->arv[1][i]) == SUCCESS)
 	{
 		if (cmd->arv[1][++i] == '\0')
-			return (stat_loc(1), ft_err("msh: exit: too many arguments", 109));
+			return (stat_loc(1), ft_err("M-sh: exit: too many arguments", 109));
 	}
 	if (cmd->arc > 2)
 	{
-		ft_err("msh: exit: numeric argument required", 109);
-		exit(255);
+		ft_err("M-sh: exit: numeric argument required", 109);
+		ft_exit(255, RUSAGE_CHILDREN + 1);
 	}
-	if (cmd->arc == 1)
-		exit(0);
-	exit (ft_atoi(cmd->arv[cmd->arc - 1]));
+	if (cmd->arc == 2)
+		ft_exit(ft_atoi(cmd->arv[cmd->arc - 1]), RUSAGE_CHILDREN + 1);
+	ft_exit(0, RUSAGE_CHILDREN + 1);
 }
 
 static void	pwd(t_cmd cmd)
@@ -39,29 +39,28 @@ static void	pwd(t_cmd cmd)
 	if (cmd->arv[1] && cmd->arv[1][0] == '-' && (cmd->arv[1][1]
 			|| (cmd->arv[1][1] == '-' && cmd->arv[1][2])))
 	{
-		close_fd(cmd->in, cmd->out);
+		close_fd(&(cmd->in), &(cmd->out));
 		ft_err("pwd: invalid option", 109);
 		exit (1);
 	}
-	pathname = (char *)ft_calloc(PATH_MAX, 1);
-	getcwd(pathname, PATH_MAX);
+	pathname = getcwd(NULL, PATH_MAX);
 	write(cmd->out, pathname, ft_strlen(pathname));
 	write(cmd->out, "\n", 1);
-	close_fd(cmd->in, cmd->out);
-	cmd->out = 1;
-	cmd->in = 0;
+	free(pathname);
+	close_fd(&(cmd->in), &(cmd->out));
 	exit (0);
 }
 
 static void	cd(t_cmd cmd)
 {
 	errno = 0;
+	close_fd(&(cmd->in), &(cmd->out));
 	chdir(cmd->arv[1]);
 	if (errno == SUCCESS)
 	{
 		stat_loc(0);
 		set_env(ft_strjoin("OLDPWD=", get_env("PWD")));
-		getcwd(get_env("PWD"), PATH_MAX);
+		getcwd(get_env("PWD"), PATH_MAX);/* !!?  leaks */
 		return ;
 	}
 	ft_err(cmd->arv[1], errno);

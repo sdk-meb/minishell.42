@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 13:12:13 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:16:29 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,5 @@ void	unset(t_cmd cmd)
 		else
 			unset_envv(cmd->arv[arg]);
 	}
-	close_fd(cmd->in, cmd->out);
-	cmd->out = 1;
-	cmd->in = 0;
+	close_fd(&(cmd->in), &(cmd->out));
 }

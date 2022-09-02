@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 19:22:30 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/02 18:19:04 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,11 @@ void	env_proc(char **env_v, t_str var)
 	{
 		while (*env_v)
 			add_to_env(env, new_env(*env_v++));
-		set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
+		var = ft_itoa(ft_atoi(get_env("SHLVL")) + 1);
+		set_env(ft_strjoin("SHLVL=", var));
+		free(var);
 		set_env("SHELL=./minishell");
 		unset_envv("_");
 	}
+	my_env(env, SAVE);
 }
