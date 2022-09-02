@@ -25,15 +25,16 @@ static int	ft_start(char const *set, char const *s, int n, int i)
 	return (n);
 }
 
-char	*ft_strtrim(char const *s, char const *set)
+char	*ft_strtrim(char const *se, char const *set)
 {
 	int		i;
 	int		n;
+	char	*s;
 
 	i = -1;
 	if (!s)
 		return (NULL);
-	s += ft_start(set, s, 0, -1);
+	s = se + ft_start(set, se, 0, -1);
 	n = ft_strlen((char *)s) - 1;
 	while (set[++i] && s[n])
 	{

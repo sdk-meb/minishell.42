@@ -117,7 +117,7 @@ void	*get_env(t_str var)
 	t_envv	*envv;
 
 	if (ft_strncmp(var, "?", 2) == SUCCESS)
-		return (ft_itoa(stat_loc(EMPTY)));/* leaks */
+		return (ft_itoa(stat_loc(EMPTY)));
 	env = my_env(NULL, _GET);
 	if (!env)
 		return ("");

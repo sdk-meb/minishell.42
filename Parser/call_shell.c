@@ -65,9 +65,9 @@ void	ft_call_shell(char ps1)
 			root = ft_create_list_for_tockens(splitted);
 			free (splitted);
 			root = ft_create_astree(root);
-		//	save_get_cmd((void **)&root);
+			save_get_cmd((void **)&root);
 			sh_exec(root);
-		//	free_tree(root);
+			free_tree(root);
 			root = NULL;
 		}
 	}

@@ -92,5 +92,4 @@ void	env_proc(char **env_v, t_str var)
 		set_env("SHELL=./minishell");
 		unset_envv("_");
 	}
-	my_env(env, SAVE);
 }

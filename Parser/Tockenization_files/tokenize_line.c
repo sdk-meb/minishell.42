@@ -67,12 +67,14 @@ char	*ft_create_tokens(char *s)
 	return (NULL);
 }
 
-char	**ft_tokenize_line(char *s)
+char	**ft_tokenize_line(char *line)
 {
 	int		i;
 	int		nb_tokens;
-	char	**tdstr;	
+	char	**tdstr;
+	char	*s;	
 
+	s = line;
 	if (s)
 	{
 		nb_tokens = ft_count_tokens(s);

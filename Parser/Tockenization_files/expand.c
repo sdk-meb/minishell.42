@@ -23,7 +23,7 @@ char	*ft_get_env(char *str, int *i)
 		&& str[(*i)] != '$')
 		temp[j++] = str[(*i)++];
 	temp[j] = '\0';
-	env = get_env(temp);
+	env = ft_strdup(get_env(temp));
 	return (env);
 }
 

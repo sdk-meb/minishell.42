@@ -75,17 +75,14 @@ char	*ft_heredoc(char *delim)
 	close(fds[STDIN_FILENO]);
 	if (!ft_is_quote(delim[0]))
 		quote = 0;
-	if (quotes_are_closed(delim))
-		exit (1);
+//	if (quotes_are_closed(delim))
+//		exit (1);
 	delim = ft_remove_quotes(delim);
 	while (1)
 	{
 		line = readline("> ");
 		if (!line || ft_strcmp(delim, line) == 0)
-		{
-			free(line);
-			break;
-		}
+			break ;
 		if (quote == 0)
 			line = ft_expand_heredoc(line);
 		write(fds[STDOUT_FILENO], line, ft_strlen(line));

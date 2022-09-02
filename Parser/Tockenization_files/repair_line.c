@@ -66,9 +66,7 @@ char	*ft_repair_string(char *old_line)
 	if (!ft_count_special_characters(old_line))
 		return (old_line);
 	new_line = malloc(sizeof(char) * ft_strlen(old_line) + (count * 2) + 1);
-	if (!new_line)
-		return (NULL);
-	while (old_line[i])
+	while (new_line && old_line[i])
 	{
 		if (ft_is_quote(old_line[i]))
 			ft_fill_quotes(old_line, new_line, &i, &j);

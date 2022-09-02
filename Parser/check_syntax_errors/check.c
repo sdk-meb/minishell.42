@@ -113,10 +113,13 @@ int	and(char *str)
 
 int	ft_check_line(char *line)
 {
-	int	i;
+	int		i;
+	char	*fre;
 
 	i = 0;
+	fre = line;
 	line = ft_strtrim(line, " \t\v");
+	freen(&fre);
 	if (line[0] == '|' || ft_is_special(line[ft_strlen(line) - 1]))
 		return (ft_failure(1));
 	if (ft_is_quote(line[0]) && line[1] == ' ')
