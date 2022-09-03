@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/02 18:36:09 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 18:23:31 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # include <sys/syslimits.h>
 # include "minishell.h"
 # include "../libft/mtypes.h"
-# include "/goinfre/mes-sadk/homebrew/opt/readline/include/readline/readline.h"
+# include <readline/readline.h>
+//# include "/Users/rel-hach/.brew/Cellar/readline/8.1.2/include/readline/readline.h"
 
 /* __________________________________  */
 
@@ -52,7 +53,6 @@ int		stat_loc(int statu);
 int		glb_sig(int sig);
 void	track_child(int statu);
 void	ft_exit(int ex_it, bool pros);
-void	free_tree(t_cmd cmd);
 t_cmd	save_get_cmd(void **cmd);
 
 bool	bult_c(t_cmd cmd);

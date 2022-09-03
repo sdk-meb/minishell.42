@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 22:05:20 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/29 19:13:31 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 08:50:44 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,9 @@ int	and(char *str)
 int	ft_check_line(char *line)
 {
 	int		i;
-	char	*fre;
 
 	i = 0;
-	fre = line;
 	line = ft_strtrim(line, " \t\v");
-	freen(&fre);
 	if (line[0] == '|' || ft_is_special(line[ft_strlen(line) - 1]))
 		return (ft_failure(1));
 	if (ft_is_quote(line[0]) && line[1] == ' ')

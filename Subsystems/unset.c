@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/02 16:16:29 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 11:55:31 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ void	unset_envv(t_str var)
 	{
 		if (ft_strncmp(envv->name, var, INT32_MAX) == SUCCESS)
 		{
-			free((void *)envv->content);
-			free((void *)envv->name);
 			prev->next = envv->next;
 			if (*env == envv)
 				(*env) = prev->next;
-			return (free((void *)envv));
+			return ;
 		}
 		prev = envv;
 		envv = envv->next;

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 10:06:30 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 07:21:41 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 07:24:32 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ char	*ft_strtrim(char const *se, char const *set)
 	char	*s;
 
 	i = -1;
-	if (!s)
+	if (!se)
 		return (NULL);
-	s = se + ft_start(set, se, 0, -1);
+	s = (char *)( se + ft_start(set, se, 0, -1));
 	n = ft_strlen((char *)s) - 1;
 	while (set[++i] && s[n])
 	{

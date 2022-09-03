@@ -4,7 +4,7 @@ CFLAGS	= -Wall -Wextra -Werror
 LINKER	= -lreadline -L/goinfre/mes-sadk/homebrew/opt/readline/lib
 
 INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'\
-			'-I/goinfre/mes-sadk/homebrew/opt/readline/include'
+			'-I$(shell brew --prefix readline)/include'
 LIBFT 	= libft/libft.a
 
 #regular colors :

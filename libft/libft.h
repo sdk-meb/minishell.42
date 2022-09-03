@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 19:30:21 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/02 15:28:03 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:41:05 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
+# include <stdio.h>
 # include "mtypes.h"
 
 typedef struct integer
@@ -41,9 +42,8 @@ typedef struct s_heap
 		dangel for group id if you want to remeve on of group */
 void	*new_heap(size_t, t_req ord, int dangel);
 void	c_delete(t_req ord, int dangel);
-void	c_merge(void *ptr, t_req ord, int dangel);
 t_heap	**governor(t_req ord);
-void	*freen(void **ptr);
+t_req	genus(t_req ord);
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);

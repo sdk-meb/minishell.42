@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   branch_line.c                                      :+:      :+:    :+:   */
+/*   tokenize_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:11:49 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 16:59:42 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/03 11:38:34 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
+
+// _____________________________________________-
 
 int	ft_count_tokens(char *s)
 {
@@ -19,7 +21,7 @@ int	ft_count_tokens(char *s)
 
 	while (s[i])
 	{
-		while (s[i] == ' ')
+		while (s[i] == SPACE)
 			i++;
 		if (ft_is_quote(s[i]))
 		{
@@ -58,7 +60,7 @@ char	*ft_create_tokens(char *s)
 			i = ft_get_next_quote(i, s);
 		i++;
 	}
-	str = (char *)malloc(sizeof(char) * (i + 1));
+	str = (char *)ft_calloc(sizeof(char), (i + 1));
 	if (str)
 	{
 		ft_strlcpy(str, s, i + 1);
@@ -78,7 +80,7 @@ char	**ft_tokenize_line(char *line)
 	if (s)
 	{
 		nb_tokens = ft_count_tokens(s);
-		tdstr = (char **)malloc(sizeof(char *) * (nb_tokens + 1));
+		tdstr = (char **)ft_calloc(sizeof(char *), (nb_tokens + 1));
 		if (tdstr)
 		{
 			i = -1;
@@ -88,7 +90,7 @@ char	**ft_tokenize_line(char *line)
 					s++;
 				tdstr[i] = ft_create_tokens(s);
 				if (!tdstr[i])
-					return (ft_freestr(tdstr));
+					return (NULL);
 				s = s + ft_strlen(tdstr[i]);
 			}
 			tdstr[i] = 0;

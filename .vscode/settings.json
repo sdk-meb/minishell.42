@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"subsystem.h": "c",
+		"minishell.h": "c"
+	},"editor.rulers": [80],
+	"editor.lineNumbers": "relative",
+}

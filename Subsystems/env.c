@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/02 18:04:53 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 12:23:17 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,10 @@
 t_envv	**my_env(t_envv **env, t_req ord)
 {
 	static t_envv	**envr;
-	t_envv			*mng;
 
 	if (ord == SAVE)
 		envr = env;
-	if (ord == EMPTY && envr)
-	{
-		while (*envr)
-		{
-			mng = *envr;
-			if (mng->content)
-				free((void *)mng->content);
-			free((void *)mng->name);
-			*envr = mng->next;
-			free((void *)mng);
-		}
-		free((void *)envr);
-		envr = NULL;
-		return (NULL);
-	}
-	env = envr;
-	return (env);
+	return (envr);
 }
 
 char	**env_to_argv(t_envv **env)
@@ -49,7 +32,7 @@ char	**env_to_argv(t_envv **env)
 	while (size++, mng)
 		mng = mng->next;
 	mng = *env;
-	argv = (t_head) malloc(sizeof(argv) * size);
+	argv = (t_head) ft_calloc(sizeof(argv), size);
 	argv[--size] = NULL;
 	while (mng)
 	{
@@ -77,7 +60,6 @@ void	set_env(t_str var)
 		{
 			if (envv->content && ft_strnindex(var, '=', INT32_MAX))
 			{
-				free((void *)envv->content);
 				envv->content = NULL;
 			}
 			if (ft_strnindex(var, '=', INT32_MAX))

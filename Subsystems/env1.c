@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/02 18:19:04 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 17:07:29 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,19 @@ static t_envv	*new_env(t_str str)
 {
 	t_envv	*new;
 
+	genus(APPROVED);
 	new = (t_envv *) ft_calloc(1, sizeof(new));
 	if (!new)
-		return (NULL);
-	get_tenor(str);
-	get_name(str);
+		return (genus(TEMPORARY), NULL);
+	genus(TEMPORARY);
+//	get_tenor(str);
+//	get_name(str);
+	genus(APPROVED);
 	new->content = get_tenor(str);
 	new->name = get_name(str);
 	new->next = NULL;
 	new->sort = true;
+	genus(TEMPORARY);
 	return (new);
 }
 
@@ -76,19 +80,20 @@ static void	add_to_env(t_envv **env, t_envv *new)
 void	env_proc(char **env_v, t_str var)
 {
 	t_envv	**env;
-
 	env = my_env(NULL, _GET);
 	if (!env)
+	{
+		genus(APPROVED);
 		env = my_env((t_envv **)ft_calloc(sizeof(env), 1), SAVE);
+		genus(TEMPORARY);
+	}
 	if (var)
 		add_to_env(env, new_env(var));
 	else if (env_v && *env_v)
 	{
 		while (*env_v)
 			add_to_env(env, new_env(*env_v++));
-		var = ft_itoa(ft_atoi(get_env("SHLVL")) + 1);
-		set_env(ft_strjoin("SHLVL=", var));
-		free(var);
+		set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
 		set_env("SHELL=./minishell");
 		unset_envv("_");
 	}

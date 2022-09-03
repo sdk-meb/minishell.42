@@ -22,38 +22,28 @@ char *heredoc_waiting(int fds[2])
 
 char	*copy_new_delim(char *delim, char *new_delim)
 {
-	int	i;
-	int	j;
+	char    c;
+    int i;
+    int j;
 
-	i = 0;
-	j = 0;
-	while (delim[i])
+    i = 0;
+    j = 0;
+    c = delim[i];
+    i++;
+	while (delim[i] && delim[i] != c)
 	{
-		while (ft_is_quote(delim[i]))
-			i++;
 		new_delim[j++] = delim[i++];
 	}
-	return (free(delim), new_delim);
+	return (new_delim);
 }
 
 char	*ft_remove_quotes(char *delim)
 {
-	int		i;
-	int		j;
-	int		count;
+	int		size;
 	char	*new;
 
-	i = 0;
-	j = 0;
-	count = 0;
-	while (delim[i])
-	{
-		if (ft_is_quote(delim[i]))
-			i++;
-		count++;
-		i++;
-	}
-	new = malloc(sizeof(char ) * count + 1);
+	size = ft_strlen(delim) - 2;
+	new = ft_calloc(sizeof(char ), size + 1);
 	if(!new)
 		return (NULL);
 	return (copy_new_delim(delim, new));
@@ -87,25 +77,22 @@ char	*ft_heredoc(char *delim)
 			line = ft_expand_heredoc(line);
 		write(fds[STDOUT_FILENO], line, ft_strlen(line));
 		write(fds[STDOUT_FILENO], "\n", 1);
-		free(line);
 	}
 	close(fds[STDOUT_FILENO]);
-	return (ft_exit(SUCCESS, RUSAGE_CHILDREN + 1), NULL);
+	exit(SUCCESS);//	return (ft_exit(SUCCESS, RUSAGE_CHILDREN + 1), NULL);
+
 }
 
 char **handel_heredoc(char **str)
 {
 	int		i;
-	char	*ptr;
 
 	i = 0;
 	while (str[i])
 	{
 		if (ft_strcmp(str[i], "<<") == 0)
 		{
-			ptr = str[i + 1];
 			str[i + 1] = ft_heredoc(str[i + 1]);
-			free (ptr);
 		}
 		i++;
 	}

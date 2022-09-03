@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 07:36:20 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/02 12:26:20 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 11:29:41 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	ft_err(t_str err_msg, int erno)
 	{
 		write(2, err_msg, ft_strlen(err_msg));
 		write(2, "\n", 1);
-		if (erno == EMPTY)
-			free(err_msg);
 	}
 	errno = 0;
 }
