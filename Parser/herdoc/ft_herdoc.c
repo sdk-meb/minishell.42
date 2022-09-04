@@ -20,39 +20,81 @@ char *heredoc_waiting(int fds[2])
 	return (temp);
 }
 
+int		quotes_is_there(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_is_quote(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 char	*copy_new_delim(char *delim, char *new_delim)
 {
 	char    c;
-    int i;
-    int j;
+    int		i;
+    int		j;
 
     i = 0;
     j = 0;
-    c = delim[i];
-	while (delim[i] == c)
-		i++;
-	while (delim[i] && delim[i] != c)
-		new_delim[j++] = delim[i++];
-	return (free(delim), new_delim);
+	while (delim[i])
+	{
+		if (ft_is_quote(delim[i]))
+		{
+			c = delim[i];
+			while (delim[i] && delim[i] == c)
+				i++;
+			while (delim[i] && delim[i] != c)
+				new_delim[j++] = delim[i++];
+			while (delim[i] && delim[i] == c)
+				i++;
+		}
+        else if (!ft_is_quote(delim[i]))
+		    new_delim[j++] = delim[i++];
+	}
+	return (new_delim);
 }
 
 char	*ft_remove_quotes(char *delim, int *quote)
 {
 	int		i;
 	int		j;
-	char	c;
 	char	*new;
+    char    c;
 
 	*quote = 1;
-	c = delim[0];
-	while (delim[i] == c)
-		i++;
-	while (delim[i] != c)
-		j++;
-	new = malloc(sizeof(char ) * j + 1);
+	i =	0;
+	j = 0;
+	while (delim[i])
+	{
+		if (ft_is_quote(delim[i]))
+		{
+			c = delim[i];
+			while (delim[i] && delim[i] == c)
+				i++;
+			while (delim[i] && delim[i] != c)
+            {
+				j++;
+                i++;
+            }
+			while (delim[i] && delim[i] == c)
+				i++;
+		}
+        else if (!ft_is_quote(delim[i]))
+        {
+            i++;
+            j++;
+        }
+	}
+	new = (char *)ft_calloc(sizeof(char), (j + 1));
 	if(!new)
-		return (NULL);
-	return (copy_new_delim(delim, new));
+		return (NULL);	
+    return (copy_new_delim(delim, new));
 }
 
 char	*ft_heredoc(char *delim)
@@ -68,10 +110,10 @@ char	*ft_heredoc(char *delim)
 		return (heredoc_waiting(fds));
 	signal(SIGINT, SIG_DFL);
 	close(fds[STDIN_FILENO]);
-	if (ft_is_quote(delim[0]))
-		ft_remove_quotes(delim, &quote);
 	if (quotes_are_closed(delim))
 		exit (1);
+	if (quotes_is_there(delim))
+		ft_remove_quotes(delim, &quote);
 	while (1)
 	{
 		line = readline("> ");
