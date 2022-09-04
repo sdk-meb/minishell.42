@@ -112,6 +112,3 @@ t_list	*ft_create_list_for_tockens(char **splitted)
 	}
 	return (head);
 }
-
-/// echo hello > file1.txt aaaaaa 
-// output :	hello aaaaaa

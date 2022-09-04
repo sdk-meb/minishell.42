@@ -12,69 +12,6 @@
 
 #include "../../Include/minishell.h"
 
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
-}
-
-int	ft_is_quote(char c)
-{
-	if (c == '\'' || c == '\"')
-		return (1);
-	else
-		return (0);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	char		*d;
-	const char	*s;
-
-	d = dst;
-	s = src;
-	if (!dstsize)
-		return (ft_strlen(src));
-	while (*s && --dstsize)
-		*d++ = *s++;
-	*d = '\0';
-	return (ft_strlen(src));
-}
-
-//________________________________________________
-
-int	ft_get_next_quote(int i, char *line)
-{
-	char	quote_type;
-
-	quote_type = line[i++];
-	while (line[i] && line[i] != quote_type)
-		i++;
-	return (i);
-}
-
-char	**ft_freestr(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free (str[i]);
-		i++;
-	}
-	free (str);
-	return (NULL);
-}
-
-// _____________________________________________-
-
 int	ft_count_tokens(char *s)
 {
 	static int	count;
@@ -139,7 +76,6 @@ char	**ft_tokenize_line(char *s)
 	if (s)
 	{
 		nb_tokens = ft_count_tokens(s);
-		printf("number of tokens = %d\n", nb_tokens);
 		tdstr = (char **)malloc(sizeof(char *) * (nb_tokens + 1));
 		if (tdstr)
 		{
@@ -158,16 +94,4 @@ char	**ft_tokenize_line(char *s)
 		}
 	}
 	return (NULL);
-}
-
-int	main ()
-{
-	char	*str = "----------- ------ ' ---- --------- '";
-	char	**new = ft_tokenize_line(str);
-	int		i = 0;
-	while (new[i])
-	{
-		printf("\n%d = %s", i, new[i]);
-		i++;
-	}
 }

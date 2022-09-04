@@ -29,11 +29,10 @@ char	*copy_new_delim(char *delim, char *new_delim)
     i = 0;
     j = 0;
     c = delim[i];
-    i++;
+	while (delim[i] == c)
+		i++;
 	while (delim[i] && delim[i] != c)
-	{
 		new_delim[j++] = delim[i++];
-	}
 	return (free(delim), new_delim);
 }
 
@@ -68,8 +67,6 @@ char	*ft_heredoc(char *delim)
 		ft_remove_quotes(delim, &quote);
 	if (quotes_are_closed(delim))
 		exit (1);
-    if 
-	delim = ft_remove_quotes(delim);
 	while (1)
 	{
 		line = readline("> ");
