@@ -36,15 +36,20 @@ char	*copy_new_delim(char *delim, char *new_delim)
 	return (free(delim), new_delim);
 }
 
-char	*ft_remove_quotes(char *delim, int quote)
+char	*ft_remove_quotes(char *delim, int *quote)
 {
 	int		i;
 	int		j;
-	int		size;
+	char	c;
 	char	*new;
 
-	size = ft_strlen(delim) - 2;
-	new = malloc(sizeof(char ) * size + 1);
+	*quote = 1;
+	c = delim[0];
+	while (delim[i] == c)
+		i++;
+	while (delim[i] != c)
+		j++;
+	new = malloc(sizeof(char ) * j + 1);
 	if(!new)
 		return (NULL);
 	return (copy_new_delim(delim, new));
@@ -56,7 +61,7 @@ char	*ft_heredoc(char *delim)
 	int		fds[2];
 	int		quote;
 
-	quote = 1;
+	quote = 0;
 	pipe(fds);
 	glb_sig(SIGCHLD);
 	if (fork())
