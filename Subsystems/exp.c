@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/03 07:15:08 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:53:38 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	ex_port(t_cmd cmd)
 		envv->sort = true;
 		envv = envv->next;
 	}
-	exit (0);
+	ft_exit (0);
 }
 
 void	export(t_cmd cmd)

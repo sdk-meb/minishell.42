@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/03 11:51:44 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:01:34 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,12 @@ int		ft_isprint(int c);
 
 // FILE 4 //
 
-char    *ft_heredoc(char *delim);
-char    **handel_heredoc(char **str);
+char	*ft_heredoc(char *delim);
+char	**handel_heredoc(char **str);
 int		count_size_heredoc(char *str);
 char	*ft_copy_herdoc(char *str, char *new_str);
 char	*ft_expand_heredoc(char *str);
 char	*ft_remove_quotes(char *delim);
-
 
 // [E] //
 

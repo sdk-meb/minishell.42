@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/03 17:56:28 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:50:43 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**ft_readline(char ps1)
 	line = readline(prompt(ps1));
 	glb_sig(_EXECUTE_OK);
 	if (!line)
-		ft_exit (1, PRIO_PROCESS + 1);
+		return (free(line), exit (1), NULL);
 	else if (!*line)
 		return (free(line), ft_readline(ps1));
 	while (line[i] && ft_isprint(line[i]))
@@ -47,7 +47,7 @@ char	**ft_readline(char ps1)
 		splitted = ft_tokenize_line(line);
 		return (free(line), splitted);
 	}
-	return (free(line),NULL);
+	return (free(line), NULL);
 }
 
 void	ft_call_shell(char ps1)

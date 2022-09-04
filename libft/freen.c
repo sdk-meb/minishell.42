@@ -6,18 +6,18 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:23:53 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/02 15:27:56 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:02:50 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
-void *freen(void **ptr)
+void	*freen(void **ptr)
 {
 	if (!ptr)
 		return (NULL);
 	if (*ptr)
 		free(*ptr);
 	*ptr = NULL;
-    return (NULL);
+	return (NULL);
 }

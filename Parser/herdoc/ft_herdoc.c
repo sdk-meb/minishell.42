@@ -9,6 +9,7 @@ char *heredoc_waiting(int fds[2])
 
 	close(fds[STDOUT_FILENO]);
 	wait(&status);
+	glb_sig(RL_STATE_READCMD);
 	if (status ==  0)
 		glb_sig(_EXECUTE_OK);
 	temp = ft_calloc(OPEN_MAX + 1 , 1);
@@ -65,8 +66,8 @@ char	*ft_heredoc(char *delim)
 	close(fds[STDIN_FILENO]);
 	if (!ft_is_quote(delim[0]))
 		quote = 0;
-//	if (quotes_are_closed(delim))
-//		exit (1);
+	if (quotes_are_closed(delim))
+		ft_exit (1);
 	delim = ft_remove_quotes(delim);
 	while (1)
 	{
@@ -79,8 +80,7 @@ char	*ft_heredoc(char *delim)
 		write(fds[STDOUT_FILENO], "\n", 1);
 	}
 	close(fds[STDOUT_FILENO]);
-	exit(SUCCESS);//	return (ft_exit(SUCCESS, RUSAGE_CHILDREN + 1), NULL);
-
+	return (ft_exit(SUCCESS), NULL);
 }
 
 char **handel_heredoc(char **str)

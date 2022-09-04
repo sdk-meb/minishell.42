@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/03 11:29:34 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:52:23 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ static void	b_exit(t_cmd cmd)
 	if (cmd->arc > 2)
 	{
 		ft_err("M-sh: exit: numeric argument required", 109);
-		ft_exit(255, RUSAGE_CHILDREN + 1);
+		ft_exit(255);
 	}
 	if (cmd->arc == 2)
-		ft_exit(ft_atoi(cmd->arv[cmd->arc - 1]), RUSAGE_CHILDREN + 1);
-	ft_exit(0, RUSAGE_CHILDREN + 1);
+		ft_exit(ft_atoi(cmd->arv[cmd->arc - 1]));
+	ft_exit(0);
 }
 
 static void	pwd(t_cmd cmd)
@@ -41,13 +41,13 @@ static void	pwd(t_cmd cmd)
 	{
 		close_fd(&(cmd->in), &(cmd->out));
 		ft_err("pwd: invalid option", 109);
-		exit (1);
+		ft_exit (1);
 	}
 	pathname = getcwd(NULL, PATH_MAX);
 	write(cmd->out, pathname, ft_strlen(pathname));
 	write(cmd->out, "\n", 1);
 	close_fd(&(cmd->in), &(cmd->out));
-	exit (0);
+	ft_exit (0);
 }
 
 static void	cd(t_cmd cmd)

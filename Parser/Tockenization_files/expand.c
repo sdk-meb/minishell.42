@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/03 11:33:15 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:46:20 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_get_env(char *str, int *i)
 		&& str[(*i)] != '$')
 		temp[j++] = str[(*i)++];
 	temp[j] = '\0';
-	env = ft_strdup(get_env(temp));
+	env = get_env(temp);
 	return (env);
 }
 

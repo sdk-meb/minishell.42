@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/03 17:07:29 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:02:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,6 @@ static t_envv	*new_env(t_str str)
 	new = (t_envv *) ft_calloc(1, sizeof(new));
 	if (!new)
 		return (genus(TEMPORARY), NULL);
-	genus(TEMPORARY);
-//	get_tenor(str);
-//	get_name(str);
-	genus(APPROVED);
 	new->content = get_tenor(str);
 	new->name = get_name(str);
 	new->next = NULL;
@@ -80,6 +76,7 @@ static void	add_to_env(t_envv **env, t_envv *new)
 void	env_proc(char **env_v, t_str var)
 {
 	t_envv	**env;
+
 	env = my_env(NULL, _GET);
 	if (!env)
 	{

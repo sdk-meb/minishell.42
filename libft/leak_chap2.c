@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 00:24:18 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/03 17:51:19 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:42:04 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_heapclear(t_heap **heap)
 {
-	t_heap *ptr;
+	t_heap	*ptr;
 	t_heap	*fre;
 
 	if (!heap)
@@ -32,31 +32,26 @@ static void	ft_heapclear(t_heap **heap)
 
 t_heap	**governor(t_req ord)
 {
-	static t_heap	**glb;
-	static t_heap	**tmp;
+	static t_heap	**glb[2];
+	int				style;
 
+	style = 1;
+	if (ord == TEMPORARY && glb[1])
+		return (glb[1]);
+	else if (ord == APPROVED && glb[0])
+		return (glb[0]);
+	if ((ord == TEMPORARY && !glb[1]) || (ord == APPROVED && !glb[0]))
+	{
+		if (ord == APPROVED)
+			style = 0;
+		glb[style] = (t_heap **)malloc(sizeof(glb[style]));
+		if (!glb[style])
+			return (perror("malloc :"), NULL);
+		*glb[style] = NULL;
+		return (glb[style]);
+	}
 	if (ord == EMPTY)
-		tmp = NULL;
-	if (ord == TEMPORARY && tmp)
-		return (tmp);
-	else if (ord == APPROVED && glb)
-		return (glb);
-	else if (ord  == APPROVED)
-	{
-		glb = (t_heap **)malloc(sizeof(glb));
-		if (!glb)
-			return (perror("malloc :"), NULL);
-		*glb = NULL;
-		return (glb);
-	}
-	else if (ord == TEMPORARY)
-	{
-		tmp = (t_heap **)malloc(sizeof(tmp));
-		if (!tmp)
-			return (perror("malloc :"), NULL);
-		*tmp = NULL;
-		return (tmp);
-	}
+		glb[1] = NULL;
 	return (NULL);
 }
 
@@ -67,17 +62,13 @@ void	c_delete(t_req ord, int dangel)
 	t_heap	*ref;
 
 	mnger = governor(ord);
-	if (!mnger)
-		return ;
 	if (dangel < 0)
-	{
 		ft_heapclear(mnger);
-		if (ord == TEMPORARY)
-			governor(EMPTY);
-		return ;
-	}
-	ref = (*mnger);
-	while (0 && mnger && *mnger)
+	if (dangel < 0 && ord == TEMPORARY)
+		mnger = governor(EMPTY);
+	if (mnger)
+		ref = (*mnger);
+	while (mnger && *mnger && (ref == (*mnger) || ord))
 	{
 		if ((*mnger)->extra->dangel == dangel)
 		{
@@ -87,7 +78,6 @@ void	c_delete(t_req ord, int dangel)
 			free(mng);
 		}
 		*mnger = (*mnger)->extra;
-		if (!mnger || ref == (*mnger))
-			break ;
+		ord = 0;
 	}
 }

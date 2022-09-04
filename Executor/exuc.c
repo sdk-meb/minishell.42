@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/03 17:52:33 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:59:12 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static void	cmd_path(t_cmd cmd, t_head pathname)
 	if (!pathname)
 	{
 		ft_err(ft_strjoin(cmd->arv[0], " :: No such file or directory"), EMPTY);
-		exit(127);
+		ft_exit(127);
 	}
 	if (!pathname[0])
 	{
-		ft_err(ft_strjoin(cmd->arv[0]," :: command not found"), EMPTY);
-		exit(127);
+		ft_err(ft_strjoin(cmd->arv[0], " :: command not found"), EMPTY);
+		ft_exit(127);
 	}
 	pathname[0] = ft_strjoin(pathname[0], "/");
 	pathname[0] = ft_strjoin(pathname[0], cmd->arv[0]);

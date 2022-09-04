@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:02:02 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/03 17:11:19 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:03:23 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static void	ft_heap_add(t_heap **heap, t_heap *new)
 	}
 	else if (heap && !*heap)
 		*heap = new;
-//	for(int i = 1 ; i< 500; i+=5){free(ft_memset(malloc(i), i, 45));}
-//	printf("_mer_____ %p--->%p ++%d++\n", new->dng_ptr,new,genus(EMPTY));
 }
 
 static void	c_merge(void *ptr, t_req ord, int dangel)
