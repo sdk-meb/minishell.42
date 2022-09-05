@@ -36,8 +36,8 @@ OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 	@$(CC) $(INC)  $(CFLAGS) -o $@ -c $<
 
 all: $(NAME)
-
-$(LIBFT): $(shell find libft -type f | (grep '\.o\>' & grep '\.h\>'))
+#$(shell find libft -type f | (grep '\.o\>' & grep '\.h\>'))
+$(LIBFT): 
 	@make -C libft/
 
 $(NAME): $(LIBFT) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/04 13:02:03 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/05 21:53:54 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_envv	*new_env(t_str str)
 	t_envv	*new;
 
 	genus(APPROVED);
-	new = (t_envv *) ft_calloc(1, sizeof(new));
+	new = (t_envv *) ft_calloc(1, sizeof(*new));
 	if (!new)
 		return (genus(TEMPORARY), NULL);
 	new->content = get_tenor(str);
@@ -90,8 +90,10 @@ void	env_proc(char **env_v, t_str var)
 	{
 		while (*env_v)
 			add_to_env(env, new_env(*env_v++));
+		genus(APPROVED);
 		set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
 		set_env("SHELL=./minishell");
+		genus(TEMPORARY);
 		unset_envv("_");
 	}
 }

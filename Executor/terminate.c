@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 11:02:59 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/04 11:58:24 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/05 22:13:27 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	ft_exit(int ex_it)
 {
 	c_delete(TEMPORARY, EMPTY);
-	c_delete(TEMPORARY, EMPTY);
+	c_delete(APPROVED, EMPTY);
 	exit(ex_it);
 }

@@ -6,13 +6,11 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/04 12:52:50 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:34:01 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-/* signal, sigaction, sigemptyset, sigaddset, kill , fork */
 
 int	glb_sig(int sig)
 {
@@ -48,6 +46,7 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 	statu = fork();
 	if (statu == PRIO_PROCESS)
 		help_child(cmd, bin);
+	glb_sig(SIGCHLD);
 	close_fd(&(cmd->in), &(cmd->out));
 	if (statu == RUSAGE_CHILDREN)
 		ft_err(NULL, errno);
