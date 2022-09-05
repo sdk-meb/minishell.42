@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 10:18:49 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/04 12:54:28 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/05 09:06:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	ft_words(const char *str, char c)
 
 static char	**s_free(char **f)
 {
+	perror("split :: exit ");
 	exit (44);
 	while (*f)
 		free(*f++);
@@ -55,6 +56,7 @@ static char	*ft_sub(const char *str, int start, int len)
 	word = ft_calloc((len - start + 1), sizeof(char));
 	if (!word || !str)
 	{
+		perror("split :: exit ");
 		exit (44);
 		free (word);
 		return (NULL);

@@ -6,13 +6,12 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/04 12:50:43 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:44:20 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-// colour will be removed -> readline error
 static char	*prompt(char ps1)
 {
 	if (!ft_memcmp(get_env("USER"), "ROOT", 5) && stat_loc(EMPTY))
@@ -29,15 +28,17 @@ char	**ft_readline(char ps1)
 	char	*line;
 	int		i;
 	char	**splitted;
+	char	*p;
 
 	i = 0;
 	glb_sig(RL_STATE_READCMD);
 	line = readline(prompt(ps1));
+	p = line;
 	glb_sig(_EXECUTE_OK);
 	if (!line)
-		return (free(line), exit (1), NULL);
+		return (free(p), ft_exit (1), NULL);
 	else if (!*line)
-		return (free(line), ft_readline(ps1));
+		return (free(p), ft_readline(ps1));
 	while (line[i] && ft_isprint(line[i]))
 		i++;
 	add_history(line);
@@ -45,9 +46,9 @@ char	**ft_readline(char ps1)
 	{
 		line = ft_repair_string(line);
 		splitted = ft_tokenize_line(line);
-		return (free(line), splitted);
+		return (free(p), splitted);
 	}
-	return (free(line), NULL);
+	return (free(p), NULL);
 }
 
 void	ft_call_shell(char ps1)
@@ -55,7 +56,6 @@ void	ft_call_shell(char ps1)
 	char	**splitted;
 
 	t_list	*root;
-
 	while (1)
 	{
 		splitted = ft_readline(ps1);

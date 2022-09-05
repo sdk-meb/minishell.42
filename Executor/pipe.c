@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 12:45:59 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/03 07:09:02 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:46:56 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	close_fd(int *from, int *to)
 		close(*from);
 		*from = STDIN_FILENO;
 	}
-	if (from && *to != STDOUT_FILENO)
+	if (to && *to != STDOUT_FILENO)
 	{
 		close(*to);
 		*to = STDOUT_FILENO;
