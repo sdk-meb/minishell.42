@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 11:24:37 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:40:33 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ t_list	*ft_pipe_case(t_list *head);
 t_list	*ft_create_astree(t_list *head);
 char	**ft_readline(char ps1);
 void	ft_call_shell(char ps1);
-bool	quotes_are_closed(char *line);
 int		ft_check_line(char *line);
 
 // Expandation files :
@@ -118,6 +117,11 @@ int		ft_lstsize_env(t_env *lst);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_new_env(char *str);
 t_env	*ft_create_list_for_env(char **splitted);
+int		quotes_are_closed(char *line);
+int		ft_check_consecutive_pipes_redirections(char *str);
+void	ft_skip(char *str, int *i);
+int		ft_redirection_error(char *str);
+int		and(char *str);
 
 // list tockens :
 
