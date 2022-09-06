@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 10:09:56 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:53:33 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,10 @@
 t_envv	**my_env(t_envv **env, t_req ord)
 {
 	static t_envv	**envr;
-	t_envv			*mng;
 
 	if (ord == SAVE)
 		envr = env;
-	if (ord == EMPTY && envr)
-	{
-		while (*envr)
-		{
-			mng = *envr;
-			if (mng->content)
-				free((void *)mng->content);
-			free((void *)mng->name);
-			*envr = mng->next;
-			free((void *)mng);
-		}
-		free((void *)envr);
-		envr = NULL;
-		return (NULL);
-	}
-	env = envr;
-	return (env);
+	return (envr);
 }
 
 char	**env_to_argv(t_envv **env)
@@ -49,7 +32,7 @@ char	**env_to_argv(t_envv **env)
 	while (size++, mng)
 		mng = mng->next;
 	mng = *env;
-	argv = (t_head) malloc(sizeof(argv) * size);
+	argv = (t_head) ft_calloc(sizeof(argv), size);
 	argv[--size] = NULL;
 	while (mng)
 	{
@@ -75,9 +58,8 @@ void	set_env(t_str var)
 	{
 		if (ft_strncmp(envv->name, var, i - 1) == SUCCESS)
 		{
-			if (envv->content)
+			if (envv->content && ft_strnindex(var, '=', INT32_MAX))
 			{
-				free((void *)envv->content);
 				envv->content = NULL;
 			}
 			if (ft_strnindex(var, '=', INT32_MAX))
@@ -108,8 +90,7 @@ void	env(t_cmd cmd)
 		envv = envv->next;
 	}
 	write(cmd->out, "_=/usr/bin/env\n", 16);
-	close_fd(cmd->in, cmd->out);
-	exit (0);
+	ft_exit (0);
 }
 
 void	*get_env(t_str var)
@@ -120,10 +101,12 @@ void	*get_env(t_str var)
 	if (ft_strncmp(var, "?", 2) == SUCCESS)
 		return (ft_itoa(stat_loc(EMPTY)));
 	env = my_env(NULL, _GET);
+	if (!env)
+		return ("");
 	envv = *env;
-	while (envv->next)
+	while (envv)
 	{
-		if (ft_strncmp(envv->name, var, INT32_MAX) == SUCCESS)
+		if (ft_strcmp(envv->name, var) == SUCCESS)
 		{
 			if (envv->content)
 				return ((void *)envv->content);

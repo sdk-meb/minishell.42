@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 19:23:03 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/18 07:23:33 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 11:18:58 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ char	*ft_itoa(int i)
 		m = i * (-1);
 	s = ft_len(m);
 	if (i <= 0)
-		a = malloc(s + 1);
+		a = ft_calloc(s + 1, 1);
 	else
-		a = malloc(s--);
+		a = ft_calloc(s--, 1);
 	if (!a)
 		return (NULL);
 	a[0] = '-';

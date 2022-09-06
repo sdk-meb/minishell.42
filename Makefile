@@ -1,10 +1,10 @@
 NAME	= minishell
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
-LINKER	= -lreadline -L/Users/rel-hach/.brew/opt/readline/lib
+LINKER	= -lreadline '-L$(shell brew --prefix readline)/lib'
 
 INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'\
-			'-I/Users/rel-hach/.brew/opt/readline/include'
+			'-I$(shell brew --prefix readline)/include'
 LIBFT 	= libft/libft.a
 
 #regular colors :
@@ -36,8 +36,8 @@ OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 	@$(CC) $(INC)  $(CFLAGS) -o $@ -c $<
 
 all: $(NAME)
-
-$(LIBFT): $(shell find libft -type f | (grep '\.o\>' & grep '\.h\>'))
+#$(shell find libft -type f | (grep '\.o\>' & grep '\.h\>'))
+$(LIBFT): 
 	@make -C libft/
 
 $(NAME): $(LIBFT) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)

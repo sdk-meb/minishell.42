@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repair_line.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:39:48 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 16:48:50 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:14:46 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_fill_quotes(char *old_line, char *new_line, int *i, int *j)
 
 	c = old_line[(*i)];
 	new_line[(*j)++] = old_line[(*i)++];
-	while (old_line[(*i)] != c)
+	while (old_line[(*i)] && old_line[(*i)] != c)
 		new_line[(*j)++] = old_line[(*i)++];
 }
 
@@ -63,12 +63,10 @@ char	*ft_repair_string(char *old_line)
 	i = 0;
 	j = 0;
 	count = ft_count_special_characters(old_line);
-	if (!ft_count_special_characters(old_line))
+	if (ft_count_special_characters(old_line) == 0)
 		return (old_line);
-	new_line = malloc(sizeof(char) * ft_strlen(old_line) + (count * 2) + 1);
-	if (!new_line)
-		return (NULL);
-	while (old_line[i])
+	new_line = ft_calloc(ft_strlen(old_line) + (count * 2) + 1, 1);
+	while (new_line && old_line[i])
 	{
 		if (ft_is_quote(old_line[i]))
 			ft_fill_quotes(old_line, new_line, &i, &j);
@@ -77,5 +75,5 @@ char	*ft_repair_string(char *old_line)
 		new_line[j++] = old_line[i++];
 	}
 	new_line[j] = '\0';
-	return (free (old_line), new_line);
+	return (new_line);
 }

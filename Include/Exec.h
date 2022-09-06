@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 11:04:43 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:08:47 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # include <sys/syslimits.h>
 # include "minishell.h"
 # include "../libft/mtypes.h"
-# include "/Users/rel-hach/.brew/Cellar/readline/8.1.2/include/readline/readline.h"
+# include <readline/readline.h>
 
 /* __________________________________  */
 
@@ -42,7 +42,7 @@
 /* __________________________________  */
 
 void	pipe_x(t_cmd fd_read);
-void	close_fd(int from, int to);
+void	close_fd(int *from, int *to);
 
 /* read form , write in */
 void	rf_wi(t_cmd cmd);
@@ -51,9 +51,11 @@ void	ft_err(t_str str, int erno);
 int		stat_loc(int statu);
 int		glb_sig(int sig);
 void	track_child(int statu);
-void	ft_exit(char ex_it);
+void	ft_exit(int ex_it);
+t_cmd	save_get_cmd(void **cmd);
 
-bool	bult_c(t_cmd cmd);/* exit status $? */
+bool	bult_c(t_cmd cmd);
+void	echo(t_cmd cmd);
 
 /* It allows to execute of a binary file to Overlay
  by a child process and not bother the parent,

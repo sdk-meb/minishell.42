@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 11:04:30 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/27 22:11:20 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 11:17:11 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strjoin(char const *ss1, char const *ss2)
 	if (!s1 || !s2)
 		return (NULL);
 	i = ft_strlen((char *)s1) + ft_strlen((char *)s2);
-	join = malloc (1 + i);
+	join = ft_calloc (1, 1 + i);
 	if (!join)
 		return (NULL);
 	join[i] = '\0';

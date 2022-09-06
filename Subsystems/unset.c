@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 09:13:10 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 11:55:31 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ void	unset_envv(t_str var)
 	{
 		if (ft_strncmp(envv->name, var, INT32_MAX) == SUCCESS)
 		{
-			free((void *)envv->content);
-			free((void *)envv->name);
 			prev->next = envv->next;
 			if (*env == envv)
 				(*env) = prev->next;
-			return (free((void *)envv));
+			return ;
 		}
 		prev = envv;
 		envv = envv->next;
@@ -40,23 +38,27 @@ void	unset_envv(t_str var)
 
 void	unset(t_cmd cmd)
 {
-	int	i;
+	int	arg;
+	int	c;
 
-	i = 0;
+	arg = 0;
 	stat_loc(0);
-	while (cmd->arv[i])
+	while (cmd->arv[++arg])
 	{
-		if (!cmd->arv[i] || cmd->arv[i][0] == '$'
-			|| cmd->arv[i][0] == '\'' || cmd->arv[i][0] == '\"')
+		c = -1;
+		while (cmd->arv[arg][++c])
+			if (ft_isalpha(cmd->arv[arg][c]) && ft_isdigit(cmd->arv[arg][c])
+					&& cmd->arv[arg][c] != '_')
+				break ;
+		if (((ft_isalpha(cmd->arv[arg][0]) && cmd->arv[arg][0] != '_')
+			|| (ft_isdigit(cmd->arv[arg][c]) && ft_isalpha(cmd->arv[arg][c]
+			&& cmd->arv[arg][c] != '_'))) && cmd->arv[arg][c])
 		{
 			stat_loc(1);
 			ft_err("unset: not enough arguments", 109);
-			i++;
 		}
 		else
-			unset_envv(cmd->arv[i++]);
+			unset_envv(cmd->arv[arg]);
 	}
-	close_fd(cmd->in, cmd->out);
-	cmd->out = 1;
-	cmd->in = 0;
+	close_fd(&(cmd->in), &(cmd->out));
 }

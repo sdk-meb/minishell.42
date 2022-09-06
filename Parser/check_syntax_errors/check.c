@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 22:05:20 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/29 19:13:31 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/05 17:44:18 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ int	ft_check_consecutive_redirections(char *str)
 	{
 		if (ft_is_redirection(str[i]))
 		{
-			if(str[i + 1] == ' ')
+			if (str[i + 1] == ' ')
 			{
 				i++;
-				while(str[i] == ' ')
+				while (str[i] == ' ')
 					i++;
 				if (ft_is_redirection(str[i]))
 					return (FAILURE);
@@ -113,19 +113,19 @@ int	and(char *str)
 
 int	ft_check_line(char *line)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	line = ft_strtrim(line, " \t\v");
 	if (line[0] == '|' || ft_is_special(line[ft_strlen(line) - 1]))
-		return (ft_failure(1));
-	if (ft_is_quote(line[0]) && line[1] == ' ')
-		return (ft_failure(2));
-	if (quotes_are_closed(line))
-		return (ft_failure(3));
-	if (ft_check_consecutive_pipes_redirections(line))
-		return (ft_failure(4));
-	if (ft_check_consecutive_redirections(line))
-		return (ft_failure(5));
-	return (SUCCESS);
+		ft_err("minishell: parse error near `|'", EMPTY);
+	else if (quotes_are_closed(line))
+		ft_err("minishell : qoutes not closed", EMPTY);
+	else if (ft_check_consecutive_pipes_redirections(line))
+		ft_err("minishell : zsh: parse error near `|'", EMPTY);
+	else if (ft_check_consecutive_redirections(line))
+		ft_err("minishell : parse error near `<' `>'", EMPTY);
+	else
+		return (SUCCESS);
+	return (FAILURE);
 }
