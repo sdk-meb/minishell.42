@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/04 13:01:34 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:24:37 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,39 +98,21 @@ void	ft_copy_sq_case(char *str, char *new, int *i, int *j);
 void	ft_copy_dq_case(char *str, char *new, int *i, int *j);
 char	*ft_copy(char *str, char *new_str);
 char	*ft_expand(char *str);
-
-// [C] Execution files :
-
-// [D] Auxiliaries files :
-
-// FILE 1 //
-
 void	print_tree(t_list *root);
-
-// FILE 2 //
-
 int		ft_is_quote(char c);
 int		ft_is_pipe(char c);
 int		ft_is_redirection(char c);
 int		ft_is_special(char c);
-
-// FILE 3 //
-
 int		ft_isprint(int c);
-
-// FILE 4 //
-
 char	*ft_heredoc(char *delim);
 char	**handel_heredoc(char **str);
 int		count_size_heredoc(char *str);
 char	*ft_copy_herdoc(char *str, char *new_str);
 char	*ft_expand_heredoc(char *str);
 char	*ft_remove_quotes(char *delim);
-
-// [E] //
-
-// list environnement variables :
-
+char	*copy_new_delim(char *delim, char *new_delim);
+char	*ft_allocate (int size);
+int		quotes_is_there(char *str);
 t_env	*ft_lstlast_env(t_env *lst);
 int		ft_lstsize_env(t_env *lst);
 void	ft_lstadd_back(t_env **lst, t_env *new);

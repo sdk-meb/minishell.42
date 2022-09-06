@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:49:22 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/31 21:57:53 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:24:53 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ t_list	*ft_pipe_case(t_list *head)
 t_list	*ft_create_astree(t_list *head)
 {
 	t_list	*pipe_root;
-	t_list	*temp;
 
 	pipe_root = NULL;
-	temp = head;
-	pipe_root = ft_pipe_case(temp);
+	pipe_root = ft_pipe_case(head);
 	if (pipe_root)
 		return (pipe_root);
 	return (head);
