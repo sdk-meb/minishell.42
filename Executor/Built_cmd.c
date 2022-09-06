@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/04 12:52:23 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/06 21:27:13 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static void	pwd(t_cmd cmd)
 		ft_exit (1);
 	}
 	pathname = getcwd(NULL, PATH_MAX);
+	if (!pathname || !*pathname)
+		pathname = get_env("PWD");
 	write(cmd->out, pathname, ft_strlen(pathname));
 	write(cmd->out, "\n", 1);
 	close_fd(&(cmd->in), &(cmd->out));
@@ -52,14 +54,25 @@ static void	pwd(t_cmd cmd)
 
 static void	cd(t_cmd cmd)
 {
-	errno = 0;
+	t_path		path;
+
 	close_fd(&(cmd->in), &(cmd->out));
+	errno = 0;
 	chdir(cmd->arv[1]);
 	if (errno == SUCCESS)
 	{
-		stat_loc(0);
 		set_env(ft_strjoin("OLDPWD=", get_env("PWD")));
-		getcwd(get_env("PWD"), PATH_MAX);
+		path = getcwd(NULL, OPEN_MAX);
+		if (!path || !*path)
+		{
+			path = ft_strjoin(get_env("PWD"), "/");
+			path = ft_strjoin(path, cmd->arv[1]);
+			set_env(ft_strjoin("PWD=", ft_strjoin(path, cmd->arv[1])));
+			ft_err("", ENOENT);
+		}
+		else
+			getcwd(get_env("PWD"), OPEN_MAX);
+		stat_loc(0);
 		return ;
 	}
 	ft_err(cmd->arv[1], errno);

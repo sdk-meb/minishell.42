@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/04 12:53:33 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/06 21:30:11 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ void	set_env(t_str var)
 		if (ft_strncmp(envv->name, var, i - 1) == SUCCESS)
 		{
 			if (envv->content && ft_strnindex(var, '=', INT32_MAX))
-			{
 				envv->content = NULL;
-			}
+			genus(APPROVED);
 			if (ft_strnindex(var, '=', INT32_MAX))
 				envv->content = get_tenor(var);
+			genus(TEMPORARY);
 			return ;
 		}
 		envv = envv->next;

@@ -1,8 +1,18 @@
-// HEADER 42 ____ USER = rel-hach //
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_herdoc.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/05 16:14:09 by rel-hach          #+#    #+#             */
+/*   Updated: 2022/09/06 14:07:00 by rel-hach         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-char *heredoc_waiting(int fds[2])
+char	*heredoc_waiting(int fds[2])
 {
 	char	*temp;
 	int		status;
@@ -11,10 +21,10 @@ char *heredoc_waiting(int fds[2])
 	wait(&status);
 	stat_loc(status);
 	glb_sig(RL_STATE_READCMD);
-	if (status !=  0)
+	if (status != 0)
 		return (NULL);
 	glb_sig(_EXECUTE_OK);
-	temp = ft_calloc(OPEN_MAX + 1 , 1);
+	temp = ft_calloc(OPEN_MAX + 1, 1);
 	status = read(fds[STDIN_FILENO], temp, OPEN_MAX);
 	if (status < 0)
 		return (NULL);
@@ -23,81 +33,46 @@ char *heredoc_waiting(int fds[2])
 	return (temp);
 }
 
-int		quotes_is_there(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_is_quote(str[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	*copy_new_delim(char *delim, char *new_delim)
-{
-	char    c;
-    int		i;
-    int		j;
-
-    i = 0;
-    j = 0;
-	while (delim[i])
-	{
-		if (ft_is_quote(delim[i]))
-		{
-			c = delim[i];
-			while (delim[i] && delim[i] == c)
-				i++;
-			while (delim[i] && delim[i] != c)
-				new_delim[j++] = delim[i++];
-			while (delim[i] && delim[i] == c)
-				i++;
-		}
-        else if (!ft_is_quote(delim[i]))
-		    new_delim[j++] = delim[i++];
-	}
-	return (new_delim);
-}
-
 char	*ft_rm_quotes(char *delim, int *quote)
 {
+	char	c;
 	int		i;
 	int		j;
-	char	*new;
-    char    c;
 
-	*quote = 1;
-	i =	0;
+	i = 0;
 	j = 0;
+	*quote = 1;
 	while (delim[i])
 	{
 		if (ft_is_quote(delim[i]))
 		{
-			c = delim[i];
-			while (delim[i] && delim[i] == c)
-				i++;
-			while (delim[i] && delim[i] != c)
-            {
+			c = delim[i++];
+			while (delim[i] && delim[i++] != c)
 				j++;
-                i++;
-            }
-			while (delim[i] && delim[i] == c)
-				i++;
+			i++;
 		}
-        else if (!ft_is_quote(delim[i]))
-        {
-            i++;
-            j++;
-        }
+		else if (!ft_is_quote(delim[i]))
+		{
+			i++;
+			j++;
+		}
 	}
-	new = (char *)ft_calloc(sizeof(char), (j + 1));
-	if(!new)
-		return (NULL);	
-    return (copy_new_delim(delim, new));
+	return (copy_new_delim(delim, ft_allocate(j)));
+}
+
+void	ft_read(char *line, int *fds, int *quote, char *delim)
+{
+	while (1)
+	{
+		line = readline("> ");
+		if (!line || ft_strcmp(delim, line) == 0)
+			break ;
+		if (*quote == 0)
+			line = ft_expand_heredoc(line);
+		write(fds[STDOUT_FILENO], line, ft_strlen(line));
+		write(fds[STDOUT_FILENO], "\n", 1);
+		free(line);
+	}
 }
 
 char	*ft_heredoc(char *delim)
@@ -119,23 +94,13 @@ char	*ft_heredoc(char *delim)
 	if (quotes_is_there(delim))
 		delim = ft_rm_quotes(delim, &quote);
 	line = NULL;
-	while (1)
-	{
-		line = readline("> ");
-		if (!line || ft_strcmp(delim, line) == 0)
-			break ;
-		if (quote == 0)
-			line = ft_expand_heredoc(line);
-		write(fds[STDOUT_FILENO], line, ft_strlen(line));
-		write(fds[STDOUT_FILENO], "\n", 1);
-		free(line);
-	}
+	ft_read(line, fds, &quote, delim);
 	free(line);
 	close(fds[STDOUT_FILENO]);
 	return (exit(SUCCESS), NULL);
 }
 
-char **handel_heredoc(char **str)
+char	**handel_heredoc(char **str)
 {
 	int		i;
 

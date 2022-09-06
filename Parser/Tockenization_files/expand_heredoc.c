@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 23:24:52 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/03 11:33:08 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/05 22:25:10 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	count_size_heredoc(char *str)
 {
 	int	size;
-    int i;
+	int	i;
 
 	size = 0;
-    i = 0;
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '$')

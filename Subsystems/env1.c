@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/05 22:32:50 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/06 21:02:28 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,11 @@ void	env_proc(char **env_v, t_str var)
 		while (*env_v)
 			add_to_env(env, new_env(*env_v++));
 		genus(APPROVED);
+		if (ft_memcmp(get_env("SHLVL"), "-", 1) == SUCCESS)
+			set_env(ft_strjoin("SHLVL=", "-1"));
 		set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
-		set_env("SHELL=./minishell");
+		set_env(ft_strjoin("OLDPWD=", get_env("HOME")));
+		set_env("=./minishell");
 		genus(TEMPORARY);
 		unset_envv("_");
 	}

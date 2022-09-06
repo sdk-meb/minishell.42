@@ -1,7 +1,7 @@
 NAME	= minishell
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
-LINKER	= -lreadline -L/goinfre/mes-sadk/homebrew/opt/readline/lib
+LINKER	= -lreadline '-L$(shell brew --prefix readline)/lib'
 
 INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'\
 			'-I$(shell brew --prefix readline)/include'

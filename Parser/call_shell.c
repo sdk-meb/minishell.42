@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/05 14:44:20 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/06 21:34:58 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ char	**ft_readline(char ps1)
 void	ft_call_shell(char ps1)
 {
 	char	**splitted;
-
 	t_list	*root;
+
 	while (1)
 	{
 		splitted = ft_readline(ps1);

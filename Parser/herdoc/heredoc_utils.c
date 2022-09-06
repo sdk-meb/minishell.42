@@ -1,41 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 14:15:58 by rel-hach         ###   ########.fr       */
+/*   Created: 2022/09/06 11:19:47 by rel-hach          #+#    #+#             */
+/*   Updated: 2022/09/06 14:19:45 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-char	*ft_get_env(char *str, int *i)
+char	*copy_new_delim(char *delim, char *new_delim)
 {
+	char	c;
+	int		i;
 	int		j;
-	char	temp[1000000];
-	char	*env;
 
+	i = 0;
 	j = 0;
-	while (str[(*i)] && str[(*i)] != ' ' && !ft_is_quote(str[(*i)])
-		&& str[(*i)] != '$')
-		temp[j++] = str[(*i)++];
-	temp[j] = '\0';
-	env = get_env(temp);
-	return (env);
+	while (delim[i])
+	{
+		if (ft_is_quote(delim[i]))
+		{
+			c = delim[i++];
+			while (delim[i] && delim[i] != c)
+				new_delim[j++] = delim[i++];
+			i++;
+		}
+		else if (!ft_is_quote(delim[i]))
+			new_delim[j++] = delim[i++];
+	}
+	return (new_delim);
 }
 
-char	*ft_expand(char *str)
+char	*ft_allocate(int size)
 {
-	int		size;
 	char	*new;
 
-	size = count_size(str);
 	new = (char *)ft_calloc(sizeof(char), (size + 1));
 	if (!new)
 		return (NULL);
-	new = ft_copy(str, new);
 	return (new);
+}
+
+int	quotes_is_there(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_is_quote(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }

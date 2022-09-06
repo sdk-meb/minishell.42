@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:11:49 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/03 11:38:34 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/05 16:55:30 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
-
-// _____________________________________________-
 
 int	ft_count_tokens(char *s)
 {
@@ -69,14 +67,12 @@ char	*ft_create_tokens(char *s)
 	return (NULL);
 }
 
-char	**ft_tokenize_line(char *line)
+char	**ft_tokenize_line(char *s)
 {
 	int		i;
 	int		nb_tokens;
 	char	**tdstr;
-	char	*s;	
 
-	s = line;
 	if (s)
 	{
 		nb_tokens = ft_count_tokens(s);
