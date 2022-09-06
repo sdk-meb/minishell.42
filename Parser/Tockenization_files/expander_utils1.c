@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 21:05:49 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 10:29:02 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:14:06 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ int	count_size(char *str)
 			size++;
 		}
 	}
-		return (size);
+	return (size);
 }

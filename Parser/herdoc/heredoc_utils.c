@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:19:47 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 11:22:03 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:19:45 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*copy_new_delim(char *delim, char *new_delim)
 	return (new_delim);
 }
 
-char	*ft_allocate (int size)
+char	*ft_allocate(int size)
 {
 	char	*new;
 

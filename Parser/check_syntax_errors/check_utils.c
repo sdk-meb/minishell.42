@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:52:08 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 13:16:41 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:33:43 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int	ft_check_consecutive_pipes_redirections(char *str)
 	return (0);
 }
 
-void    ft_skip(char *str, int *i)
+void	ft_skip(char *str, int *i)
 {
 	(*i)++;
-    while (str[(*i)] == ' ')
-        (*i)++;
+	while (str[(*i)] == ' ')
+		(*i)++;
 }
 
 int	ft_redirection_error(char *str)
@@ -64,13 +64,13 @@ int	ft_redirection_error(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str[i++])
 	{
 		if (ft_is_redirection(str[i]) && str[i + 1] == ' ')
 		{
 			ft_skip(str, &i);
 			if (ft_is_redirection(str[i]))
-				return(FAILURE);
+				return (FAILURE);
 		}
 		if (ft_is_redirection(str[i]) && ft_is_redirection(str[i + 1])
 			&& ft_is_redirection(str[i + 2]))
@@ -82,9 +82,9 @@ int	ft_redirection_error(char *str)
 	return (SUCCESS);
 }
 
-int and(char *str)
+int	and(char *str)
 {
-    int i;
+	int	i;
 
 	i = 0;
 	while (str[i])

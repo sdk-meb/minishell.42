@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 12:40:33 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:27:33 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**ft_readline(char ps1);
 void	ft_call_shell(char ps1);
 int		ft_check_line(char *line);
 
-// Expandation files :
+// Other files :
 
 void	copy_env(char *env, char *new_str, int *j);
 void	skip_quote(char *str, int *i);
@@ -110,7 +110,7 @@ char	*ft_copy_herdoc(char *str, char *new_str);
 char	*ft_expand_heredoc(char *str);
 char	*ft_remove_quotes(char *delim);
 char	*copy_new_delim(char *delim, char *new_delim);
-char	*ft_allocate (int size);
+char	*ft_allocate(int size);
 int		quotes_is_there(char *str);
 t_env	*ft_lstlast_env(t_env *lst);
 int		ft_lstsize_env(t_env *lst);

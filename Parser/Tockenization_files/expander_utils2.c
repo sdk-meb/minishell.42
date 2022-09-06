@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 21:06:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 10:29:36 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:15:08 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ char	*ft_copy(char *str, char *new_str)
 			ft_dollar_case(str, new_str, &i, &j);
 	}
 	new_str[j] = '\0';
-    return (new_str);
+	return (new_str);
 }

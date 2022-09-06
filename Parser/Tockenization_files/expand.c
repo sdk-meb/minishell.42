@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 08:04:11 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:15:58 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_expand(char *str)
 {
 	int		size;
 	char	*new;
- 
+
 	size = count_size(str);
 	new = (char *)ft_calloc(sizeof(char), (size + 1));
 	if (!new)

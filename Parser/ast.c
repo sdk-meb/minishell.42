@@ -6,11 +6,11 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:49:22 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 11:24:53 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:23:58 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Include/minishell.h"
+#include "../Include/minishell.h"
 
 t_list	*return_first_node(t_list *lst)
 {
