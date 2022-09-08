@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   list_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/01 01:53:46 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/07 13:00:19 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
-
-t_list	*ft_lstlast(t_list *lst)
-{
-	if (lst == NULL)
-		return (lst);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
 
 int	ft_lstsize(t_list *lst)
 {
@@ -72,7 +63,6 @@ char	ft_get_symbol(char *tocken)
 	return ('w');
 }
 
-
 t_list	*ft_new_token(char *heredoc, char *string)
 {
 	t_list			*new;
@@ -85,14 +75,17 @@ t_list	*ft_new_token(char *heredoc, char *string)
 	else
 		new->token = ft_expand(string);
 	new->symbol = ft_get_symbol(string);
+	new->file = NULL;
 	new->type = string;
-	new->in = STDIN_FILENO;
-	new->out = STDOUT_FILENO;
-	new->arv = NULL;
-	new->prev = NULL;
 	new->next = NULL;
+	new->prev = NULL;
 	new->left = NULL;
 	new->right = NULL;
+	new->last = false;
+	new->in = STDIN_FILENO;
+	new->out = STDOUT_FILENO;
+	new->arc = 0;
+	new->arv = NULL;
 	return (new);
 }
 
@@ -112,6 +105,3 @@ t_list	*ft_create_list_for_tockens(char **splitted)
 	}
 	return (head);
 }
-
-/// echo hello > file1.txt aaaaaa 
-// output :	hello aaaaaa

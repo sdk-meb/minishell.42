@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 23:24:52 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/31 23:51:31 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/05 22:25:10 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	count_size_heredoc(char *str)
 {
 	int	size;
-    int i;
+	int	i;
 
 	size = 0;
-    i = 0;
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -65,9 +65,9 @@ char	*ft_expand_heredoc(char *str)
 	char	*new;
 
 	size = count_size_heredoc(str);
-	new = (char *)malloc(sizeof(char) * (size + 1));
+	new = (char *)ft_calloc(sizeof(char), (size + 1));
 	if (!new)
 		return (NULL);
 	new = ft_copy_herdoc(str, new);
-	return (free(str), new);
+	return (new);
 }

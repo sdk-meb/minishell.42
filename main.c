@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:31:10 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/31 15:18:57 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:40:49 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int ac, char *av[], char *env[])
 		if (!errno)
 			errno = EISDIR;
 		perror(av[1]);
-		exit (errno);
+		exit (1);
 	}
-	return (_RETURN);
+	return (EXIT_SUCCESS);
 }

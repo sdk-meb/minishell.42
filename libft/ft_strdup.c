@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 19:49:34 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/27 22:53:12 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 11:17:24 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strdup(const char *str)
 
 	s1 = (char *)str;
 	i = ft_strlen((char *)s1) + 1;
-	p = malloc(i);
+	p = ft_calloc(1, i);
 	if (!p)
 		return (NULL);
 	return (ft_memcpy(p, s1, i));

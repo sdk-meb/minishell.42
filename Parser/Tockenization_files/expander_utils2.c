@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 21:06:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/01 01:38:35 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:15:08 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,46 @@ void	ft_copy_dq_case(char *str, char *new, int *i, int *j)
 			new[(*j)++] = str[(*i)++];
 		if (str[(*i)] == '$')
 		{
-			(*i)++;
-			env = ft_get_env(str, i);
-			if (env)
-				copy_env(env, new, j);
+			if (str[(*i) + 1] == '\"')
+				new[(*j)++] = str[(*i)++];
+			else if (ft_isdigit(str[(*i) + 1]) == 0)
+				*i = *i + 2;
+			else
+			{
+				(*i)++;
+				env = ft_get_env(str, i);
+				if (env)
+					copy_env(env, new, j);
+			}
 		}
 	}
 	(*i)++;
+}
+
+void	ft_dollar_case(char *str, char *new_str, int *i, int *j)
+{
+	char	*env;
+
+	if (ft_isdigit(str[(*i) + 1]) == 0)
+		(*i) = (*i) + 2;
+	else if (str[(*i) + 1] == '\0')
+	{
+		new_str[(*j)++] = str[(*i)++];
+		new_str[(*j)] = '\0';
+	}
+	else
+	{
+		(*i)++;
+		env = ft_get_env(str, i);
+		if (env)
+			copy_env(env, new_str, j);
+	}
 }
 
 char	*ft_copy(char *str, char *new_str)
 {
 	int		i;
 	int		j;
-	char	*env;
 
 	i = 0;
 	j = 0;
@@ -66,17 +92,7 @@ char	*ft_copy(char *str, char *new_str)
 		if (str[i] == '\"')
 			ft_copy_dq_case(str, new_str, &i, &j);
 		if (str[i] == '$')
-		{
-			if (ft_isdigit(str[i + 1]) == 0)
-				i = i + 2;
-			else 
-			{
-				i++;
-				env = ft_get_env(str, &i);
-				if (env)
-					copy_env(env, new_str, &j);
-			}
-		}
+			ft_dollar_case(str, new_str, &i, &j);
 	}
 	new_str[j] = '\0';
 	return (new_str);

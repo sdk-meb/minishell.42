@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 09:02:05 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/29 15:34:54 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/03 11:26:31 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		n = n - start;
 	else
 		n = len;
-	sub = malloc(n + 1);
+	sub = ft_calloc(n + 1, 1);
 	if (!sub)
 		return (NULL);
 	sub[n] = '\0';

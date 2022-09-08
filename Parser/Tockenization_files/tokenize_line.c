@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   branch_line.c                                      :+:      :+:    :+:   */
+/*   tokenize_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:11:49 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/08/20 16:59:42 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:25:58 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,29 @@
 
 int	ft_count_tokens(char *s)
 {
-	static int	count;
-	static int	i;
+	int	count[2];
 
-	while (s[i])
+	count[0] = 0;
+	count[1] = 0;
+	while (s[count[1]])
 	{
-		while (s[i] == ' ')
-			i++;
-		if (ft_is_quote(s[i]))
+		while (s[count[1]] == SPACE)
+			count[1]++;
+		if (ft_is_quote(s[count[1]]))
 		{
-			i = ft_get_next_quote(i, s);
-			while (ft_is_quote(s[i + 1]))
-				i = ft_get_next_quote(i + 1, s);
-			count++;
-			i++;
+			count[1] = ft_get_next_quote(count[1], s);
+			while (ft_is_quote(s[count[1] + 1]))
+				count[1] = ft_get_next_quote(count[1] + 1, s);
+			count[0]++;
+			count[1]++;
 		}
-		else if (s[i] != SPACE && s[i])
-			count++;
-		while (s[i] != SPACE && s[i])
-		{
-			if (ft_is_quote(s[i]))
-				i = ft_get_next_quote(i, s);
-			i++;
-		}
+		else if (s[count[1]] != SPACE && s[count[1]])
+			count[0]++;
+		while (s[count[1]] != SPACE && s[count[1]])
+			if (ft_is_quote(s[count[1]++]))
+				count[1] = ft_get_next_quote(count[1] - 1, s) + 1;
 	}
-	return (count);
+	return (count[0]);
 }
 
 char	*ft_create_tokens(char *s)
@@ -58,7 +56,7 @@ char	*ft_create_tokens(char *s)
 			i = ft_get_next_quote(i, s);
 		i++;
 	}
-	str = (char *)malloc(sizeof(char) * (i + 1));
+	str = (char *)ft_calloc(sizeof(char), (i + 1));
 	if (str)
 	{
 		ft_strlcpy(str, s, i + 1);
@@ -71,12 +69,12 @@ char	**ft_tokenize_line(char *s)
 {
 	int		i;
 	int		nb_tokens;
-	char	**tdstr;	
+	char	**tdstr;
 
 	if (s)
 	{
 		nb_tokens = ft_count_tokens(s);
-		tdstr = (char **)malloc(sizeof(char *) * (nb_tokens + 1));
+		tdstr = (char **)ft_calloc(sizeof(char *), (nb_tokens + 1));
 		if (tdstr)
 		{
 			i = -1;
@@ -86,7 +84,7 @@ char	**ft_tokenize_line(char *s)
 					s++;
 				tdstr[i] = ft_create_tokens(s);
 				if (!tdstr[i])
-					return (ft_freestr(tdstr));
+					return (NULL);
 				s = s + ft_strlen(tdstr[i]);
 			}
 			tdstr[i] = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/01 01:44:23 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/07 12:06:42 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_list
 	bool			last;
 	int				in;
 	int				out;
-	bool			err;
 	int				arc;
 	char			**arv;
 }	t_list;
@@ -75,7 +74,6 @@ char	**ft_tokenize_line(char *s);
 int		ft_check_chars(char c, char *set);
 int		ft_get_next_quote(int i, char *line);
 int		ft_count_tokens(char *s);
-char	**ft_freestr(char **str);
 
 // [B] Parsing files :
 
@@ -84,10 +82,9 @@ t_list	*ft_pipe_case(t_list *head);
 t_list	*ft_create_astree(t_list *head);
 char	**ft_readline(char ps1);
 void	ft_call_shell(char ps1);
-bool	quotes_are_closed(char *line);
 int		ft_check_line(char *line);
 
-// Expandation files :
+// Other files :
 
 void	copy_env(char *env, char *new_str, int *j);
 void	skip_quote(char *str, int *i);
@@ -100,44 +97,30 @@ void	ft_copy_sq_case(char *str, char *new, int *i, int *j);
 void	ft_copy_dq_case(char *str, char *new, int *i, int *j);
 char	*ft_copy(char *str, char *new_str);
 char	*ft_expand(char *str);
-
-// [C] Execution files :
-
-// [D] Auxiliaries files :
-
-// FILE 1 //
-
 void	print_tree(t_list *root);
-
-// FILE 2 //
-
 int		ft_is_quote(char c);
 int		ft_is_pipe(char c);
 int		ft_is_redirection(char c);
 int		ft_is_special(char c);
-
-// FILE 3 //
-
 int		ft_isprint(int c);
-
-// FILE 4 //
-
-char    *ft_heredoc(char *delim);
-char    **handel_heredoc(char **str);
+char	*ft_heredoc(char *delim);
+char	**handel_heredoc(char **str);
 int		count_size_heredoc(char *str);
 char	*ft_copy_herdoc(char *str, char *new_str);
 char	*ft_expand_heredoc(char *str);
-
-
-// [E] //
-
-// list environnement variables :
-
+char	*ft_remove_quotes(char *delim);
+char	*copy_new_delim(char *delim, char *new_delim);
+char	*ft_allocate(int size);
+int		quotes_is_there(char *str);
 t_env	*ft_lstlast_env(t_env *lst);
 int		ft_lstsize_env(t_env *lst);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_new_env(char *str);
 t_env	*ft_create_list_for_env(char **splitted);
+int		quotes_are_closed(char *line);
+int		ft_check_consecutive_pipes_redirections(char *str);
+void	ft_skip(char *str, int *i);
+int		ft_redirection_error(char *str);
 
 // list tockens :
 
@@ -146,10 +129,5 @@ int		ft_lstsize(t_list *lst);
 void	ft_lstadd_back_doubly(t_list **lst, t_list *new);
 t_list	*ft_new_token(char *heredoc, char *string);
 t_list	*ft_create_list_for_tockens(char **splitted);
-
-int			ft_get_next_quote(int i, char *line);
-int			ft_wordscounter(char *s, char c);
-char		*ft_write_words(char *s, char c);
-char		**ft_branch_line(char *s, char c);
 
 #endif

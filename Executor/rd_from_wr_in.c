@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/30 22:22:59 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:46:31 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@ static void	hd_out_of(t_cmd mngr, t_cmd cmd)
 {
 	int		fd[2];
 
-	close_fd(cmd->in, STDOUT_FILENO);
+	if (!mngr)
+	{
+		perror("PARSER ERROR <->\n");
+		ft_exit(33);
+	}
+	close_fd(&(cmd->in), NULL);
 	pipe(fd);
 	cmd->in = fd[STDIN_FILENO];
 	write(fd[STDOUT_FILENO], mngr->token, ft_strlen(mngr->token));
@@ -26,7 +31,12 @@ static void	hd_out_of(t_cmd mngr, t_cmd cmd)
 
 static void	rd_out_of(t_cmd mngr, t_cmd cmd)
 {
-	close_fd(cmd->in, STDOUT_FILENO);
+	if (!mngr)
+	{
+		perror("PARSER ERROR <->\n");
+		ft_exit(33);
+	}
+	close_fd(&(cmd->in), NULL);
 	cmd->in = open(mngr->token, O_RDONLY);
 	ft_err(mngr->token, errno);
 	mngr->symbol = 'F';
@@ -34,7 +44,12 @@ static void	rd_out_of(t_cmd mngr, t_cmd cmd)
 
 static void	insert_doc(t_cmd mngr, t_cmd cmd)
 {
-	close_fd(STDIN_FILENO, cmd->out);
+	if (!mngr)
+	{
+		perror("PARSER ERROR <->\n");
+		ft_exit(33);
+	}
+	close_fd(NULL, &(cmd->out));
 	cmd->out = open(mngr->token, O_WRONLY
 			| O_CREAT | O_APPEND, 0644);
 	ft_err(mngr->token, errno);
@@ -43,7 +58,12 @@ static void	insert_doc(t_cmd mngr, t_cmd cmd)
 
 static void	insert_file(t_cmd mngr, t_cmd cmd)
 {
-	close_fd(STDIN_FILENO, cmd->out);
+	if (!mngr)
+	{
+		perror("PARSER ERROR <->\n");
+		ft_exit(33);
+	}
+	close_fd(NULL, &(cmd->out));
 	cmd->out = open(mngr->token, O_WRONLY
 			| O_TRUNC | O_CREAT, 0644);
 	ft_err(mngr->token, errno);

@@ -1,10 +1,10 @@
 NAME	= minishell
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
-LINKER	= -lreadline #-L/Users/rel-hach/.brew/opt/readline/lib
+LINKER	= -lreadline '-L$(shell brew --prefix readline)/lib'
 
 INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'\
-			#'I/Users/rel-hach/.brew/opt/readline/include'
+			'-I$(shell brew --prefix readline)/include'
 LIBFT 	= libft/libft.a
 
 #regular colors :
@@ -23,9 +23,17 @@ BICyan=\033[1;96m
 BIWhite=\033[1;97m
 
 MAIN 			= main.c
-SRC_PARSER		= $(shell find Parser -type f | grep \\.c$)
-SRC_SUBSYSTEMS	= $(shell find Subsystems -type f | grep \\.c$)
-SRC_EXECUTOR	= $(shell find Executor -type f | grep '\.c\>')
+SRC_PARSER		= Parser/ast.c Parser/Auxiliaries_files/file1.c Parser/call_shell.c Parser/check_syntax_errors/check.c\
+					Parser/check_syntax_errors/check_utils.c Parser/herdoc/ft_herdoc.c Parser/herdoc/heredoc_utils.c\
+					Parser/Lists/list_env.c Parser/Lists/list_tokens.c Parser/Tockenization_files/expand.c\
+					Parser/Tockenization_files/expand_heredoc.c Parser/Tockenization_files/expander_utils1.c\
+					Parser/Tockenization_files/expander_utils2.c Parser/Tockenization_files/repair_line.c\
+					Parser/Tockenization_files/tokenize_line.c Parser/Tockenization_files/tokenizer_utils.c
+
+SRC_SUBSYSTEMS	=	Subsystems/env.c Subsystems/env1.c Subsystems/exp.c Subsystems/unset.c
+
+SRC_EXECUTOR	= Executor/Built_cmd.c Executor/echo.c Executor/Err.c Executor/exuc.c Executor/pipe.c\
+					Executor/rd_from_wr_in.c Executor/sig.c Executor/stat_loc.c Executor/terminate.c
 
 MAIN_O				= $(MAIN:.c=.o)
 OBJ_PARSER 			= $(SRC_PARSER:.c=.o)
@@ -37,7 +45,7 @@ OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 
 all: $(NAME)
 
-$(LIBFT): $(shell find libft -type f | (grep '\.o\>' & grep '\.h\>'))
+$(LIBFT): 
 	@make -C libft/
 
 $(NAME): $(LIBFT) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)

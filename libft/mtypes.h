@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mtypes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:01:43 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/01 01:10:37 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:40:37 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MTYPES_H
 
 /* path name and also considered as file name */
-
 typedef char*			t_path;
 
 /* const string  */
@@ -34,7 +33,6 @@ typedef short			t_req;
 
 /*   specific work request  */
 # define ERRON STRERR
-# define _RETURN 0
 
 # define NEWCHLD 0
 # define EMPTY (-42)
