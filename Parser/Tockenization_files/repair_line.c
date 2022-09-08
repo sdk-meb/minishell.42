@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:39:48 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/04 12:14:46 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/07 12:08:37 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ char	*ft_repair_string(char *old_line)
 	if (ft_count_special_characters(old_line) == 0)
 		return (old_line);
 	new_line = ft_calloc(ft_strlen(old_line) + (count * 2) + 1, 1);
-	while (new_line && old_line[i])
+	if (!new_line)
+		return (NULL);
+	while (old_line[i])
 	{
 		if (ft_is_quote(old_line[i]))
 			ft_fill_quotes(old_line, new_line, &i, &j);

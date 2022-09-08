@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 14:15:58 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/07 12:48:45 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_get_env(char *str, int *i)
 {
 	int		j;
-	char	temp[1000000];
+	char	temp[ARG_MAX];
 	char	*env;
 
 	j = 0;

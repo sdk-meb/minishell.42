@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:52:08 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 14:33:43 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/07 12:15:15 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,6 @@ int	ft_redirection_error(char *str)
 			return (FAILURE);
 		if ((str[i] == '>' && str[i + 1] == '<')
 			|| (str[i] == '<' && str[i + 1] == '>'))
-			return (FAILURE);
-	}
-	return (SUCCESS);
-}
-
-int	and(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '&' && ft_is_special(str[i + 1]))
-			return (FAILURE);
-		else if (ft_is_special(str[i] && str[i + 1] == '&'))
 			return (FAILURE);
 	}
 	return (SUCCESS);

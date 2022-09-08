@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:14:09 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 14:07:00 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/07 12:14:22 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ char	*ft_heredoc(char *delim)
 	int		quote;
 
 	quote = 0;
-	pipe(fds);
+	if (pipe(fds) == -1)
+		return (NULL);
 	glb_sig(HEREDOC);
 	if (fork())
 		return (heredoc_waiting(fds));

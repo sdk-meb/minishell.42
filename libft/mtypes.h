@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:01:43 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/29 18:55:52 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:40:37 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef short			t_req;
 
 /*   specific work request  */
 # define ERRON STRERR
-# define _RETURN 0
 
 # define NEWCHLD 0
 # define EMPTY (-42)

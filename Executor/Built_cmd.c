@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/06 21:27:13 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:48:15 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	b_exit(t_cmd cmd)
 		if (cmd->arv[1][++i] == '\0')
 			return (stat_loc(1), ft_err("M-sh: exit: too many arguments", 109));
 	}
+	glb_sig(RL_STATE_READCMD);
 	if (cmd->arc > 2)
 	{
 		ft_err("M-sh: exit: numeric argument required", 109);

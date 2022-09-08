@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/06 21:32:47 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:45:11 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	fork_exec(t_cmd cmd, void (*bin)(t_cmd))
 	if (glb_sig(EMPTY) == RL_STATE_READCMD || cmd->in == -1 || cmd->out == -1)
 		return ;
 	statu = fork();
+	glb_sig(SIGCHLD);
 	if (statu == PRIO_PROCESS)
 		help_child(cmd, bin);
-	glb_sig(SIGCHLD);
 	close_fd(&(cmd->in), &(cmd->out));
 	if (statu == RUSAGE_CHILDREN)
 		ft_err(NULL, errno);
