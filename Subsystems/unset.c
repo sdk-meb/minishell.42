@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/03 11:55:31 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:41:04 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,23 @@ void	unset_envv(t_str var)
 		prev = envv;
 		envv = envv->next;
 	}
+}
+
+void	*ft__env(t_str arg)
+{
+	static t_str	_env_;
+	t_ptr			ptr;
+	int				lenth;
+
+	if (arg)
+	{
+		lenth = ft_strlen(arg);
+		ptr = malloc(lenth + 1);
+		ft_memmove(ptr, arg, lenth + 1);
+		free ((void *)_env_);
+		_env_ = ptr;
+	}
+	return ((void *) _env_);
 }
 
 void	unset(t_cmd cmd)

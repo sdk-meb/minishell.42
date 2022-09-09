@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/08 14:25:35 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:37:49 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void	plea_arguments_value(t_cmd cmd)
 			av = ft_strjoin(av, mngr->token);
 			av = ft_strjoin(av, "\003");
 		}
+		if (!mngr->next)
+			ft__env(mngr->token);
 		mngr = mngr->next;
 	}
 	cmd->arv = (char **)ft_split(av, '\003');

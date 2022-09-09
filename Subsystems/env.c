@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/06 21:30:11 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:39:52 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	*get_env(t_str var)
 
 	if (ft_strncmp(var, "?", 2) == SUCCESS)
 		return (ft_itoa(stat_loc(EMPTY)));
+	if (ft_strncmp(var, "_", 2) == SUCCESS)
+		return (ft__env(NULL));
 	env = my_env(NULL, _GET);
 	if (!env)
 		return ("");
