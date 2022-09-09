@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/07 11:48:15 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:53:26 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	b_exit(t_cmd cmd)
 	}
 	if (cmd->arc == 2)
 		ft_exit(ft_atoi(cmd->arv[cmd->arc - 1]));
-	ft_exit(0);
+	ft_exit(stat_loc(EMPTY));
 }
 
 static void	pwd(t_cmd cmd)
