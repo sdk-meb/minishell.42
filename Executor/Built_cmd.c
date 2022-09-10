@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Built_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/10 18:46:00 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/09 23:14:56 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ static void	cd(t_cmd cmd)
 			ft_err("", ENOENT);
 		}
 		else
-			set_env(ft_strjoin("PWD=", path));
-		free((void *) path);
+			getcwd(get_env("PWD"), OPEN_MAX);
 		stat_loc(0);
 		return ;
 	}
@@ -81,29 +80,11 @@ static void	cd(t_cmd cmd)
 	stat_loc(1);
 }
 
-bool	bult_c1(t_cmd cmd)
+bool	bult_c(t_cmd cmd)
 {
 	t_cmd	mngr;
 
 	mngr = cmd;
-	if (ft_memcmp(mngr->arv[0], "cd", 3) == SUCCESS)
-		return (fork_exec(cmd, cd), SUCCESS);
-	if (ft_memcmp(mngr->arv[0], "unset", 4) == SUCCESS)
-		return (fork_exec(cmd, unset), SUCCESS);
-	if (ft_memcmp(mngr->arv[0], "export", 7) == SUCCESS)
-		return (fork_exec(cmd, export), SUCCESS);
-	if (ft_memcmp(mngr->arv[0], "exit", 5) == SUCCESS)
-		return (fork_exec(cmd, b_exit), SUCCESS);
-	return (FAILURE);
-}
-
-bool	bult_c(t_cmd cmd, bool ppe)
-{
-	t_cmd	mngr;
-
-	mngr = cmd;
-	if (ppe)
-		return (bult_c1(cmd));
 	if (ft_memcmp(mngr->arv[0], "echo", 5) == SUCCESS)
 		return (fork_exec(cmd, echo), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "cd", 3) == SUCCESS)

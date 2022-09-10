@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 22:05:20 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 13:07:31 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/10 18:29:25 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	ft_check_line(char *line)
 	i = 0;
 	line = ft_strtrim(line, " \t\v");
 	if (line[0] == '|' || ft_is_special(line[ft_strlen(line) - 1]))
-		ft_err("minishell: parse error near `|'", EMPTY);
+		ft_err("minishell : parse error near `|'", EMPTY);
 	else if (quotes_are_closed(line))
 		ft_err("minishell : qoutes not closed", EMPTY);
 	else if (ft_check_consecutive_pipes_redirections(line))
-		ft_err("minishell : zsh: parse error near `|'", EMPTY);
+		ft_err("minishell : parse error near `|'", EMPTY);
 	else if (ft_redirection_error(line))
 		ft_err("minishell : parse error near `<' `>'", EMPTY);
 	else

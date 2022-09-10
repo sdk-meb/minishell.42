@@ -6,7 +6,6 @@ LINKER	= -lreadline '-L$(shell brew --prefix readline)/lib'
 INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'\
 			'-I$(shell brew --prefix readline)/include'
 LIBFT 	= libft/libft.a
-INCLUDE = Include/Exec.h Include/Parser.h Include/Subsystem.h Include/minishell.h
 
 #regular colors :
 RED 		= \033[0;31m
@@ -41,12 +40,12 @@ OBJ_PARSER 			= $(SRC_PARSER:.c=.o)
 OBJ_SUBSYSTEMS		= $(SRC_SUBSYSTEMS:.c=.o)
 OBJ_EXECUTOR 		= $(SRC_EXECUTOR:.c=.o)
 
-%.o:%.c ${INCLUDE}
+%.o:%.c $(shell ls Include/*)
 	@$(CC) $(INC)  $(CFLAGS) -o $@ -c $<
 
 all: $(NAME)
 
-$(LIBFT):
+$(LIBFT): 
 	@make -C libft/
 
 $(NAME): $(LIBFT) $(MAIN_O) $(OBJ_PARSER) $(OBJ_SUBSYSTEMS) $(OBJ_EXECUTOR)

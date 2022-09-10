@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/10 19:02:20 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:37:49 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	cmd_path(t_cmd cmd, t_head pathname)
 	pathname[0] = ft_strjoin(pathname[0], "/");
 	pathname[0] = ft_strjoin(pathname[0], cmd->arv[0]);
 	lstat(pathname[0], &buf);
-	if (S_ISREG(buf.st_mode) == false && !buf.st_nlink)
+	if (S_ISREG(buf.st_mode) == false)
 		cmd_path(cmd, &(pathname[1]));
 	else
 		cmd->arv[0] = pathname[0];
@@ -66,7 +66,7 @@ static void	exec_bin(t_cmd cmd)
 
 	errno = 0;
 	av = env_to_argv(my_env(NULL, _GET));
-	if (ft_memcmp(cmd->arv[0], "./", 2) == SUCCESS || (cmd->arv[0][0] == '/'))
+	if (ft_memcmp(cmd->arv[0], "./", 2) == SUCCESS || cmd->arv[0][0] == '/')
 	{
 		if (ft_memcmp(cmd->arv[0], "./", 2) == SUCCESS)
 			ft_memmove((void *)cmd->arv[0], (void *)(cmd->arv[0] + 2),
@@ -78,10 +78,10 @@ static void	exec_bin(t_cmd cmd)
 		cmd_path(cmd, (t_head)ft_split(get_env("PATH"), ':'));
 		execve(cmd->arv[0], cmd->arv, av);
 	}
-	ft_err(cmd->arv[0], errno);
+	ft_err("", errno);
 }
 
-void	sh_exec(t_cmd cmd, bool ppe)
+void	sh_exec(t_cmd cmd)
 {
 	if (glb_sig(EMPTY) == RL_STATE_READCMD || !cmd)
 		return ;
@@ -91,13 +91,13 @@ void	sh_exec(t_cmd cmd, bool ppe)
 		rf_wi(cmd->left);
 		plea_arguments_value(cmd->left);
 		cmd->left->last = false;
-		if (bult_c(cmd->left, 1))
+		if (bult_c(cmd->left))
 			fork_exec(cmd->left, exec_bin);
-		return (sh_exec(cmd->right, 1));
+		return (sh_exec(cmd->right));
 	}
 	cmd->last = true;
 	rf_wi(cmd);
 	plea_arguments_value(cmd);
-	if (bult_c(cmd, ppe))
+	if (bult_c(cmd))
 		fork_exec(cmd, exec_bin);
 }

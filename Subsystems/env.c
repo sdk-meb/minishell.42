@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/10 10:51:43 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:39:52 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,27 @@ char	**env_to_argv(t_envv **env)
 void	set_env(t_str var)
 {
 	t_envv	**env;
-	t_envv	*ev;
-	size_t	i;
+	t_envv	*envv;
+	int		i;
 
 	env = my_env(NULL, _GET);
-	ev = *env;
+	envv = *env;
 	i = ft_strnindex(var, '=', INT32_MAX);
 	if (!i)
 		i = ft_strlen(var) + 1;
-	while (ev)
+	while (envv)
 	{
-		if (ft_strlen(ev->name) == i - 1 && !ft_strncmp(ev->name, var, i - 1))
+		if (ft_strncmp(envv->name, var, i - 1) == SUCCESS)
 		{
-			if (ev->content && ft_strnindex(var, '=', INT32_MAX))
-				ev->content = NULL;
+			if (envv->content && ft_strnindex(var, '=', INT32_MAX))
+				envv->content = NULL;
 			genus(APPROVED);
 			if (ft_strnindex(var, '=', INT32_MAX))
-				ev->content = get_tenor(var);
+				envv->content = get_tenor(var);
 			genus(TEMPORARY);
 			return ;
 		}
-		ev = ev->next;
+		envv = envv->next;
 	}
 	env_proc(NULL, var);
 }

@@ -6,24 +6,43 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/09 22:22:00 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/10 18:37:31 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
+char	*count_size_and_allocate(char *str, int i)
+{
+	char	*new;
+	int		size;
+
+	size = 0;
+	while (str[i] && str[i] != ' ' && !ft_is_quote(str[i])
+		&& !is_spc(str[i]))
+	{
+		i++;
+		size++;
+	}
+	new = ft_calloc(1, size + 1);
+	if (!new)
+		return (NULL);
+	return (new);
+}
+
 char	*ft_get_env(char *str, int *i)
 {
 	int		j;
-	char	temp[ARG_MAX];
+	char	*new;
 	char	*env;
 
 	j = 0;
+	new = count_size_and_allocate(str, *i);
 	while (str[(*i)] && str[(*i)] != ' ' && !ft_is_quote(str[(*i)])
 		&& !is_spc(str[(*i)]))
-		temp[j++] = str[(*i)++];
-	temp[j] = '\0';
-	env = get_env(temp);
+		new[j++] = str[(*i)++];
+	new[j] = '\0';
+	env = get_env(new);
 	return (env);
 }
 
