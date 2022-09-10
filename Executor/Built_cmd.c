@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/09 10:53:26 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/10 09:09:48 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	cd(t_cmd cmd)
 			ft_err("", ENOENT);
 		}
 		else
-			getcwd(get_env("PWD"), OPEN_MAX);
+			set_env(ft_strjoin("PWD=", getcwd(NULL, OPEN_MAX)));
 		stat_loc(0);
 		return ;
 	}

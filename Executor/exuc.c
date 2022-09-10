@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/09 10:37:49 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/10 09:27:47 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	cmd_path(t_cmd cmd, t_head pathname)
 	pathname[0] = ft_strjoin(pathname[0], "/");
 	pathname[0] = ft_strjoin(pathname[0], cmd->arv[0]);
 	lstat(pathname[0], &buf);
-	if (S_ISREG(buf.st_mode) == false)
+	if (S_ISREG(buf.st_mode) == false && !buf.st_nlink)
 		cmd_path(cmd, &(pathname[1]));
 	else
 		cmd->arv[0] = pathname[0];

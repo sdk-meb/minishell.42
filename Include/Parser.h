@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/07 12:06:42 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:02:55 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int		quotes_are_closed(char *line);
 int		ft_check_consecutive_pipes_redirections(char *str);
 void	ft_skip(char *str, int *i);
 int		ft_redirection_error(char *str);
+int		is_spc(char c);
 
 // list tockens :
 

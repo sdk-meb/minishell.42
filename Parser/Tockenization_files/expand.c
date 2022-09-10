@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/07 12:48:45 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:22:00 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_get_env(char *str, int *i)
 
 	j = 0;
 	while (str[(*i)] && str[(*i)] != ' ' && !ft_is_quote(str[(*i)])
-		&& str[(*i)] != '$')
+		&& !is_spc(str[(*i)]))
 		temp[j++] = str[(*i)++];
 	temp[j] = '\0';
 	env = get_env(temp);

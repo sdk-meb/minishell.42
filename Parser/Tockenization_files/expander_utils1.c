@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 21:05:49 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/07 12:56:01 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/10 09:13:03 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,21 @@ int	count_size(char *str)
 		}
 	}
 	return (size);
+}
+
+int	is_spc(char c)
+{
+	if (c == '~' || c == '#' || c == '$')
+		return (1);
+	if (c == '*' || c == '.' || c == ',')
+		return (1);
+	if (c == '!' || c == '^' || c == '-')
+		return (1);
+	if (c == '_' || c == '=' || c == '+')
+		return (1);
+	if (c == ':' || c == '@' || c == '\"')
+		return (1);
+	if (c == '\'' || c == ' ')
+		return (1);
+	return (0);
 }
