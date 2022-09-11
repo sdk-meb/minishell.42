@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Built_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/09 23:14:56 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/11 22:47:26 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ static void	cd(t_cmd cmd)
 {
 	t_path		path;
 
-	close_fd(&(cmd->in), &(cmd->out));
-	errno = 0;
+	if (!cmd->arv[1])
+		cmd->arv[1] = get_env("HOME");
 	chdir(cmd->arv[1]);
 	if (errno == SUCCESS)
 	{
@@ -70,9 +70,11 @@ static void	cd(t_cmd cmd)
 			path = ft_strjoin(path, cmd->arv[1]);
 			set_env(ft_strjoin("PWD=", ft_strjoin(path, cmd->arv[1])));
 			ft_err("", ENOENT);
+			path = NULL;
 		}
 		else
-			getcwd(get_env("PWD"), OPEN_MAX);
+			set_env(ft_strjoin("PWD=", path));
+		free((void *) path);
 		stat_loc(0);
 		return ;
 	}
@@ -80,19 +82,38 @@ static void	cd(t_cmd cmd)
 	stat_loc(1);
 }
 
-bool	bult_c(t_cmd cmd)
+bool	bult_c1(t_cmd cmd)
 {
 	t_cmd	mngr;
 
 	mngr = cmd;
+	if (ft_memcmp(mngr->arv[0], "cd", 3) == SUCCESS)
+		return (close_fd(&(cmd->in), &(cmd->out)), fork_exec(cmd, cd), SUCCESS);
+	if (ft_memcmp(mngr->arv[0], "unset", 4) == SUCCESS)
+		return (fork_exec(cmd, unset), SUCCESS);
+	if (ft_memcmp(mngr->arv[0], "export", 7) == SUCCESS)
+		return (fork_exec(cmd, export), SUCCESS);
+	if (ft_memcmp(mngr->arv[0], "exit", 5) == SUCCESS)
+		return (fork_exec(cmd, b_exit), SUCCESS);
+	return (FAILURE);
+}
+
+bool	bult_c(t_cmd cmd, bool ppe)
+{
+	t_cmd	mngr;
+
+	mngr = cmd;
+	errno = 0;
 	if (ft_memcmp(mngr->arv[0], "echo", 5) == SUCCESS)
 		return (fork_exec(cmd, echo), SUCCESS);
-	if (ft_memcmp(mngr->arv[0], "cd", 3) == SUCCESS)
-		return (cd(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "pwd", 4) == SUCCESS)
 		return (fork_exec(cmd, pwd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "env", 4) == SUCCESS)
 		return (fork_exec(cmd, env), SUCCESS);
+	if (ppe)
+		return (bult_c1(cmd));
+	if (ft_memcmp(mngr->arv[0], "cd", 3) == SUCCESS)
+		return (close_fd(&(cmd->in), &(cmd->out)), cd(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "unset", 4) == SUCCESS)
 		return (unset(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "exit", 5) == SUCCESS)

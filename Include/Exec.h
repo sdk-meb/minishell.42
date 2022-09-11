@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:51 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/04 12:08:47 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/10 18:43:00 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	track_child(int statu);
 void	ft_exit(int ex_it);
 t_cmd	save_get_cmd(void **cmd);
 
-bool	bult_c(t_cmd cmd);
+bool	bult_c(t_cmd cmd, bool ppe);
 void	echo(t_cmd cmd);
 
 /* It allows to execute of a binary file to Overlay
@@ -64,7 +64,7 @@ void	echo(t_cmd cmd);
 void	fork_exec(t_cmd cmd, void (*bin)(t_cmd));
 
 void	signal_handler(void);
-void	sh_exec(t_cmd cmd);
+void	sh_exec(t_cmd cmd, bool ppe);
 
 /* __________________________________  */
 

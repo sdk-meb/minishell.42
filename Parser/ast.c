@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:49:22 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/06 14:23:58 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/10 22:25:06 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_list	*return_first_node(t_list *lst)
 	t_list	*temp;
 
 	temp = lst;
-	while (temp->prev != NULL && ft_memcmp(temp->prev->token, "|", 2))
+	while (temp->prev != NULL && ft_memcmp(temp->prev->type, "|", 2))
 		temp = temp->prev;
 	return (temp);
 }
@@ -31,7 +31,7 @@ t_list	*ft_pipe_case(t_list *head)
 	pipe_root = NULL;
 	while (temp != NULL)
 	{
-		if (ft_memcmp(temp->token, "|", 2) == 0)
+		if (ft_memcmp(temp->type, "|", 2) == 0)
 		{
 			if (pipe_root == NULL)
 			{

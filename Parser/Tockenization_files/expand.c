@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:49:40 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/10 18:37:31 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/10 19:28:58 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ char	*ft_get_env(char *str, int *i)
 
 	j = 0;
 	new = count_size_and_allocate(str, *i);
-	while (str[(*i)] && str[(*i)] != ' ' && !ft_is_quote(str[(*i)])
-		&& !is_spc(str[(*i)]))
+	while (str[(*i)] && str[(*i)] != ' '
+		&& !ft_is_quote(str[(*i)]) && !is_spc(str[(*i)]))
 		new[j++] = str[(*i)++];
 	new[j] = '\0';
 	env = get_env(new);

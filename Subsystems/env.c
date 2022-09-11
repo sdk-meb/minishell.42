@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/09 10:39:52 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/11 22:42:53 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ char	**env_to_argv(t_envv **env)
 	while (size++, mng)
 		mng = mng->next;
 	mng = *env;
-	argv = (t_head) ft_calloc(sizeof(argv), size);
-	argv[--size] = NULL;
+	argv = (t_head) ft_calloc(sizeof(argv), size + 1);
+	argv[size] = NULL;
+	argv[--size] = ft_strjoin("_=", ft__env(NULL));
 	while (mng)
 	{
 		argv[--size] = ft_strjoin(mng->name, "=");
@@ -46,27 +47,27 @@ char	**env_to_argv(t_envv **env)
 void	set_env(t_str var)
 {
 	t_envv	**env;
-	t_envv	*envv;
-	int		i;
+	t_envv	*ev;
+	size_t	i;
 
 	env = my_env(NULL, _GET);
-	envv = *env;
+	ev = *env;
 	i = ft_strnindex(var, '=', INT32_MAX);
 	if (!i)
 		i = ft_strlen(var) + 1;
-	while (envv)
+	while (ev)
 	{
-		if (ft_strncmp(envv->name, var, i - 1) == SUCCESS)
+		if (ft_strlen(ev->name) == i - 1 && !ft_strncmp(ev->name, var, i - 1))
 		{
-			if (envv->content && ft_strnindex(var, '=', INT32_MAX))
-				envv->content = NULL;
+			if (ev->content && ft_strnindex(var, '=', INT32_MAX))
+				ev->content = NULL;
 			genus(APPROVED);
 			if (ft_strnindex(var, '=', INT32_MAX))
-				envv->content = get_tenor(var);
+				ev->content = get_tenor(var);
 			genus(TEMPORARY);
 			return ;
 		}
-		envv = envv->next;
+		ev = ev->next;
 	}
 	env_proc(NULL, var);
 }

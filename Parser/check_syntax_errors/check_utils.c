@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:52:08 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/10 18:32:34 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/10 21:11:39 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	ft_redirection_error(char *str)
 	i = 0;
 	while (str[i++])
 	{
+		if (ft_is_quote(str[i]))
+			i = ft_get_next_quote(i, str);
 		if (ft_is_redirection(str[i]) && str[i + 1] == ' ')
 		{
 			ft_skip(str, &i);

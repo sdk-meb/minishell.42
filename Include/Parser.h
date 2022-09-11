@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/09 22:02:55 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/10 22:21:55 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	ft_copy_sq_case(char *str, char *new, int *i, int *j);
 void	ft_copy_dq_case(char *str, char *new, int *i, int *j);
 char	*ft_copy(char *str, char *new_str);
 char	*ft_expand(char *str);
-void	print_tree(t_list *root);
 int		ft_is_quote(char c);
 int		ft_is_pipe(char c);
 int		ft_is_redirection(char c);
