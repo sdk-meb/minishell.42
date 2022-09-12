@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/11 22:47:26 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/12 21:39:47 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ bool	bult_c1(t_cmd cmd)
 
 	mngr = cmd;
 	if (ft_memcmp(mngr->arv[0], "cd", 3) == SUCCESS)
-		return (close_fd(&(cmd->in), &(cmd->out)), fork_exec(cmd, cd), SUCCESS);
+		return (fork_exec(cmd, cd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "unset", 4) == SUCCESS)
 		return (fork_exec(cmd, unset), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "export", 7) == SUCCESS)
@@ -113,7 +113,7 @@ bool	bult_c(t_cmd cmd, bool ppe)
 	if (ppe)
 		return (bult_c1(cmd));
 	if (ft_memcmp(mngr->arv[0], "cd", 3) == SUCCESS)
-		return (close_fd(&(cmd->in), &(cmd->out)), cd(cmd), SUCCESS);
+		return (cd(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "unset", 4) == SUCCESS)
 		return (unset(cmd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "exit", 5) == SUCCESS)
