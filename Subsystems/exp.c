@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/11 23:18:18 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:44:15 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ void	export(t_cmd cmd)
 			opr_plus_eq(cmd, ac[1], ac[0]);
 		if (ft_isalpha(av[ac[0]][0]) && av[ac[0]][0] != '_')
 			ac[1] = 0;
-		if (check_if(1, av, ac))
-			return (ft_err("msh: export: not a valid identifier", 109));
-		set_env(av[ac[0]]);
+		if (check_if(1, av, ac) && stat_loc(1))
+			ft_err("msh: export: not a valid identifier", 109);
+		else
+			set_env(av[ac[0]]);
 	}
 	return (close_fd(&(cmd->in), &(cmd->out)), unset_envv("_"));
 }

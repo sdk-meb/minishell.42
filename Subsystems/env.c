@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:34:19 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/11 22:42:53 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:51:48 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ void	env(t_cmd cmd)
 		if (envv->content)
 		{
 			write(cmd->out, envv->name, ft_strlen(envv->name));
-			write(cmd->out, "=", 2);
+			write(cmd->out, "=", 1);
 			write(cmd->out, envv->content, ft_strlen(envv->content));
-			write(cmd->out, "\n", 2);
+			write(cmd->out, "\n", 1);
 		}
 		envv = envv->next;
 	}
-	write(cmd->out, "_=/usr/bin/env\n", 16);
+	write(cmd->out, "_=/usr/bin/env\n", 15);
 	ft_exit (0);
 }
 

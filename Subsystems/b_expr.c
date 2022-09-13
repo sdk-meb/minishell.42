@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 23:15:31 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/11 23:17:49 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:50:46 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_envv	*next_declare(t_envv *env)
 
 static void	write_exp(t_cmd cmd, t_envv	*envv)
 {
-	write(cmd->out, "declare -x ", 12);
+	write(cmd->out, "declare -x ", 11);
 	write(cmd->out, envv->name, ft_strlen(envv->name));
 	if (envv->content)
 	{
