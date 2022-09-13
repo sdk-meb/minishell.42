@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 10:16:58 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/08/29 16:44:24 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:58:30 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_putstr_fd(char *str, int fd)
 {
 	if (!str)
 	{
-		write(fd, "(null)", 7);
+		write(fd, "(null)", 6);
 		return ;
 	}
 	write(fd, str, ft_strlen(str));
