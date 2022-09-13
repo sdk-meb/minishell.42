@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/10 22:21:55 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/13 01:23:42 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_list
 	bool			last;
 	int				in;
 	int				out;
+	int				pipe_not_used;
 	int				arc;
 	char			**arv;
 }	t_list;

@@ -6,7 +6,7 @@
 /*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/10 22:26:33 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/13 01:24:16 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_list	*ft_new_token(char *heredoc, char *string)
 	new->last = false;
 	new->in = STDIN_FILENO;
 	new->out = STDOUT_FILENO;
+	new->pipe_not_used = -1;
 	new->arc = 0;
 	new->arv = NULL;
 	return (new);

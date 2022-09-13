@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 12:45:59 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/05 12:46:56 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/13 01:24:32 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ static void	cmd_pipe_cmd(t_cmd cmd)
 	close_fd(NULL, &(cmd->left->out));
 	pipe(fds);
 	cmd->left->out = fds[STDOUT_FILENO];
+	cmd->left->pipe_not_used = fds[STDIN_FILENO];
 	if (cmd->right->symbol == '|')
 		cmd->right->left->in = fds[STDIN_FILENO];
 	else
+	{
 		cmd->right->in = fds[STDIN_FILENO];
+		cmd->right->pipe_not_used = fds[STDOUT_FILENO];
+	}
 }
 
 void	pipe_x(t_cmd cmd)

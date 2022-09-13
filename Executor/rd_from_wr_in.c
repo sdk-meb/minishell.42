@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rd_from_wr_in.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/05 12:46:31 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/13 02:31:48 by rel-hach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	insert_doc(t_cmd mngr, t_cmd cmd)
 {
 	if (!mngr)
 	{
-		perror("PARSER ERROR <->\n");
+		perror("PARSER ERROR~~ <->\n");
 		ft_exit(33);
 	}
 	close_fd(NULL, &(cmd->out));
