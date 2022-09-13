@@ -67,16 +67,12 @@ static void	cd(t_cmd cmd)
 		if (!path || !*path)
 		{
 			path = ft_strjoin(get_env("PWD"), "/");
-			path = ft_strjoin(path, cmd->arv[1]);
 			set_env(ft_strjoin("PWD=", ft_strjoin(path, cmd->arv[1])));
-			ft_err("", ENOENT);
-			path = NULL;
+			errno = ENOENT;
 		}
 		else
-			set_env(ft_strjoin("PWD=", path));
-		free((void *) path);
-		stat_loc(0);
-		return ;
+			return (set_env(ft_strjoin("PWD=", path)), \
+			stat_loc(0), free((void *) path));
 	}
 	ft_err(cmd->arv[1], errno);
 	stat_loc(1);
