@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/14 11:39:40 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:09:27 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ static void	b_exit(t_cmd cmd)
 	int	i;
 
 	i = 0;
-	while (cmd->arc > 2 && ft_isdigit(cmd->arv[1][i]) == SUCCESS)
+	while (cmd->arc > 2)
 	{
+		if (ft_isdigit(cmd->arv[1][i]))
+			break ;
 		if (cmd->arv[1][++i] == '\0')
 			return (stat_loc(1), ft_err("M-sh: exit: too many arguments", 109));
 	}
