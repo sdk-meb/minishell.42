@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:14:09 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/12 22:13:45 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/14 11:03:38 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	ft_read(char *line, int *fds, int *quote, char *delim)
 		write(fds[1], "\n", 1);
 		free(line);
 	}
+	free(line);
 }
 
 char	*ft_heredoc(char *delim)
 {
-	char	*line;
 	int		fds[2];
 	int		quote;
 
@@ -94,9 +94,7 @@ char	*ft_heredoc(char *delim)
 		exit (1);
 	if (quotes_is_there(delim))
 		delim = ft_rm_quotes(delim, &quote);
-	line = NULL;
-	ft_read(line, fds, &quote, delim);
-	free(line);
+	ft_read(NULL, fds, &quote, delim);
 	close(fds[1]);
 	return (exit(SUCCESS), NULL);
 }

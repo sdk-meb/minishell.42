@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/14 10:06:50 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/14 11:39:40 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ bool	bult_c(t_cmd cmd, bool ppe)
 		return (fork_exec(cmd, pwd), SUCCESS);
 	if (ft_memcmp(mngr->arv[0], "env", 4) == SUCCESS)
 		return (fork_exec(cmd, env), SUCCESS);
-	if (ppe || glb_sig(EMPTY) == _EXECUTE_OK)
+	if (ppe || glb_sig(EMPTY) == EOWNERDEAD
+		|| glb_sig(EMPTY) == RL_STATE_READCMD)
 		return (bult_c1(cmd));
 	if (ft_memcmp(mngr->arv[0], "cd", 3) == SUCCESS)
 		return (cd(cmd), SUCCESS);

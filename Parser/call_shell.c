@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/12 22:10:24 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:56:47 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**ft_readline(char ps1)
 	if (!line)
 		return (printf("\r\e[AM-Shell $> \e[K"), ft_exit (stat_loc(EMPTY)), NULL);
 	else if (!*line)
-		return (free(p), ft_readline(ps1));
+		return (stat_loc(0), free(p), ft_readline(ps1));
 	glb_sig(_EXECUTE_OK);
 	add_history(line);
 	if (!ft_check_line(line))

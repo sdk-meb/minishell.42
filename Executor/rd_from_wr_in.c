@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/14 10:09:13 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/14 11:11:27 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	hd_out_of(t_cmd mngr, t_cmd cmd)
 	int		fd[2];
 
 	if (!mngr)
-		ft_exit(33);
+		return ;
 	close_fd(&(cmd->in), NULL);
 	pipe(fd);
 	cmd->in = fd[STDIN_FILENO];
@@ -29,7 +29,7 @@ static void	hd_out_of(t_cmd mngr, t_cmd cmd)
 static void	rd_out_of(t_cmd mngr, t_cmd cmd)
 {
 	if (!mngr)
-		ft_exit(33);
+		return ;
 	close_fd(&(cmd->in), NULL);
 	cmd->in = open(mngr->token, O_RDONLY);
 	if (errno)
@@ -47,7 +47,7 @@ static void	rd_out_of(t_cmd mngr, t_cmd cmd)
 static void	insert_doc(t_cmd mngr, t_cmd cmd)
 {
 	if (!mngr)
-		ft_exit(33);
+		return ;
 	close_fd(NULL, &(cmd->out));
 	cmd->out = open(mngr->token, O_WRONLY
 			| O_CREAT | O_APPEND, 0644);
@@ -58,7 +58,7 @@ static void	insert_doc(t_cmd mngr, t_cmd cmd)
 static void	insert_file(t_cmd mngr, t_cmd cmd)
 {
 	if (!mngr)
-		ft_exit(33);
+		return ;
 	close_fd(NULL, &(cmd->out));
 	cmd->out = open(mngr->token, O_WRONLY
 			| O_TRUNC | O_CREAT, 0644);
