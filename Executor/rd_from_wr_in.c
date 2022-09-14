@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rd_from_wr_in.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/13 02:31:48 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:09:13 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ static void	hd_out_of(t_cmd mngr, t_cmd cmd)
 	int		fd[2];
 
 	if (!mngr)
-	{
-		perror("PARSER ERROR <->\n");
 		ft_exit(33);
-	}
 	close_fd(&(cmd->in), NULL);
 	pipe(fd);
 	cmd->in = fd[STDIN_FILENO];
@@ -32,23 +29,25 @@ static void	hd_out_of(t_cmd mngr, t_cmd cmd)
 static void	rd_out_of(t_cmd mngr, t_cmd cmd)
 {
 	if (!mngr)
-	{
-		perror("PARSER ERROR <->\n");
 		ft_exit(33);
-	}
 	close_fd(&(cmd->in), NULL);
 	cmd->in = open(mngr->token, O_RDONLY);
-	ft_err(mngr->token, errno);
+	if (errno)
+	{
+		ft_err(mngr->token, errno);
+		glb_sig(EOWNERDEAD);
+		while (cmd->last == true && waitpid(0, &cmd->arc, WUNTRACED) != -1)
+			track_child(cmd->arc);
+		if (cmd->last == true)
+			glb_sig(RL_STATE_READCMD);
+	}
 	mngr->symbol = 'F';
 }
 
 static void	insert_doc(t_cmd mngr, t_cmd cmd)
 {
 	if (!mngr)
-	{
-		perror("PARSER ERROR~~ <->\n");
 		ft_exit(33);
-	}
 	close_fd(NULL, &(cmd->out));
 	cmd->out = open(mngr->token, O_WRONLY
 			| O_CREAT | O_APPEND, 0644);
@@ -59,10 +58,7 @@ static void	insert_doc(t_cmd mngr, t_cmd cmd)
 static void	insert_file(t_cmd mngr, t_cmd cmd)
 {
 	if (!mngr)
-	{
-		perror("PARSER ERROR <->\n");
 		ft_exit(33);
-	}
 	close_fd(NULL, &(cmd->out));
 	cmd->out = open(mngr->token, O_WRONLY
 			| O_TRUNC | O_CREAT, 0644);
@@ -76,7 +72,7 @@ void	rf_wi(t_cmd cmd)
 
 	mngr = cmd;
 	cmd->arc = 0;
-	while (mngr)
+	while (mngr && glb_sig(EMPTY) == _EXECUTE_OK)
 	{
 		if (mngr->symbol == HEREDOC)
 			hd_out_of(mngr->next, cmd);

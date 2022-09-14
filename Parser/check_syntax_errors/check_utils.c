@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:52:08 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/13 22:49:08 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:23:20 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_redirection_error(char *str)
 		if (ft_is_quote(str[i]))
 			i = ft_get_next_quote(i, str);
 		if (ft_is_redirection(str[i])
-			&& (str[i + 1] == ' ' || str[i] == str[i + 1]))
+			&& (str[i + 1] == ' ' || (str[i] == str[i + 1] && ++i)))
 		{
 			ft_skip(str, &i);
 			if (ft_is_redirection(str[i]) || str[i] == '|')

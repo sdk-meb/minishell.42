@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exuc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:41 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/13 22:55:08 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:15:46 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	sh_exec(t_cmd cmd, bool ppe)
 {
 	if (glb_sig(EMPTY) == RL_STATE_READCMD || !cmd)
 		return ;
+	if (glb_sig(EMPTY) == EOWNERDEAD)
+		glb_sig(_EXECUTE_OK);
 	if (cmd->symbol == '|')
 	{
 		pipe_x (cmd);
