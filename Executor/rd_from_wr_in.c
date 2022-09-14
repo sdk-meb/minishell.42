@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:38:16 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/14 11:11:27 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/14 21:35:39 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	rf_wi(t_cmd cmd)
 
 	mngr = cmd;
 	cmd->arc = 0;
-	while (mngr && glb_sig(EMPTY) == _EXECUTE_OK)
+	while (mngr && (glb_sig(EMPTY) == _EXECUTE_OK || glb_sig(EMPTY) == SIGCHLD))
 	{
 		if (mngr->symbol == HEREDOC)
 			hd_out_of(mngr->next, cmd);
