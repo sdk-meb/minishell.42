@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:19:52 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/11 23:16:17 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/15 01:27:55 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	**env_to_argv(t_envv **env);
 t_str	get_tenor(t_str strr);
 void	*ft__env(t_str arg);
 void	ex_port(t_cmd cmd);
+t_path	current_path(t_path path);
 
 /* buiting command */
 void	env(t_cmd cmd);

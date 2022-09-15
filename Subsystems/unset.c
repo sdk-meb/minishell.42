@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/10 10:49:03 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/15 01:44:02 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ void	*ft__env(t_str arg)
 		_env_ = ptr;
 	}
 	return ((void *) _env_);
+}
+
+t_path	current_path(t_path path)
+{
+	static t_path	save_path;
+
+	if (path && *path)
+		save_path = path;
+	return (save_path);
 }
 
 void	unset(t_cmd cmd)

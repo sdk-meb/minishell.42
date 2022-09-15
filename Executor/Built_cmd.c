@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:30:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/14 22:09:27 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/15 01:37:40 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	pwd(t_cmd cmd)
 	}
 	pathname = getcwd(NULL, PATH_MAX);
 	if (!pathname || !*pathname)
-		pathname = get_env("PWD");
+		pathname = current_path(NULL);
 	write(cmd->out, pathname, ft_strlen(pathname));
 	write(cmd->out, "\n", 1);
 	close_fd(&(cmd->in), &(cmd->out));
@@ -68,13 +68,14 @@ static void	cd(t_cmd cmd)
 		path = getcwd(NULL, OPEN_MAX);
 		if (!path || !*path)
 		{
-			path = ft_strjoin(get_env("PWD"), "/");
+			path = ft_strjoin(current_path(NULL), "/");
 			set_env(ft_strjoin("PWD=", ft_strjoin(path, cmd->arv[1])));
+			current_path(get_env("PWD"));
 			errno = ENOENT;
 		}
 		else
 			return (set_env(ft_strjoin("PWD=", path)), \
-			stat_loc(0), free((void *) path));
+			current_path(get_env("PWD")), stat_loc(0), free((void *) path));
 	}
 	ft_err(cmd->arv[1], errno);
 	stat_loc(1);
