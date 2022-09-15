@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/15 01:22:17 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/15 05:21:23 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**ft_readline(char ps1)
 	line = readline(prompt(ps1));
 	p = line;
 	if (!line)
-		return (printf("\r\e[AM-Shell $> \e[K"), ft_exit (stat_loc(EMPTY)), NULL);
+		return (printf("\e[AM-Shell $> \e[K"), ft_exit (stat_loc(EMPTY)), NULL);
 	else if (!*line)
 		return (stat_loc(0), free(p), ft_readline(ps1));
 	glb_sig(_EXECUTE_OK);
