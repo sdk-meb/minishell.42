@@ -6,11 +6,30 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/13 13:44:15 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/15 23:18:51 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
+
+void	init_env(void)
+{
+	t_str	str;
+
+	set_env("SHELL=./minishell");
+	str = get_env("PATH");
+	if (!str || !*str)
+		set_env("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/sbin");
+	if (!ft_memcmp(get_env("SHLVL"), "-", 1) && ft__env("./minishell"))
+		set_env(ft_strjoin("SHLVL=", "-1"));
+	set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
+	str = getcwd(NULL, OPEN_MAX);
+	set_env(ft_strjoin("PWD=", str));
+	current_path((t_path) get_env("PWD"));
+	free(str);
+	unset_envv("_");
+	unset_envv("OLDPWD");
+}
 
 static void	opr_plus_eq(t_cmd cmd, int c, int arg)
 {

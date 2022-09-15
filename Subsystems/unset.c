@@ -6,30 +6,11 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:32:08 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/15 05:22:23 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/15 23:17:02 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-void	init_env(void)
-{
-	t_str	str;
-
-	set_env("SHELL=./minishell");
-	if (!ft_memcmp(get_env("SHLVL"), "-", 1) && ft__env("./minishell"))
-		set_env(ft_strjoin("SHLVL=", "-1"));
-	set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
-	str = getcwd(NULL, OPEN_MAX);
-	set_env(ft_strjoin("PWD=", str));
-	current_path((t_path) get_env("PWD"));
-	free(str);
-	unset_envv("_");
-	unset_envv("OLDPWD");
-	str = get_env("PATH");
-	if (!str || !*str)
-		set_env("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin");
-}
 
 void	unset_envv(t_str var)
 {

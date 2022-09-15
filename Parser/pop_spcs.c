@@ -6,30 +6,13 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 16:29:44 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/15 18:05:17 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/15 22:37:23 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void check_llink(char *str, t_list *mng)
-{
-	printf("start     %s", str);
-	while (mng->next)
-	{
-		printf("+++");
-		mng = mng->next;
-	}
-	while (mng->prev)
-	{
-		printf("+++");
-		mng = mng->prev;
-	}
-	printf("end      %s", str);
-	sleep(2);
-}
-
-t_list	*replace_node(char *slpt[], t_list *mngr, t_list *root)
+static t_list	*replace_node(char *slpt[], t_list *mngr, t_list *root)
 {
 	t_list	*new;
 
@@ -51,13 +34,13 @@ t_list	*replace_node(char *slpt[], t_list *mngr, t_list *root)
 		return (root);
 	}
 	new->prev = mngr->prev;
-	ft_lstlast(new)->next = mngr->next;
 	mngr->prev->next = new;
 	mngr->next->prev = ft_lstlast(new);
+	ft_lstlast(new)->next = mngr->next;
 	return (root);
 }
 
-void	pop_help(char *quot, t_list *mngr, int *start, int *i)
+static void	pop_help(char *quot, t_list *mngr, int *start, int *i)
 {
 	int	end;
 
@@ -73,13 +56,13 @@ void	pop_help(char *quot, t_list *mngr, int *start, int *i)
 		end = ft_strlen(get_env(ft_substr(mngr->type, end, (*i) - end)));
 		while ((*start)++, end-- > 0)
 			if (mngr->token[(*start) - 1] == ' ')
-				mngr->token[(*start) - 1] = '`';
+				mngr->token[(*start) - 1] = '\003';
 		(*i) -= 1;
 		(*start) -= 2;
 	}
 }
 
-t_list	*pop_spcs(t_list *root)
+static t_list	*pop_spcs(t_list *root)
 {
 	t_list	*mngr;
 	char	quot;
@@ -94,10 +77,26 @@ t_list	*pop_spcs(t_list *root)
 		quot = 0;
 		while (start++, mngr->type[++i])
 			pop_help(&quot, mngr, &start, &i);
-		printf("[%s]\n", mngr->token);
-		root = replace_node(ft_split(mngr->token, '`'), mngr, root);
+		root = replace_node(ft_split(mngr->token, '\003'), mngr, root);
 		mngr = mngr->next;
 	}
-	exit(0);
 	return (root);
+}
+
+t_list	*pop_spcs_tree(t_list *root)
+{
+	t_list	*mng;
+
+	mng = root;
+	while (mng->symbol == '|')
+	{
+		mng->left = pop_spcs(mng->left);
+		if (mng->right->symbol != '|')
+		{
+			mng->right = pop_spcs(mng->right);
+			return (root);
+		}
+		mng = mng->right;
+	}
+	return (pop_spcs(root));
 }

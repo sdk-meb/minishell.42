@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:26:38 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/15 17:03:21 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/15 22:06:04 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	ft_call_shell(char ps1)
 		{
 			splitted = handel_heredoc(splitted);
 			root = ft_create_list_for_tockens(splitted);
-			root = pop_spcs(root);
 			root = ft_create_astree(root);
+			root = pop_spcs_tree(root);
 			sh_exec(root, 0);
 		}
 		c_delete(TEMPORARY, EMPTY);
