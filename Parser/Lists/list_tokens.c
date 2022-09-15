@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-hach <rel-hach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:46:05 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/13 01:24:16 by rel-hach         ###   ########.fr       */
+/*   Updated: 2022/09/16 00:08:47 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,14 @@ void	ft_lstadd_back_doubly(t_list **lst, t_list *new)
 	}
 }
 
-char	ft_get_symbol(char *tocken)
+char	ft_get_symbol(char *tocken, int order)
 {
+	static int	get_history;
+
+	if (order != 1)
+		get_history = order;
+	if (get_history == 'w')
+		return ('w');
 	if (!ft_memcmp(tocken, "|", 2))
 		return ('|');
 	if (!ft_memcmp(tocken, ">", 2))
@@ -74,7 +80,7 @@ t_list	*ft_new_token(char *heredoc, char *string)
 		new->token = string;
 	else
 		new->token = ft_expand(string);
-	new->symbol = ft_get_symbol(string);
+	new->symbol = ft_get_symbol(string, 1);
 	new->file = NULL;
 	new->type = string;
 	new->next = NULL;

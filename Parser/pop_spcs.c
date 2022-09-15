@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 16:29:44 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/15 22:37:23 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/16 00:07:06 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static t_list	*pop_spcs(t_list *root)
 	int		start;
 
 	mngr = root;
+	ft_get_symbol(NULL, 'w');
 	while (mngr)
 	{
 		i = -1;
@@ -80,6 +81,7 @@ static t_list	*pop_spcs(t_list *root)
 		root = replace_node(ft_split(mngr->token, '\003'), mngr, root);
 		mngr = mngr->next;
 	}
+	ft_get_symbol(NULL, 0);
 	return (root);
 }
 
