@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:11:36 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/14 10:55:22 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/15 17:46:04 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,5 @@ void	signal_handler(void)
 	glb_sig(_EXECUTE_OK);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sa_sig);
+	signal(SIGINT, SIG_DFL);
 }

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:53:03 by rel-hach          #+#    #+#             */
-/*   Updated: 2022/09/15 06:19:54 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/15 17:02:39 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_list
 // [A] Tockenization files :
 
 // 1 // repair line
-t_list *pop_spcs(t_list *root);
+t_list	*pop_spcs(t_list *root);
 void	ft_fill_quotes(char *old_line, char *new_line, int *i, int *j);
 void	ft_add_space_spchar(char *str, char *new, int *i, int *j);
 int		ft_count_special_characters(char *str);
