@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 16:29:44 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/16 00:07:06 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/16 15:06:18 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ static void	pop_help(char *quot, t_list *mngr, int *start, int *i)
 
 	if (ft_is_quote(mngr->type[(*i)]) && (*quot) == 0)
 		(*quot) = mngr->type[(*i)++];
-	if ((*quot) == mngr->type[(*i)])
+	if ((*quot) == mngr->type[(*i)] && (*quot))
 		(*quot) = 0 * (*i)++;
-	if ((*quot) == 0 && mngr->type[(*i)] == '$')
+	if (mngr->type[(*i)] == '$')
 	{
 		end = ++(*i);
 		while (!is_spc(mngr->type[(*i)]))
 			(*i)++;
 		end = ft_strlen(get_env(ft_substr(mngr->type, end, (*i) - end)));
 		while ((*start)++, end-- > 0)
-			if (mngr->token[(*start) - 1] == ' ')
-				mngr->token[(*start) - 1] = '\003';
+			if (mngr->token[(*start) - 1] == ' ' && (*quot) == 0)
+				mngr->token[(*start) - 1] = '`';
 		(*i) -= 1;
 		(*start) -= 2;
 	}
@@ -78,7 +78,7 @@ static t_list	*pop_spcs(t_list *root)
 		quot = 0;
 		while (start++, mngr->type[++i])
 			pop_help(&quot, mngr, &start, &i);
-		root = replace_node(ft_split(mngr->token, '\003'), mngr, root);
+		root = replace_node(ft_split(mngr->token, '`'), mngr, root);
 		mngr = mngr->next;
 	}
 	ft_get_symbol(NULL, 0);

@@ -6,7 +6,7 @@
 /*   By: mes-sadk <mes-sadk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:26:42 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/09/15 23:18:51 by mes-sadk         ###   ########.fr       */
+/*   Updated: 2022/09/16 16:07:50 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_env(void)
 	set_env("SHELL=./minishell");
 	str = get_env("PATH");
 	if (!str || !*str)
-		set_env("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/sbin");
+		set_env("PATH=/usr/local/bin:/bin:/usr/bin:/bin\n\e[A\e[K\e[A");
 	if (!ft_memcmp(get_env("SHLVL"), "-", 1) && ft__env("./minishell"))
 		set_env(ft_strjoin("SHLVL=", "-1"));
 	set_env(ft_strjoin("SHLVL=", ft_itoa(ft_atoi(get_env("SHLVL")) + 1)));
@@ -35,10 +35,15 @@ static void	opr_plus_eq(t_cmd cmd, int c, int arg)
 {
 	char	*name;
 	char	*tenor;
+	int		i;
 
+	i = 0;
 	name = ft_substr(cmd->arv[arg], 0, c + 1);
 	name[c] = 0;
 	tenor = get_env(name);
+	while (tenor[i] && tenor[i] != '\n')
+		i++;
+	tenor [i] = '\00';
 	name[c] = '=';
 	name = ft_strjoin(name, tenor);
 	cmd->arv[arg] = ft_strjoin(name, \
