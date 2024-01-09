@@ -1,6 +1,6 @@
 NAME	= minishell
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror #-fsanitize=address
 LINKER	= -lreadline '-L$(shell brew --prefix readline)/lib'
 
 INC		= '-I$(shell pwd)/Include' '-I$(shell pwd)/libft'\
