@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include <minishell.h>
 
 t_env	*ft_lstlast_env(t_env *lst)
 {
@@ -59,13 +59,11 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 t_env	*ft_new_env(char *str)
 {
 	t_env	*new;
-	int		i;
 	char	**ptr;
 
 	new = ft_calloc(1, sizeof(t_env));
 	if (!new)
 		return (NULL);
-	i = 0;
 	ptr = ft_split(str, '=');
 	new->name = ptr[0];
 	new->content = ptr[1];

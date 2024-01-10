@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Include/minishell.h"
+#include <minishell.h>
 
 void	copy_env(char *env, char *new_str, int *j)
 {

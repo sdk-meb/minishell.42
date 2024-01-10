@@ -10,13 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include <minishell.h>
 
 int	ft_check_line(char *line)
 {
-	int		i;
-
-	i = 0;
 	line = ft_strtrim(line, " \t\v");
 	if (line[0] == '|' || ft_is_special(line[ft_strlen(line) - 1]))
 		ft_err("minishell : parse error near `|'", EMPTY);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Include/minishell.h"
+#include <minishell.h>
 
 char	*heredoc_waiting(int fds[2])
 {

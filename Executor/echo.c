@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include <minishell.h>
 
 static bool	new_line_option(t_cmd cmd, int *i)
 {

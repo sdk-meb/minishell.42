@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include <minishell.h>
 
 void	ft_err(t_str err_msg, int erno)
 {
@@ -19,7 +19,18 @@ void	ft_err(t_str err_msg, int erno)
 		stat_loc(erno);
 	if (erno == SUCCESS)
 		return ;
-	if (errno > 0 && errno < sys_nerr)
+	if (errno > 0 && errno < 
+	#ifdef sys_nerr /* sys_nerr:
+           From glibc 2.19 to glibc 2.31:
+               _DEFAULT_SOURCE
+           glibc 2.19 and earlier:
+               _BSD_SOURCE
+	*/
+		sys_nerr
+	#else 
+		__FLT64_MAX_EXP__
+	#endif
+	)
 		perror(err_msg);
 	else
 	{

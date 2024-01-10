@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Include/minishell.h"
+#include <minishell.h>
 
 int	quotes_are_closed(char *line)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Include/minishell.h"
+#include <minishell.h>
 
 int	ft_get_next_quote(int i, char *line)
 {

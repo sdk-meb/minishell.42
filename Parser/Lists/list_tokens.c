@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Include/minishell.h"
+#include <minishell.h>
 
 int	ft_lstsize(t_list *lst)
 {
@@ -63,9 +63,9 @@ char	ft_get_symbol(char *tocken, int order)
 	if (!ft_memcmp(tocken, "<", 2))
 		return ('<');
 	if (!ft_memcmp(tocken, ">>", 3))
-		return (O_APPEND);
+		return ((char)O_APPEND);
 	if (!ft_memcmp(tocken, "<<", 3))
-		return (HEREDOC);
+		return ((char)HEREDOC);
 	return ('w');
 }
 

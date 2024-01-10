@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include <minishell.h>
 
 static void	hd_out_of(t_cmd mngr, t_cmd cmd)
 {
@@ -78,7 +78,7 @@ void	rf_wi(t_cmd cmd)
 			hd_out_of(mngr->next, cmd);
 		else if (mngr->symbol == '<')
 			rd_out_of(mngr->next, cmd);
-		else if (mngr->symbol == O_APPEND)
+		else if (mngr->symbol == (char)O_APPEND)
 			insert_doc(mngr->next, cmd);
 		else if (mngr->symbol == '>')
 			insert_file(mngr->next, cmd);

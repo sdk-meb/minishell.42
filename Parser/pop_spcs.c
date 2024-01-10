@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include <minishell.h>
 
 static t_list	*replace_node(char *slpt[], t_list *mngr, t_list *root)
 {

@@ -30,8 +30,19 @@
 
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <sys/syslimits.h>
-# include "minishell.h"
+
+# if defined(linux)  || defined(__linux)
+	# include <limits.h>
+	#include <sys/resource.h>
+	# define _EXECUTE_OK 23
+	# define OPEN_MAX FOPEN_MAX
+	#include <stdint.h>
+	#include <linux/limits.h>
+# else
+	# include <sys/syslimits.h>
+#endif
+
+# include <minishell.h> //
 # include "../libft/mtypes.h"
 # include <readline/readline.h>
 

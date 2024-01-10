@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Include/minishell.h"
+#include <minishell.h>
 
 void	ft_fill_quotes(char *old_line, char *new_line, int *i, int *j)
 {

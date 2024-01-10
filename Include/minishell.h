@@ -13,9 +13,9 @@
 #	ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "Exec.h"
-# include "Parser.h"
-# include "../libft/libft.h"
-# include "Subsystem.h"
+# include <Exec.h>
+# include <Parser.h>
+# include <libft.h>
+# include <Subsystem.h>
 
 #endif
