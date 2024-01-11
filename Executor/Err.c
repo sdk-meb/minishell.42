@@ -28,7 +28,7 @@ void	ft_err(t_str err_msg, int erno)
 	*/
 		sys_nerr
 	#else 
-		__FLT64_MAX_EXP__
+		MAX_CANON
 	#endif
 	)
 		perror(err_msg);
